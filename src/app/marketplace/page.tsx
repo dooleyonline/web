@@ -1,66 +1,19 @@
-"use client";
-
 import SearchBar from "@/components/search-bar";
-import useDataFetching from "@/hooks/useDataFetching";
-import { getSubcategories } from "@/lib/subcategory-service";
-import { AnimatePresence, motion } from "motion/react";
 import { Metadata } from "next";
-import { useEffect, useState } from "react";
 
 import CategoriesSection from "./_sections/categories";
 import ForYouSection from "./_sections/for-you";
+import MarketplaceHeaderSection from "./_sections/marketplace-header";
 
 export const metadata: Metadata = {
-  title: "Marketplace | dooleyonline",
+  title: "Marketplace @ dooleyonline",
   description: "Find what you need. Sell what you don't",
 };
 
 export default function Marketplace() {
-  const [current, setCurrent] = useState<number>(0);
-
-  const {
-    data: subcategories,
-    isLoading: isSubcategoriesLoading,
-    error: subcategoriesError,
-  } = useDataFetching(getSubcategories);
-
-  useEffect(() => {
-    if (subcategoriesError) {
-      console.error("Error fetching subcategories:", subcategoriesError);
-      return;
-    }
-
-    if (isSubcategoriesLoading) {
-      return;
-    }
-
-    if (subcategories && subcategories.length > 0) {
-      const interval = setInterval(() => {
-        setCurrent((prev) => (prev + 1) % subcategories.length);
-      }, 3000);
-
-      return () => clearInterval(interval);
-    }
-  }, [isSubcategoriesLoading, subcategories, subcategoriesError]);
-
   return (
     <main>
-      <h1 className="mb-4 overflow-hidden">
-        Looking for{" "}
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={current}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.8, ease: "anticipate" }}
-            className="relative inline-block"
-          >
-            {subcategories && subcategories[current]?.name}?
-          </motion.span>
-        </AnimatePresence>
-      </h1>
-
+      <MarketplaceHeaderSection />
       <SearchBar />
       <CategoriesSection />
       <ForYouSection />

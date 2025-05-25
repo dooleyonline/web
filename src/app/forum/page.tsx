@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Forum | dooleyonline",
+  title: "Forum @ dooleyonline",
   description: "Join the conversations.",
 };
 
