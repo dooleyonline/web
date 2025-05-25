@@ -1,4 +1,4 @@
-import { Item } from "@/types/item";
+import type { Item } from "@/types/item";
 
 import { createCachedFetcher } from "./fetch-utils";
 

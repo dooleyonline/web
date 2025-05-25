@@ -29,10 +29,6 @@ const MarketplaceHeaderSection = () => {
     return;
   }
 
-  if (isSubcategoriesLoading) {
-    return;
-  }
-
   return (
     <h1 className="mb-4 overflow-hidden">
       Looking for{" "}

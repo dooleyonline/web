@@ -12,4 +12,5 @@ export type Item = {
   views: number;
   condition: number;
   subcategory: string;
+  seller: string;
 };

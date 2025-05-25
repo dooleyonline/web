@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Apple Watch Series 7",
-    "description": "The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking. Water-resistant design with always-on Retina display. Perfect for fitness enthusiasts and tech lovers.",
+    "description": "The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking.\n Water-resistant design with always-on Retina display.\nPerfect for fitness enthusiasts and tech lovers.The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking. Water-resistant design with always-on Retina display. Perfect for fitness enthusiasts and tech lovers.The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking. Water-resistant design with always-on Retina display. Perfect for fitness enthusiasts and tech lovers.",
     "images": ["/sample-images/sample-0.avif", "/sample-images/sample-1.avif"],
     "price": 349.99,
     "postedAt": "2023-10-01T12:00:00Z",
@@ -11,7 +11,8 @@
     "condition": 5,
     "isNegotiable": true,
     "category": "Accessories",
-    "subcategory": "Watch"
+    "subcategory": "Watch",
+    "seller": "techguru123"
   },
   {
     "id": 2,
@@ -25,7 +26,8 @@
     "condition": 4,
     "isNegotiable": false,
     "category": "Electronics",
-    "subcategory": "Smartphone"
+    "subcategory": "Smartphone",
+    "seller": "mobilefan22"
   },
   {
     "id": 3,
@@ -39,7 +41,8 @@
     "condition": 5,
     "isNegotiable": false,
     "category": "Electronics",
-    "subcategory": "Headphone"
+    "subcategory": "Headphone",
+    "seller": "audiophile87"
   },
   {
     "id": 4,
@@ -53,7 +56,8 @@
     "condition": 4,
     "isNegotiable": true,
     "category": "Electronics",
-    "subcategory": "Laptop"
+    "subcategory": "Laptop",
+    "seller": "techdeals101"
   },
   {
     "id": 5,
@@ -67,7 +71,8 @@
     "condition": 5,
     "isNegotiable": false,
     "category": "Clothing",
-    "subcategory": "Shoes"
+    "subcategory": "Shoes",
+    "seller": "sneakerhead45"
   },
   {
     "id": 6,
@@ -81,7 +86,8 @@
     "condition": 3,
     "isNegotiable": true,
     "category": "Clothing",
-    "subcategory": "Shoes"
+    "subcategory": "Shoes",
+    "seller": "runnerlife"
   },
   {
     "id": 7,
@@ -95,7 +101,8 @@
     "condition": 5,
     "isNegotiable": false,
     "category": "Accessories",
-    "subcategory": "Sunglasses"
+    "subcategory": "Sunglasses",
+    "seller": "fashionista33"
   },
   {
     "id": 8,
@@ -109,7 +116,8 @@
     "condition": 4,
     "isNegotiable": true,
     "category": "Clothing",
-    "subcategory": "Pants"
+    "subcategory": "Pants",
+    "seller": "denimlovers"
   },
   {
     "id": 9,
@@ -123,7 +131,8 @@
     "condition": 4,
     "isNegotiable": false,
     "category": "Electronics",
-    "subcategory": "Camera"
+    "subcategory": "Camera",
+    "seller": "photopro57"
   },
   {
     "id": 10,
@@ -137,7 +146,8 @@
     "condition": 4,
     "isNegotiable": true,
     "category": "Electronics",
-    "subcategory": "Camera"
+    "subcategory": "Camera",
+    "seller": "adventureseeker"
   },
   {
     "id": 11,
@@ -151,7 +161,8 @@
     "condition": 5,
     "isNegotiable": false,
     "category": "Electronics",
-    "subcategory": "Speaker"
+    "subcategory": "Speaker",
+    "seller": "soundenthusiast"
   },
   {
     "id": 12,
@@ -165,7 +176,8 @@
     "condition": 4,
     "isNegotiable": true,
     "category": "Electronics",
-    "subcategory": "Tablet"
+    "subcategory": "Tablet",
+    "seller": "applefan76"
   },
   {
     "id": 13,
@@ -179,21 +191,23 @@
     "condition": 5,
     "isNegotiable": false,
     "category": "Accessories",
-    "subcategory": "Wallet"
+    "subcategory": "Wallet",
+    "seller": "styleguide"
   },
   {
     "id": 14,
     "name": "Tiffany & Co. Diamond Engagement Ring",
     "description": "Stunning 1.2 carat diamond solitaire ring set in platinum. Features Tiffany's signature six-prong setting that maximizes the diamond's brilliance. Diamond is VS1 clarity with E color grade. Includes original blue box, certificate of authenticity, and receipt. Perfect for a special proposal.",
     "images": ["/sample-images/sample-0.avif", "/sample-images/sample-1.avif"],
-    "price": 8500.00,
+    "price": 8500.0,
     "postedAt": "2023-10-14T12:00:00Z",
     "isSold": false,
     "views": 720,
     "condition": 5,
     "isNegotiable": true,
     "category": "Accessories",
-    "subcategory": "Ring"
+    "subcategory": "Ring",
+    "seller": "luxuryitems"
   },
   {
     "id": 15,
@@ -207,7 +221,8 @@
     "condition": 5,
     "isNegotiable": false,
     "category": "Books",
-    "subcategory": "Fiction"
+    "subcategory": "Fiction",
+    "seller": "bookworm42"
   },
   {
     "id": 16,
@@ -221,7 +236,8 @@
     "condition": 4,
     "isNegotiable": true,
     "category": "Home & Garden",
-    "subcategory": "Furniture"
+    "subcategory": "Furniture",
+    "seller": "homedecor88"
   },
   {
     "id": 17,
@@ -235,7 +251,8 @@
     "condition": 4,
     "isNegotiable": true,
     "category": "Home & Garden",
-    "subcategory": "Appliances"
+    "subcategory": "Appliances",
+    "seller": "cleanfreak99"
   },
   {
     "id": 18,
@@ -249,21 +266,23 @@
     "condition": 5,
     "isNegotiable": false,
     "category": "Health & Beauty",
-    "subcategory": "Skincare"
+    "subcategory": "Skincare",
+    "seller": "beautyqueen"
   },
   {
     "id": 19,
     "name": "Peloton Exercise Bike",
     "description": "Premium stationary exercise bike with 22-inch HD touchscreen for streaming live and on-demand classes. Features adjustable seat and handlebars, silent belt drive, and magnetic resistance for smooth, quiet workouts. Includes cleats for clip-in pedals and heart rate monitor. Used for only 6 months.",
     "images": ["/sample-images/sample-0.avif", "/sample-images/sample-1.avif"],
-    "price": 1200.00,
+    "price": 1200.0,
     "postedAt": "2023-10-19T12:00:00Z",
     "isSold": false,
     "views": 480,
     "condition": 4,
     "isNegotiable": true,
     "category": "Sports & Outdoors",
-    "subcategory": "Fitness Equipment"
+    "subcategory": "Fitness Equipment",
+    "seller": "fitnessfanatic"
   },
   {
     "id": 20,
@@ -277,20 +296,22 @@
     "condition": 5,
     "isNegotiable": false,
     "category": "Toys & Games",
-    "subcategory": "Building Sets"
+    "subcategory": "Building Sets",
+    "seller": "starwarsfan123"
   },
   {
     "id": 21,
     "name": "Michelin All-Season Tires Set of 4",
     "description": "Premium all-season tires with excellent wet and dry traction, comfortable ride, and long tread life. Size 225/65R17, perfect for SUVs and crossovers. Used for only 5,000 miles before upgrading vehicle. Tread depth is approximately 9/10ths of original. Great value for high-quality tires.",
     "images": ["/sample-images/sample-0.avif", "/sample-images/sample-1.avif"],
-    "price": 450.00,
+    "price": 450.0,
     "postedAt": "2023-10-21T12:00:00Z",
     "isSold": false,
     "views": 290,
     "condition": 4,
     "isNegotiable": true,
     "category": "Automotive",
-    "subcategory": "Parts & Accessories"
+    "subcategory": "Parts & Accessories",
+    "seller": "carparts4u"
   }
 ]
