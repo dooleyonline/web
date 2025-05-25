@@ -94,19 +94,21 @@ const ItemCard = ({ item }: ItemCardProps) => {
           <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent">
             <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
               <AspectRatio ratio={1 / 1} className="w-full">
-                <Image
-                  src={item.images[0]}
-                  alt={item.name}
-                  fill
-                  quality={60}
-                  loading="lazy"
-                />
+                <DrawerTrigger>
+                  <Image
+                    src={item.images[0]}
+                    alt={item.name}
+                    fill
+                    quality={60}
+                    loading="lazy"
+                  />
+                </DrawerTrigger>
               </AspectRatio>
 
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className="cursor-pointer backdrop-blur-sm absolute top-2 right-2 rounded-full p-2 bg-background/40 hover:bg-blend-lighten">
+                    <div className="cursor-pointer backdrop-blur-sm absolute top-2 right-2 rounded-full p-2 bg-foreground/20">
                       <HeartIcon
                         size={16}
                         fill="hsl(var(--muted))"
@@ -123,13 +125,13 @@ const ItemCard = ({ item }: ItemCardProps) => {
               </TooltipProvider>
             </CardContent>
 
-            <DrawerTrigger className="text-left cursor-pointer">
-              <CardHeader className="p-0">
-                <CardTitle className="font-medium w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
+            <DrawerTrigger className="text-left cursor-pointer w-full">
+              <CardHeader className="p-0 block w-full">
+                <CardTitle className="text-left leading-snug font-medium overflow-x-hidden whitespace-nowrap overflow-ellipsis">
                   {item.name}
                 </CardTitle>
 
-                <CardDescription className="font-bold text-foreground">
+                <CardDescription className="font-bold text-foreground !mt-0 text-base">
                   {formatPrice(item.price)}
                 </CardDescription>
               </CardHeader>
@@ -247,11 +249,16 @@ const ItemDrawer = (item: Item) => {
                 </small>
               </div>
             </div>
-            <DrawerClose asChild>
-              <Button variant="default" className="w-full">
-                Contact Seller
+            <div className="flex gap-2">
+              <DrawerClose asChild>
+                <Button variant="default" className="w-full">
+                  Contact Seller
+                </Button>
+              </DrawerClose>
+              <Button size="icon" variant="outline">
+                <HeartIcon />
               </Button>
-            </DrawerClose>
+            </div>
           </DrawerFooter>
         </div>
       </div>
