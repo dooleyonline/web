@@ -1,34 +1,31 @@
 "use client";
 
-import { MailIcon, PlusCircleIcon, type LucideIcon } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import {
-	SidebarGroup,
-	SidebarGroupContent,
-	SidebarMenu,
-	SidebarMenuButton,
-	SidebarMenuItem,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export function NavMain({
-	items,
+  items,
 }: {
-	items: {
-		title: string;
-		url: string;
-		icon?: LucideIcon;
-	}[];
+  items: {
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+  }[];
 }) {
-	const path = usePathname();
+  const path = usePathname();
 
-	return (
-		<SidebarGroup>
-			<SidebarGroupContent className="flex flex-col gap-2">
-				{/* <SidebarMenu>
+  return (
+    <SidebarGroup>
+      <SidebarGroupContent className="flex flex-col gap-2">
+        {/* <SidebarMenu>
 					<SidebarMenuItem className="flex items-center gap-2">
 						<SidebarMenuButton
 							tooltip=""
@@ -39,30 +36,30 @@ export function NavMain({
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu> */}
-				<SidebarMenu>
-					{items.map((item) => (
-						<Link
-							key={item.title}
-							href={item.url}
-							style={{
-								background:
-									path === item.url ? "hsl(var(--sidebar-accent))" : "",
-								color:
-									path === item.url
-										? "hsl(var(--sidebar-accent-foreground))"
-										: "",
-							}}
-						>
-							<SidebarMenuItem>
-								<SidebarMenuButton tooltip={item.title}>
-									{item.icon && <item.icon />}
-									<span>{item.title}</span>
-								</SidebarMenuButton>
-							</SidebarMenuItem>
-						</Link>
-					))}
-				</SidebarMenu>
-			</SidebarGroupContent>
-		</SidebarGroup>
-	);
+        <SidebarMenu>
+          {items.map((item) => (
+            <Link
+              key={item.title}
+              href={item.url}
+              style={{
+                background:
+                  path === item.url ? "hsl(var(--sidebar-accent))" : "",
+                color:
+                  path === item.url
+                    ? "hsl(var(--sidebar-accent-foreground))"
+                    : "",
+              }}
+            >
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip={item.title}>
+                  {item.icon && <item.icon />}
+                  <span>{item.title}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </Link>
+          ))}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  );
 }
