@@ -1,10 +1,15 @@
 "use client";
 
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import {
   Carousel,
@@ -15,19 +20,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import type { Item } from "@/types/item";
-import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-
-import { AspectRatio } from "../ui/aspect-ratio";
-import { Avatar } from "../ui/avatar";
-import { Button } from "../ui/button";
-import {
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -36,9 +28,25 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "../ui/drawer";
-import { ScrollArea } from "../ui/scroll-area";
-import { Skeleton } from "../ui/skeleton";
+} from "@/components/ui/drawer";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import type { Item } from "@/types/item";
+import { HeartIcon } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
 import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
 
 interface ItemCardProps {
@@ -81,34 +89,62 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger className="text-left">
-        <HoverCard>
-          <HoverCardTrigger>
-            <Card className="overflow-hidden border-none rounded-md shadow-none cursor-pointer p-1 hover:bg-accent">
-              <CardHeader className="relative overflow-hidden p-0 rounded-md mb-2">
-                <AspectRatio ratio={1 / 1} className="w-full">
-                  <Image src={item.images[0]} alt={item.name} fill />
-                </AspectRatio>
-              </CardHeader>
+      <HoverCard>
+        <HoverCardTrigger>
+          <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent">
+            <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
+              <AspectRatio ratio={1 / 1} className="w-full">
+                <Image
+                  src={item.images[0]}
+                  alt={item.name}
+                  fill
+                  quality={60}
+                  loading="lazy"
+                />
+              </AspectRatio>
 
-              <CardContent className="p-0">
-                <span className="block font-medium w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="cursor-pointer backdrop-blur-sm absolute top-2 right-2 rounded-full p-2 bg-background/40 hover:bg-blend-lighten">
+                      <HeartIcon
+                        size={16}
+                        fill="hsl(var(--muted))"
+                        fillOpacity={0.6}
+                        strokeWidth={0}
+                        className=""
+                      />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-sm">Add to favorites</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </CardContent>
+
+            <DrawerTrigger className="text-left cursor-pointer">
+              <CardHeader className="p-0">
+                <CardTitle className="font-medium w-full overflow-hidden whitespace-nowrap overflow-ellipsis">
                   {item.name}
-                </span>
-                <span className="font-bold">{formatPrice(item.price)}</span>
-              </CardContent>
+                </CardTitle>
+
+                <CardDescription className="font-bold text-foreground">
+                  {formatPrice(item.price)}
+                </CardDescription>
+              </CardHeader>
 
               <CardFooter className="p-0">
                 <small className="text-muted-foreground">
                   {relativeTime} · {item.views} views
                 </small>
               </CardFooter>
-            </Card>
-          </HoverCardTrigger>
+            </DrawerTrigger>
+          </Card>
+        </HoverCardTrigger>
 
-          <ItemHoverCard {...item} />
-        </HoverCard>
-      </DrawerTrigger>
+        <ItemHoverCard {...item} />
+      </HoverCard>
 
       <ItemDrawer {...item} />
     </Drawer>
@@ -167,7 +203,7 @@ const ItemDrawer = (item: Item) => {
                   ratio={1 / 1}
                   className="rounded-xl overflow-hidden border"
                 >
-                  <Image src={image} alt={item.name} fill />
+                  <Image src={image} alt={item.name} fill quality={90} />
                 </AspectRatio>
               </CarouselItem>
             ))}
