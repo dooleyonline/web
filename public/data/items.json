@@ -37,5 +37,18 @@
     "condition": 5,
     "category": "Electronics",
     "subcategory": "Headphones"
+  },
+  {
+    "id": 4,
+    "name": "Sony WH-1000XM4",
+    "description": "Noise-cancelling over-ear headphones.",
+    "images": ["/sample-images/sample-0.avif", "/sample-images/sample-1.avif"],
+    "price": 30.0,
+    "postedAt": "2023-10-03T12:00:00Z",
+    "isSold": false,
+    "views": 300,
+    "condition": 5,
+    "category": "Electronics",
+    "subcategory": "Headphones"
   }
 ]

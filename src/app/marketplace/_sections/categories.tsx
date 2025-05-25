@@ -21,7 +21,7 @@ const CategoriesSection = () => {
           ? Array.from({ length: 10 }).map((_, i) => (
               <Skeleton
                 key={i}
-                className="shadow-sm flex h-20 flex-col justify-between rounded-md p-3 sm:h-24 animate-pulse"
+                className="shadow-sm h-20 justify-between rounded-md p-3 sm:h-24 animate-pulse"
               />
             ))
           : categories?.map((item: Category, i: number) => (
