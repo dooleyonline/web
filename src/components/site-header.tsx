@@ -11,13 +11,10 @@ import {
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -102,10 +99,10 @@ export function SiteHeader() {
                   </NavigationMenuLink>
                 </li>
                 <ListItem href="/docs" title="Saved Items">
-                  View items you’ve saved for later
+                  View items you&apos;ve saved for later
                 </ListItem>
                 <ListItem href="/docs/installation" title="My Listings">
-                  Edit and track items you've listed for sale
+                  Edit and track items you&apos;ve listed for sale
                 </ListItem>
               </ul>
             </NavigationMenuContent>

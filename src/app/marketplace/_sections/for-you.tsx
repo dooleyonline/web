@@ -1,6 +1,5 @@
 "use client";
 
-import ItemCard, { ItemCardSkeleton } from "@/components/item/item-card";
 import ItemGallery from "@/components/item/item-gallery";
 import Section from "@/components/section/section";
 import SectionHeader from "@/components/section/section-header";
@@ -9,7 +8,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import useDataFetching from "@/hooks/useDataFetching";
 import { getItems } from "@/lib/item-service";
 import { getSubcategories } from "@/lib/subcategory-service";
-import type { Item } from "@/types/item";
 import type { Subcategory } from "@/types/subcategory";
 import { useState } from "react";
 
