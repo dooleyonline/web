@@ -19,27 +19,33 @@ const CategoriesSection = () => {
       <div className="grid grid-cols-2 gap-2 md:gap-4 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10">
         {isLoading
           ? Array.from({ length: 10 }).map((_, i) => (
-              <Skeleton
-                key={i}
-                className="shadow-sm h-20 justify-between rounded-md p-3 sm:h-24 animate-pulse"
-              />
+              <CategoryCardSkeleton key={i} />
             ))
           : categories?.map((item: Category, i: number) => (
-              <button
-                key={i}
-                className="shadow-sm flex h-20 flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24"
-              >
-                <DynamicIcon
-                  name={item.icon}
-                  className="h-6 w-6 text-muted-foreground"
-                />
-                <span className="block text-left text-sm font-semibold leading-none">
-                  {item.name}
-                </span>
-              </button>
+              <CategoryCard key={i} {...item} />
             ))}
       </div>
     </Section>
+  );
+};
+
+const CategoryCard = (category: Category) => {
+  return (
+    <button className="shadow-sm flex h-20 flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24">
+      <DynamicIcon
+        name={category.icon}
+        className="h-6 w-6 text-muted-foreground"
+      />
+      <span className="block text-left text-sm font-semibold leading-none">
+        {category.name}
+      </span>
+    </button>
+  );
+};
+
+const CategoryCardSkeleton = () => {
+  return (
+    <Skeleton className="shadow-sm h-20 justify-between rounded-md p-3 sm:h-24 animate-pulse" />
   );
 };
 

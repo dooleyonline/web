@@ -2,7 +2,7 @@ import { ArrowRightIcon } from "lucide-react";
 
 import { Button } from "./ui/button";
 
-const SearchBar = () => {
+const SiteSearchBar = () => {
   return (
     <div className="flex items-center gap-2 w-full bg-sidebar rounded-full p-2 mb-4 border border-sidebar-border">
       <input
@@ -18,4 +18,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default SiteSearchBar;

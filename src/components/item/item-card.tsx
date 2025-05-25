@@ -112,7 +112,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
                         fill="hsl(var(--muted))"
                         fillOpacity={0.6}
                         strokeWidth={0}
-                        className=""
+                        className="hover:animate-pulse"
                       />
                     </div>
                   </TooltipTrigger>

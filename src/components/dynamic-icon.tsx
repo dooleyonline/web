@@ -16,7 +16,7 @@ interface DynamicIconProps {
 const DynamicIcon = memo(({ name, ...props }: DynamicIconProps) => {
   const Icon = dynamic(dynamicIconImports[name as IconName], {
     ssr: true,
-    loading: () => <Loader className={props.className} />,
+    loading: () => <Loader className={`${props.className} animate-spin`} />,
   });
 
   if (!Icon) {

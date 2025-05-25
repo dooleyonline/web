@@ -1,4 +1,4 @@
-import SearchBar from "@/components/search-bar";
+import SiteSearchBar from "@/components/site-search-bar";
 import { Metadata } from "next";
 
 import CategoriesSection from "./_sections/categories";
@@ -14,7 +14,7 @@ export default function Marketplace() {
   return (
     <main>
       <MarketplaceHeaderSection />
-      <SearchBar />
+      <SiteSearchBar />
       <CategoriesSection />
       <ForYouSection />
     </main>
