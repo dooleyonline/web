@@ -10,8 +10,7 @@ import { getItems } from "@/lib/item-service";
 import { getSubcategories } from "@/lib/subcategory-service";
 import { Item } from "@/types/item";
 import type { Subcategory } from "@/types/subcategory";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 const ForYouSection = () => {
   const [selected, setSelected] = useState<string>("All");

@@ -1,8 +1,8 @@
 "use client";
 
 import SearchBar from "@/components/search-bar";
+import useDataFetching from "@/hooks/useDataFetching";
 import { getSubcategories } from "@/lib/subcategory-service";
-import { Subcategory } from "@/types/subcategory";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -10,42 +10,32 @@ import CategoriesSection from "./_sections/categories";
 import ForYouSection from "./_sections/for-you";
 
 export default function Marketplace() {
-  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [current, setCurrent] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+
+  const {
+    data: subcategories,
+    isLoading: isSubcategoriesLoading,
+    error: subcategoriesError,
+  } = useDataFetching(getSubcategories);
 
   useEffect(() => {
-    const fetchSubcategoriesData = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const data = await getSubcategories();
-        setSubcategories(data);
-      } catch (e) {
-        console.error(
-          "Error fetching subcategories in SubcategoriesSection:",
-          e
-        );
-        setError(
-          e instanceof Error ? e.message : "Failed to load subcategories."
-        );
-      }
-      setIsLoading(false);
-    };
+    if (subcategoriesError) {
+      console.error("Error fetching subcategories:", subcategoriesError);
+      return;
+    }
 
-    fetchSubcategoriesData();
-  }, []);
+    if (isSubcategoriesLoading) {
+      return;
+    }
 
-  useEffect(() => {
-    if (subcategories.length > 0) {
+    if (subcategories && subcategories.length > 0) {
       const interval = setInterval(() => {
         setCurrent((prev) => (prev + 1) % subcategories.length);
       }, 3000);
 
       return () => clearInterval(interval);
     }
-  }, [subcategories]);
+  }, [isSubcategoriesLoading, subcategories, subcategoriesError]);
 
   return (
     <main>
@@ -60,7 +50,7 @@ export default function Marketplace() {
             transition={{ duration: 0.8, ease: "anticipate" }}
             className="relative inline-block"
           >
-            {subcategories[current]?.name}?
+            {subcategories && subcategories[current]?.name}?
           </motion.span>
         </AnimatePresence>
       </h1>
