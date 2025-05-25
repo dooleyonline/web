@@ -4,10 +4,16 @@ import SearchBar from "@/components/search-bar";
 import useDataFetching from "@/hooks/useDataFetching";
 import { getSubcategories } from "@/lib/subcategory-service";
 import { AnimatePresence, motion } from "motion/react";
+import { Metadata } from "next";
 import { useEffect, useState } from "react";
 
 import CategoriesSection from "./_sections/categories";
 import ForYouSection from "./_sections/for-you";
+
+export const metadata: Metadata = {
+  title: "Marketplace | dooleyonline",
+  description: "Find what you need. Sell what you don't",
+};
 
 export default function Marketplace() {
   const [current, setCurrent] = useState<number>(0);

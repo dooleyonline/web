@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "dooleyonline",
-  description: "Hub for Emory students",
+  description: "Welcome to dooleyonline, a hub for Emory students",
 };
 
 export default function RootLayout({
