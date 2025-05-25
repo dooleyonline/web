@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "name": "Apple Watch Series 7",
+    "description": "The latest Apple Watch with advanced health features.",
+    "images": ["/sample-images/sample-0.avif", "/sample-images/sample-1.avif"],
+    "price": 10.0,
+    "postedAt": "2023-10-01T12:00:00Z",
+    "isSold": false,
+    "views": 100,
+    "condition": 5,
+    "category": "Electronics",
+    "subcategory": "Apple Watch"
+  },
+  {
+    "id": 2,
+    "name": "Samsung Galaxy S21",
+    "description": "Latest Samsung smartphone with high-end features.",
+    "images": ["/sample-images/sample-0.avif", "/sample-images/sample-1.avif"],
+    "price": 20.0,
+    "postedAt": "2023-10-02T12:00:00Z",
+    "isSold": false,
+    "views": 200,
+    "condition": 4,
+    "category": "Electronics",
+    "subcategory": "Smartphones"
+  },
+  {
+    "id": 3,
+    "name": "Sony WH-1000XM4",
+    "description": "Noise-cancelling over-ear headphones.",
+    "images": ["/sample-images/sample-0.avif", "/sample-images/sample-1.avif"],
+    "price": 30.0,
+    "postedAt": "2023-10-03T12:00:00Z",
+    "isSold": false,
+    "views": 300,
+    "condition": 5,
+    "category": "Electronics",
+    "subcategory": "Headphones"
+  }
+]

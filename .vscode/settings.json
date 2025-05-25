@@ -2,7 +2,7 @@
   "files.autoSave": "afterDelay",
   "editor.fontFamily": "Fira Code",
   "editor.formatOnSave": true,
-  "prettier.configPath": ".prettierrc.json",
+  "prettier.configPath": ".prettierrc",
   "vscode-postgres.prettyPrintJSONfields": true,
   "prettier.experimentalTernaries": true,
   "prettier.prettierPath": "./node_modules/prettier",
