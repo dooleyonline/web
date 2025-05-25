@@ -99,8 +99,9 @@ const ItemCard = ({ item }: ItemCardProps) => {
                     src={item.images[0]}
                     alt={item.name}
                     fill
-                    quality={60}
+                    quality={50}
                     loading="lazy"
+                    className="object-cover"
                   />
                 </DrawerTrigger>
               </AspectRatio>
@@ -205,7 +206,13 @@ const ItemDrawer = (item: Item) => {
                   ratio={1 / 1}
                   className="rounded-xl overflow-hidden border"
                 >
-                  <Image src={image} alt={item.name} fill quality={90} />
+                  <Image
+                    src={image}
+                    alt={item.name}
+                    fill
+                    quality={90}
+                    className="object-cover"
+                  />
                 </AspectRatio>
               </CarouselItem>
             ))}
@@ -251,11 +258,11 @@ const ItemDrawer = (item: Item) => {
             </div>
             <div className="flex gap-2">
               <DrawerClose asChild>
-                <Button variant="default" className="w-full">
+                <Button variant="default" size="lg" className="w-full">
                   Contact Seller
                 </Button>
               </DrawerClose>
-              <Button size="icon" variant="outline">
+              <Button size="lg" variant="outline">
                 <HeartIcon />
               </Button>
             </div>
