@@ -1,8 +1,7 @@
 "use client";
 
 import ItemGallery from "@/components/item/item-gallery";
-import Section from "@/components/section/section";
-import SectionHeader from "@/components/section/section-header";
+import { Section, SectionHeader } from "@/components/section/section";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import useDataFetching from "@/hooks/useDataFetching";
@@ -20,7 +19,7 @@ const ForYouSection = () => {
     error: subcategoriesError,
   } = useDataFetching(getSubcategories);
 
-  const itemsResponse = useDataFetching(getItems);
+  const itemsData = useDataFetching(getItems);
 
   if (subcategoriesError) {
     return <p>Error: {subcategoriesError}</p>;
@@ -61,7 +60,7 @@ const ForYouSection = () => {
       </div>
 
       {/* GALLERY */}
-      <ItemGallery {...itemsResponse} />
+      <ItemGallery {...itemsData} />
     </Section>
   );
 };

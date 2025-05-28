@@ -1,7 +1,7 @@
 "use client";
 
 import DynamicIcon from "@/components/dynamic-icon";
-import Section from "@/components/section/section";
+import { Section } from "@/components/section/section";
 import { Skeleton } from "@/components/ui/skeleton";
 import useDataFetching from "@/hooks/useDataFetching";
 import { getCategories } from "@/lib/category-service";

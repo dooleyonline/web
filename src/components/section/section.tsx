@@ -5,7 +5,7 @@ interface SectionProps {
   children: ReactNode;
 }
 
-const Section = ({ id, children }: SectionProps) => {
+export const Section = ({ id, children }: SectionProps) => {
   return (
     <section id={id} className="mb-10">
       {children}
@@ -13,4 +13,19 @@ const Section = ({ id, children }: SectionProps) => {
   );
 };
 
-export default Section;
+interface SectionHeaderProps {
+  title: string;
+  subtitle?: string;
+}
+
+export const SectionHeader = ({ title, subtitle }: SectionHeaderProps) => {
+  return (
+    <div className="mb-4">
+      <h2>{title}</h2>
+      {subtitle && (
+        <p className="text-sm font-medium text-muted-foreground">{subtitle}</p>
+      )}
+    </div>
+  );
+};
+
