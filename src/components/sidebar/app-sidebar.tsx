@@ -23,6 +23,8 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 
+import { fonts } from "../fonts";
+
 const data = {
   user: {
     name: "shadcn",
@@ -72,7 +74,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <Link href="/">
                 <Image src="/logo.svg" alt="logo" width={32} height={32} />
-                <span className="text-base font-semibold">dooleyonline</span>
+                <span
+                  className={`${fonts.logo.className} text-base font-medium`}
+                >
+                  dooleyonline
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
