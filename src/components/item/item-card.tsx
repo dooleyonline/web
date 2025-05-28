@@ -114,7 +114,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const info = (
     <>
       <CardHeader className="p-0 block w-full">
-        <CardTitle className="text-left leading-snug font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">
+        <CardTitle className="text-left m-0 leading-snug font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">
           {item.name}
         </CardTitle>
 
@@ -376,11 +376,11 @@ export const ItemCardSkeleton = () => {
         </AspectRatio>
       </CardHeader>
       <CardContent className="p-0">
-        <Skeleton className="h-3 w-full animate-pulse mb-1" />
-        <Skeleton className="h-3 w-16 animate-pulse mb-1" />
+        <Skeleton className="h-4 w-full animate-pulse mb-1" />
+        <Skeleton className="h-4 w-16 animate-pulse mb-1" />
       </CardContent>
       <CardFooter className="p-0">
-        <Skeleton className="h-3 w-20 animate-pulse" />
+        <Skeleton className="h-4 w-20 animate-pulse" />
       </CardFooter>
     </Card>
   );

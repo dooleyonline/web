@@ -34,7 +34,7 @@ const CategoryCard = (category: Category) => {
     <button className="shadow-xs flex h-20 flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24">
       <DynamicIcon
         name={category.icon}
-        className="h-6 w-6 text-muted-foreground"
+        className="size-4 sm:size-6 text-muted-foreground"
       />
       <span className="block text-left text-sm font-semibold leading-none">
         {category.name}
