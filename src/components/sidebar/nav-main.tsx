@@ -42,16 +42,16 @@ export function NavMain({
               key={item.title}
               href={item.url}
               style={{
-                background:
-                  path === item.url ? "hsl(var(--sidebar-accent))" : "",
+                background: path === item.url ? "var(--sidebar-accent)" : "",
                 color:
-                  path === item.url
-                    ? "hsl(var(--sidebar-accent-foreground))"
-                    : "",
+                  path === item.url ? "var(--sidebar-accent-foreground)" : "",
               }}
             >
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip={item.title}>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  className="cursor-pointer"
+                >
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                 </SidebarMenuButton>

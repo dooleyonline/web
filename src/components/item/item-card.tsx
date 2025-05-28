@@ -138,7 +138,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
           <div className="cursor-pointer backdrop-blur-xs absolute top-2 right-2 rounded-full p-2 bg-foreground/20">
             <HeartIcon
               size={16}
-              fill="hsl(var(--muted))"
+              fill="var(--muted)"
               fillOpacity={0.6}
               strokeWidth={0}
               className="hover:animate-pulse"
