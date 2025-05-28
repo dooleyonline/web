@@ -280,7 +280,7 @@ const ItemDialog = (item: Item) => {
             <ItemConditionBadge condition={item.condition} />
             <ItemNegotiableBadge negotiable={item.isNegotiable} />
           </div>
-          <span className="block my-2! text-xl font-semibold">
+          <span className="block my-3! text-xl font-semibold">
             {formatPrice(item.price)}
           </span>
 
