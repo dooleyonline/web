@@ -20,6 +20,15 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -42,7 +51,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { Item } from "@/types/item";
+import { DialogTitle } from "@radix-ui/react-dialog";
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -84,78 +95,64 @@ function formatPrice(price: number): string {
 }
 
 const ItemCard = ({ item }: ItemCardProps) => {
-  const relativeTime = getRelativeTime(item.postedAt);
   const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
 
-  return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <HoverCard>
-        <HoverCardTrigger>
-          <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent">
-            <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
-              <AspectRatio ratio={1 / 1} className="w-full">
-                <DrawerTrigger>
-                  <Image
-                    src={item.images[0]}
-                    alt={item.name}
-                    fill
-                    quality={50}
-                    loading="lazy"
-                    className="object-cover"
-                  />
-                </DrawerTrigger>
-              </AspectRatio>
+  const relativeTime = getRelativeTime(item.postedAt);
 
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="cursor-pointer backdrop-blur-sm absolute top-2 right-2 rounded-full p-2 bg-foreground/20">
-                      <HeartIcon
-                        size={16}
-                        fill="hsl(var(--muted))"
-                        fillOpacity={0.6}
-                        strokeWidth={0}
-                        className="hover:animate-pulse"
-                      />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-sm">Add to favorites</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </CardContent>
-
-            <DrawerTrigger className="text-left cursor-pointer w-full">
-              <CardHeader className="p-0 block w-full">
-                <CardTitle className="text-left leading-snug font-medium overflow-x-hidden whitespace-nowrap overflow-ellipsis">
-                  {item.name}
-                </CardTitle>
-
-                <CardDescription className="font-bold text-foreground !mt-0 text-base">
-                  {formatPrice(item.price)}
-                </CardDescription>
-              </CardHeader>
-
-              <CardFooter className="p-0">
-                <small className="text-muted-foreground">
-                  {relativeTime} · {item.views} views
-                </small>
-              </CardFooter>
-            </DrawerTrigger>
-          </Card>
-        </HoverCardTrigger>
-
-        <ItemHoverCard {...item} />
-      </HoverCard>
-
-      <ItemDrawer {...item} />
-    </Drawer>
+  const thumbnail = (
+    <Image
+      src={item.images[0]}
+      alt={item.name}
+      fill
+      quality={50}
+      loading="lazy"
+      className="object-cover"
+    />
   );
-};
 
-const ItemHoverCard = (item: Item) => {
-  return (
+  const info = (
+    <>
+      <CardHeader className="p-0 block w-full">
+        <CardTitle className="text-left leading-snug font-medium overflow-x-hidden whitespace-nowrap overflow-ellipsis">
+          {item.name}
+        </CardTitle>
+
+        <CardDescription className="font-bold text-foreground !mt-0 text-base">
+          {formatPrice(item.price)}
+        </CardDescription>
+      </CardHeader>
+
+      <CardFooter className="p-0">
+        <small className="text-muted-foreground">
+          {relativeTime} · {item.views} views
+        </small>
+      </CardFooter>
+    </>
+  );
+
+  const favoriteButton = (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="cursor-pointer backdrop-blur-sm absolute top-2 right-2 rounded-full p-2 bg-foreground/20">
+            <HeartIcon
+              size={16}
+              fill="hsl(var(--muted))"
+              fillOpacity={0.6}
+              strokeWidth={0}
+              className="hover:animate-pulse"
+            />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p className="text-sm">Add to favorites</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+
+  const hoverCard = (
     <HoverCardContent className="w-72 flex flex-col gap-2">
       <p className="overflow-hidden whitespace-nowrap overflow-ellipsis">
         {item.name}
@@ -169,11 +166,159 @@ const ItemHoverCard = (item: Item) => {
       </p>
     </HoverCardContent>
   );
+
+  return isMobile ? (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent">
+        <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
+          <AspectRatio ratio={1 / 1} className="w-full">
+            <DrawerTrigger>{thumbnail}</DrawerTrigger>
+          </AspectRatio>
+
+          {favoriteButton}
+        </CardContent>
+
+        <DrawerTrigger className="text-left cursor-pointer w-full">
+          {info}
+        </DrawerTrigger>
+      </Card>
+
+      <ItemDrawer {...item} />
+    </Drawer>
+  ) : (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <HoverCard>
+        <HoverCardTrigger>
+          <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent">
+            <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
+              <AspectRatio ratio={1 / 1} className="w-full">
+                <DialogTrigger>{thumbnail}</DialogTrigger>
+              </AspectRatio>
+
+              {favoriteButton}
+            </CardContent>
+
+            <DialogTrigger className="text-left cursor-pointer w-full">
+              {info}
+            </DialogTrigger>
+          </Card>
+        </HoverCardTrigger>
+
+        {hoverCard}
+      </HoverCard>
+      <ItemDialog {...item} />
+    </Dialog>
+  );
 };
 
 const ItemDrawer = (item: Item) => {
   const relativeTime = getRelativeTime(item.postedAt);
 
+  return (
+    <DrawerContent className="p-4">
+      <ScrollArea className="h-[min(90vh,1000px)] pb-24">
+        <ItemCarousel {...item} />
+        <DrawerHeader className="text-left p-0 pt-2">
+          <DrawerTitle className="text-2xl font-medium">
+            {item.name}
+          </DrawerTitle>
+          <div className="flex gap-1 !my-2">
+            <ItemConditionBadge condition={item.condition} />
+            <ItemNegotiableBadge negotiable={item.isNegotiable} />
+          </div>
+          <span className="block !my-2 text-xl font-semibold">
+            {formatPrice(item.price)}
+          </span>
+
+          <DrawerDescription className="text-secondary-foreground text-base !mb-4">
+            {item.description}
+          </DrawerDescription>
+        </DrawerHeader>
+
+        <DrawerFooter className="p-0 pt-2 flex !flex-col !justify-start !space-x-0 absolute bottom-0 w-full bg-background backdrop-blur-md">
+          <div className="flex gap-2 items-center mb-3">
+            <Avatar className="size-8">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div>
+              <span className="mr-2 inline-block">{item.seller}</span>
+              <small className="text-muted-foreground">
+                {relativeTime} · {item.views} views
+              </small>
+            </div>
+          </div>
+          <div className="flex gap-2 w-full">
+            <DrawerClose asChild>
+              <Button variant="default" size="lg" className="w-full">
+                Contact Seller
+              </Button>
+            </DrawerClose>
+            <Button size="lg" variant="outline">
+              <HeartIcon />
+            </Button>
+          </div>
+        </DrawerFooter>
+      </ScrollArea>
+    </DrawerContent>
+  );
+};
+
+const ItemDialog = (item: Item) => {
+  const relativeTime = getRelativeTime(item.postedAt);
+
+  return (
+    <DialogContent>
+      <ScrollArea className="h-[min(90vh,1000px)] pb-24">
+        <ItemCarousel {...item} />
+
+        <DialogHeader className="text-left p-0 pt-2">
+          <DialogTitle className="text-2xl font-medium">
+            {item.name}
+          </DialogTitle>
+          <div className="flex gap-1 !my-2">
+            <ItemConditionBadge condition={item.condition} />
+            <ItemNegotiableBadge negotiable={item.isNegotiable} />
+          </div>
+          <span className="block !my-2 text-xl font-semibold">
+            {formatPrice(item.price)}
+          </span>
+
+          <DialogDescription className="text-secondary-foreground text-base !mb-4">
+            {item.description}
+          </DialogDescription>
+        </DialogHeader>
+
+        <DialogFooter className="p-0 pt-2 flex !flex-col !justify-start !space-x-0 absolute bottom-0 w-full bg-background backdrop-blur-md">
+          <div className="flex gap-2 items-center mb-3">
+            <Avatar className="size-8">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div>
+              <span className="mr-2 inline-block">{item.seller}</span>
+              <small className="text-muted-foreground">
+                {relativeTime} · {item.views} views
+              </small>
+            </div>
+          </div>
+          <div className="flex gap-2 w-full">
+            <DialogClose asChild>
+              <Button variant="default" size="lg" className="w-full">
+                Contact Seller
+              </Button>
+            </DialogClose>
+            <Button size="lg" variant="outline">
+              <HeartIcon />
+            </Button>
+          </div>
+        </DialogFooter>
+      </ScrollArea>
+    </DialogContent>
+  );
+};
+
+const ItemCarousel = (item: Item) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -192,84 +337,33 @@ const ItemDrawer = (item: Item) => {
   }, [api]);
 
   return (
-    <DrawerContent className="px-5 pb-5 h-[calc(100vh-20px)] md:h-auto">
-      <div className="flex-col md:flex-row flex md:gap-6 pt-2 h-full">
-        {/* CAROUSEL */}
-        <Carousel
-          setApi={setApi}
-          className="w-full md:w-2/5 flex flex-col gap-3"
-        >
-          <CarouselContent>
-            {item.images.map((image, index) => (
-              <CarouselItem key={index}>
-                <AspectRatio
-                  ratio={1 / 1}
-                  className="rounded-xl overflow-hidden border"
-                >
-                  <Image
-                    src={image}
-                    alt={item.name}
-                    fill
-                    quality={90}
-                    className="object-cover"
-                  />
-                </AspectRatio>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="flex justify-between">
-            <CarouselPrevious className="relative translate-x-0 translate-y-0 left-0 top-0" />
-            <div className="py-2 text-center text-sm text-muted-foreground">
-              Image {current} of {count}
-            </div>
-            <CarouselNext className="relative translate-x-0 translate-y-0 left-0 top-0" />
-          </div>
-        </Carousel>
-
-        <div className="flex flex-col justify-between flex-1">
-          <DrawerHeader className="text-left p-0 pt-2">
-            <DrawerTitle className="text-2xl">{item.name}</DrawerTitle>
-            <div className="flex gap-1">
-              <ItemConditionBadge condition={item.condition} />
-              <ItemNegotiableBadge negotiable={item.isNegotiable} />
-            </div>
-            <span className="my-2 sm:my-6 text-lg font-semibold">
-              {formatPrice(item.price)}
-            </span>
-            <ScrollArea>
-              <DrawerDescription className="text-secondary-foreground text-base">
-                {item.description}
-              </DrawerDescription>
-            </ScrollArea>
-          </DrawerHeader>
-
-          <DrawerFooter className="p-0 pt-2">
-            <div className="flex gap-2 items-center mb-2">
-              <Avatar className="size-8">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <div>
-                <span className="mr-2 inline-block">{item.seller}</span>
-                <small className="text-muted-foreground">
-                  {relativeTime} · {item.views} views
-                </small>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <DrawerClose asChild>
-                <Button variant="default" size="lg" className="w-full">
-                  Contact Seller
-                </Button>
-              </DrawerClose>
-              <Button size="lg" variant="outline">
-                <HeartIcon />
-              </Button>
-            </div>
-          </DrawerFooter>
+    <Carousel setApi={setApi} className="w-full mb-3">
+      <CarouselContent>
+        {item.images.map((image, index) => (
+          <CarouselItem key={index}>
+            <AspectRatio
+              ratio={1 / 1}
+              className="rounded-lg overflow-hidden border"
+            >
+              <Image
+                src={image}
+                alt={item.name}
+                fill
+                quality={90}
+                className="object-cover"
+              />
+            </AspectRatio>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="flex justify-between mt-2">
+        <CarouselPrevious className="relative translate-x-0 translate-y-0 left-0 top-0" />
+        <div className="py-2 text-center text-sm text-muted-foreground">
+          Image {current} of {count}
         </div>
+        <CarouselNext className="relative translate-x-0 translate-y-0 left-0 top-0" />
       </div>
-    </DrawerContent>
+    </Carousel>
   );
 };
 
