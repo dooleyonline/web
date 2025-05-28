@@ -70,7 +70,7 @@ export default function Home() {
             <Link
               key={feature.id}
               href={`${feature.url}`}
-              className="w-full sm:w-80 md:w-96 lg:w-[28rem] mx-auto"
+              className="w-full sm:w-80 md:w-96 lg:w-md mx-auto"
             >
               <Card className="cursor-pointer hover:shadow-lg transition-shadow">
                 <CardHeader className="space-y-2 text-center">

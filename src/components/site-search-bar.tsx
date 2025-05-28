@@ -8,7 +8,7 @@ const SiteSearchBar = () => {
       <input
         type="text"
         placeholder="Search for anything..."
-        className="w-full bg-transparent outline-none placeholder:text-muted-foreground ml-4"
+        className="w-full bg-transparent outline-hidden placeholder:text-muted-foreground ml-4"
         aria-label="Search"
       />
       <Button size="icon" className="rounded-full flex-none">

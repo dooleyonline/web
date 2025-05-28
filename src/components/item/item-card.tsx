@@ -107,18 +107,18 @@ const ItemCard = ({ item }: ItemCardProps) => {
       fill
       quality={50}
       loading="lazy"
-      className="object-cover"
+      className="object-cover cursor-pointer"
     />
   );
 
   const info = (
     <>
       <CardHeader className="p-0 block w-full">
-        <CardTitle className="text-left leading-snug font-medium overflow-x-hidden whitespace-nowrap overflow-ellipsis">
+        <CardTitle className="text-left leading-snug font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">
           {item.name}
         </CardTitle>
 
-        <CardDescription className="font-bold text-foreground !mt-0 text-base">
+        <CardDescription className="font-bold text-foreground mt-0! text-base">
           {formatPrice(item.price)}
         </CardDescription>
       </CardHeader>
@@ -135,7 +135,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="cursor-pointer backdrop-blur-sm absolute top-2 right-2 rounded-full p-2 bg-foreground/20">
+          <div className="cursor-pointer backdrop-blur-xs absolute top-2 right-2 rounded-full p-2 bg-foreground/20">
             <HeartIcon
               size={16}
               fill="hsl(var(--muted))"
@@ -154,7 +154,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   const hoverCard = (
     <HoverCardContent className="w-72 flex flex-col gap-2">
-      <p className="overflow-hidden whitespace-nowrap overflow-ellipsis">
+      <p className="overflow-hidden whitespace-nowrap text-ellipsis">
         {item.name}
       </p>
       <div className="flex gap-1">
@@ -215,27 +215,27 @@ const ItemDrawer = (item: Item) => {
   const relativeTime = getRelativeTime(item.postedAt);
 
   return (
-    <DrawerContent className="p-4">
-      <ScrollArea className="h-[min(90vh,1000px)] pb-24">
+    <DrawerContent className="h-[calc(100vh-20px)] p-4">
+      <ScrollArea className="h-full pb-24">
         <ItemCarousel {...item} />
         <DrawerHeader className="text-left p-0 pt-2">
           <DrawerTitle className="text-2xl font-medium">
             {item.name}
           </DrawerTitle>
-          <div className="flex gap-1 !my-2">
+          <div className="flex gap-1 my-2!">
             <ItemConditionBadge condition={item.condition} />
             <ItemNegotiableBadge negotiable={item.isNegotiable} />
           </div>
-          <span className="block !my-2 text-xl font-semibold">
+          <span className="block my-2! text-xl font-semibold">
             {formatPrice(item.price)}
           </span>
 
-          <DrawerDescription className="text-secondary-foreground text-base !mb-4">
+          <DrawerDescription className="text-secondary-foreground text-base mb-4!">
             {item.description}
           </DrawerDescription>
         </DrawerHeader>
 
-        <DrawerFooter className="p-0 pt-2 flex !flex-col !justify-start !space-x-0 absolute bottom-0 w-full bg-background backdrop-blur-md">
+        <DrawerFooter className="p-0 pt-2 flex flex-col! justify-start! space-x-0! absolute bottom-0 w-full bg-background backdrop-blur-md">
           <div className="flex gap-2 items-center mb-3">
             <Avatar className="size-8">
               <AvatarImage src="https://github.com/shadcn.png" />
@@ -276,20 +276,20 @@ const ItemDialog = (item: Item) => {
           <DialogTitle className="text-2xl font-medium">
             {item.name}
           </DialogTitle>
-          <div className="flex gap-1 !my-2">
+          <div className="flex gap-1 my-2!">
             <ItemConditionBadge condition={item.condition} />
             <ItemNegotiableBadge negotiable={item.isNegotiable} />
           </div>
-          <span className="block !my-2 text-xl font-semibold">
+          <span className="block my-2! text-xl font-semibold">
             {formatPrice(item.price)}
           </span>
 
-          <DialogDescription className="text-secondary-foreground text-base !mb-4">
+          <DialogDescription className="text-secondary-foreground text-base mb-4!">
             {item.description}
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="p-0 pt-2 flex !flex-col !justify-start !space-x-0 absolute bottom-0 w-full bg-background backdrop-blur-md">
+        <DialogFooter className="p-0 pt-2 flex flex-col! justify-start! space-x-0! absolute bottom-0 w-full bg-background backdrop-blur-md">
           <div className="flex gap-2 items-center mb-3">
             <Avatar className="size-8">
               <AvatarImage src="https://github.com/shadcn.png" />
