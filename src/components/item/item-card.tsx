@@ -104,10 +104,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
     <Image
       src={item.images[0]}
       alt={item.name}
+      quality={40}
+      priority
       fill
-      quality={50}
-      loading="lazy"
-      className="object-cover cursor-pointer"
+      sizes="(max-width: 40rem) 50vw, (max-width: 48rem) 30vw, (max-width: 64rem) 20vw, (max-width: 80rem) 15vw"
+      className="size-full object-cover cursor-pointer"
     />
   );
 
@@ -191,8 +192,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
         <HoverCardTrigger>
           <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent">
             <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
-              <AspectRatio ratio={1 / 1} className="w-full">
-                <DialogTrigger>{thumbnail}</DialogTrigger>
+              <AspectRatio ratio={1 / 1} className="w-full relative">
+                <DialogTrigger asChild>{thumbnail}</DialogTrigger>
               </AspectRatio>
 
               {favoriteButton}
@@ -350,6 +351,7 @@ const ItemCarousel = (item: Item) => {
                 alt={item.name}
                 fill
                 quality={90}
+                sizes="50vw"
                 className="object-cover"
               />
             </AspectRatio>
