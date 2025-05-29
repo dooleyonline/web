@@ -287,7 +287,7 @@ const ItemDialog = memo((item: Item) => {
   );
 
   return (
-    <DialogContent className="h-[min(90svh,1000px)]">
+    <DialogContent className="h-[min(90svh,1000px)] gap-0">
       <ScrollArea className="h-full">
         <ItemCarousel {...item} />
 
