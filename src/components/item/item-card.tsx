@@ -234,7 +234,7 @@ const ItemDrawer = memo((item: Item) => {
 
   return (
     <DrawerContent className="h-[calc(100svh-20px)] p-4">
-      <ScrollArea className="h-full pb-24">
+      <ScrollArea className="h-full">
         <ItemCarousel {...item} />
         <DrawerHeader className="text-left p-0 pt-2">
           <DrawerTitle className="text-2xl font-medium">
@@ -252,32 +252,31 @@ const ItemDrawer = memo((item: Item) => {
             {item.description}
           </DrawerDescription>
         </DrawerHeader>
-
-        <DrawerFooter className="p-0 pt-2 flex flex-col! justify-start! space-x-0! absolute bottom-0 w-full bg-background backdrop-blur-md">
-          <div className="flex gap-2 items-center mb-3">
-            <Avatar className="size-8">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <div>
-              <span className="mr-2 inline-block">{item.seller}</span>
-              <small className="text-muted-foreground">
-                {relativeTime} · {item.views} views
-              </small>
-            </div>
-          </div>
-          <div className="flex gap-2 w-full">
-            <DrawerClose asChild>
-              <Button variant="default" size="lg" className="w-full">
-                Contact Seller
-              </Button>
-            </DrawerClose>
-            <Button size="lg" variant="outline">
-              <HeartIcon />
-            </Button>
-          </div>
-        </DrawerFooter>
       </ScrollArea>
+      <DrawerFooter className="p-0 pt-2 flex flex-col! justify-start! space-x-0! w-full bg-background backdrop-blur-md">
+        <div className="flex gap-2 items-center mb-3">
+          <Avatar className="size-8">
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <div>
+            <span className="mr-2 inline-block">{item.seller}</span>
+            <small className="text-muted-foreground">
+              {relativeTime} · {item.views} views
+            </small>
+          </div>
+        </div>
+        <div className="flex gap-2 w-full">
+          <DrawerClose asChild>
+            <Button variant="default" size="lg" className="w-full">
+              Contact Seller
+            </Button>
+          </DrawerClose>
+          <Button size="lg" variant="outline">
+            <HeartIcon />
+          </Button>
+        </div>
+      </DrawerFooter>
     </DrawerContent>
   );
 });
@@ -290,8 +289,8 @@ const ItemDialog = memo((item: Item) => {
   );
 
   return (
-    <DialogContent>
-      <ScrollArea className="h-[min(90svh,1000px)] pb-24">
+    <DialogContent className="h-[min(90svh,1000px)]">
+      <ScrollArea className="h-full">
         <ItemCarousel {...item} />
 
         <DialogHeader className="text-left p-0 pt-2">
@@ -310,32 +309,31 @@ const ItemDialog = memo((item: Item) => {
             {item.description}
           </DialogDescription>
         </DialogHeader>
-
-        <DialogFooter className="p-0 pt-2 flex flex-col! justify-start! space-x-0! absolute bottom-0 w-full bg-background backdrop-blur-md">
-          <div className="flex gap-2 items-center mb-3">
-            <Avatar className="size-8">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <div>
-              <span className="mr-2 inline-block">{item.seller}</span>
-              <small className="text-muted-foreground">
-                {relativeTime} · {item.views} views
-              </small>
-            </div>
-          </div>
-          <div className="flex gap-2 w-full">
-            <DialogClose asChild>
-              <Button variant="default" size="lg" className="w-full">
-                Contact Seller
-              </Button>
-            </DialogClose>
-            <Button size="lg" variant="outline">
-              <HeartIcon />
-            </Button>
-          </div>
-        </DialogFooter>
       </ScrollArea>
+      <DialogFooter className="p-0 pt-2 flex flex-col! justify-start! space-x-0! w-full bg-background backdrop-blur-md">
+        <div className="flex gap-2 items-center mb-3">
+          <Avatar className="size-8">
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <div>
+            <span className="mr-2 inline-block">{item.seller}</span>
+            <small className="text-muted-foreground">
+              {relativeTime} · {item.views} views
+            </small>
+          </div>
+        </div>
+        <div className="flex gap-2 w-full">
+          <DialogClose asChild>
+            <Button variant="default" size="lg" className="w-full">
+              Contact Seller
+            </Button>
+          </DialogClose>
+          <Button size="lg" variant="outline">
+            <HeartIcon />
+          </Button>
+        </div>
+      </DialogFooter>
     </DialogContent>
   );
 });
