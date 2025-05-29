@@ -233,8 +233,8 @@ const ItemDrawer = memo((item: Item) => {
   );
 
   return (
-    <DrawerContent className="h-[calc(100svh-20px)] p-4">
-      <ScrollArea className="h-full">
+    <DrawerContent className="h-[calc(100svh-20px)] p-4 gap-2 flex flex-col">
+      <div className="h-full overflow-scroll">
         <ItemCarousel {...item} />
         <DrawerHeader className="text-left p-0 pt-2">
           <DrawerTitle className="text-2xl font-medium">
@@ -264,8 +264,8 @@ const ItemDrawer = memo((item: Item) => {
             </small>
           </div>
         </div>
-      </ScrollArea>
-      <DrawerFooter className="p-0 pt-2 flex flex-row gap-2 justify-start! space-x-0! w-full bg-background">
+      </div>
+      <DrawerFooter className="p-0 flex flex-row gap-2 justify-start! space-x-0! w-full bg-background">
         <DrawerClose asChild>
           <Button variant="default" size="lg" className="flex-1">
             Contact Seller
@@ -287,8 +287,8 @@ const ItemDialog = memo((item: Item) => {
   );
 
   return (
-    <DialogContent className="h-[min(90svh,1000px)] gap-0">
-      <ScrollArea className="h-full">
+    <DialogContent className="h-[min(90svh,1000px)] flex flex-col gap-2">
+      <div className="h-full overflow-scroll">
         <ItemCarousel {...item} />
 
         <DialogHeader className="text-left p-0 pt-2">
@@ -320,9 +320,9 @@ const ItemDialog = memo((item: Item) => {
             </small>
           </div>
         </div>
-      </ScrollArea>
+      </div>
 
-      <DialogFooter className="p-0 pt-2 flex gap-2 justify-start! space-x-0! w-full bg-background">
+      <DialogFooter className="p-0 flex gap-2 grow-0 justify-start! space-x-0! w-full bg-background">
         <DialogClose asChild>
           <Button variant="default" size="lg" className="flex-1">
             Contact Seller

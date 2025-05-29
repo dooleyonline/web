@@ -18,6 +18,7 @@ type SiteHeaderProps = {
 
 const SiteHeader = (props: SiteHeaderProps) => {
   const { isMainPage, title, isVisible } = props;
+  const isMobile = useIsMobile();
 
   if (!isVisible) return;
 
@@ -25,10 +26,15 @@ const SiteHeader = (props: SiteHeaderProps) => {
     <motion.header
       animate={
         isMainPage
-          ? {
-              paddingTop: "180px",
-              borderBottomWidth: "1px",
-            }
+          ? isMobile
+            ? {
+                paddingTop: "60px",
+                borderBottomWidth: "1px",
+              }
+            : {
+                paddingTop: "180px",
+                borderBottomWidth: "1px",
+              }
           : {
               paddingTop: "24px",
               borderBottomWidth: "0px",
@@ -43,7 +49,7 @@ const SiteHeader = (props: SiteHeaderProps) => {
             initial={{ opacity: 0, height: "0" }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: "0" }}
-            className="block overflow-hidden leading-normal"
+            className="block overflow-hidden leading-relaxed"
           >
             {title}
           </motion.h1>
