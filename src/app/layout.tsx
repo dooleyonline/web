@@ -8,7 +8,6 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "dooleyonline",
   description: "Welcome to dooleyonline, a hub for Emory students",
-  viewport: "",
 };
 
 export const viewport: Viewport = {

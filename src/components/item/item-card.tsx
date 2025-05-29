@@ -252,8 +252,6 @@ const ItemDrawer = memo((item: Item) => {
             {item.description}
           </DrawerDescription>
         </DrawerHeader>
-      </ScrollArea>
-      <DrawerFooter className="p-0 pt-2 flex flex-col! justify-start! space-x-0! w-full bg-background backdrop-blur-md">
         <div className="flex gap-2 items-center mb-3">
           <Avatar className="size-8">
             <AvatarImage src="https://github.com/shadcn.png" />
@@ -266,16 +264,16 @@ const ItemDrawer = memo((item: Item) => {
             </small>
           </div>
         </div>
-        <div className="flex gap-2 w-full">
-          <DrawerClose asChild>
-            <Button variant="default" size="lg" className="w-full">
-              Contact Seller
-            </Button>
-          </DrawerClose>
-          <Button size="lg" variant="outline">
-            <HeartIcon />
+      </ScrollArea>
+      <DrawerFooter className="p-0 pt-2 flex flex-row gap-2 justify-start! space-x-0! w-full bg-background">
+        <DrawerClose asChild>
+          <Button variant="default" size="lg" className="flex-1">
+            Contact Seller
           </Button>
-        </div>
+        </DrawerClose>
+        <Button size="lg" variant="outline" className="shrink-0">
+          <HeartIcon />
+        </Button>
       </DrawerFooter>
     </DrawerContent>
   );
@@ -309,8 +307,7 @@ const ItemDialog = memo((item: Item) => {
             {item.description}
           </DialogDescription>
         </DialogHeader>
-      </ScrollArea>
-      <DialogFooter className="p-0 pt-2 flex flex-col! justify-start! space-x-0! w-full bg-background backdrop-blur-md">
+
         <div className="flex gap-2 items-center mb-3">
           <Avatar className="size-8">
             <AvatarImage src="https://github.com/shadcn.png" />
@@ -323,16 +320,17 @@ const ItemDialog = memo((item: Item) => {
             </small>
           </div>
         </div>
-        <div className="flex gap-2 w-full">
-          <DialogClose asChild>
-            <Button variant="default" size="lg" className="w-full">
-              Contact Seller
-            </Button>
-          </DialogClose>
-          <Button size="lg" variant="outline">
-            <HeartIcon />
+      </ScrollArea>
+
+      <DialogFooter className="p-0 pt-2 flex gap-2 justify-start! space-x-0! w-full bg-background">
+        <DialogClose asChild>
+          <Button variant="default" size="lg" className="flex-1">
+            Contact Seller
           </Button>
-        </div>
+        </DialogClose>
+        <Button size="lg" variant="outline" className="shrink-0">
+          <HeartIcon />
+        </Button>
       </DialogFooter>
     </DialogContent>
   );
