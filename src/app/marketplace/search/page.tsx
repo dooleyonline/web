@@ -7,7 +7,7 @@ const MarketplaceSearch = () => {
   const { data, isLoading, error } = useItems();
 
   return (
-    <main className="pt-0">
+    <main>
       <section id="search-results">
         <ItemGallery data={data || null} isLoading={isLoading} error={error} />
       </section>

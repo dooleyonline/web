@@ -27,7 +27,11 @@ import { Fragment, forwardRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 
-export function SiteNavbar() {
+type SiteNavbarProps = {
+  primaryButtonText: string;
+};
+
+export function SiteNavbar({ primaryButtonText }: SiteNavbarProps) {
   const isMobile = useIsMobile();
   const paths = usePathname().slice(1).split("/");
 
@@ -111,7 +115,7 @@ export function SiteNavbar() {
             <Button asChild variant={"default"}>
               <Link href="/docs" passHref>
                 <PlusIcon size={16} />
-                Sell My Item
+                {primaryButtonText}
               </Link>
             </Button>
           </NavigationMenuItem>

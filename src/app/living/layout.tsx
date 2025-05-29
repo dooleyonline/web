@@ -4,22 +4,22 @@ import { Metadata } from "next";
 import HeaderSection from "./_sections/header";
 
 export const metadata: Metadata = {
-  title: "Marketplace @ dooleyonline",
-  description: "Find what you need. Sell what you don't",
+  title: "Living @ dooleyonline",
+  description: "",
 };
 
-const MarketplaceLayout = ({
+const LivingLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
   return (
     <>
-      <SiteNavbar primaryButtonText="Sell My Stuff" />
+      <SiteNavbar primaryButtonText="New Post" />
       <HeaderSection />
       {children}
     </>
   );
 };
 
-export default MarketplaceLayout;
+export default LivingLayout;

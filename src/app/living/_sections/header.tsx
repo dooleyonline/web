@@ -6,10 +6,10 @@ import { usePathname, useRouter } from "next/navigation";
 const HeaderSection = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const isMainPage = pathname.toLowerCase() === "/marketplace";
+  const isMainPage = pathname.toLowerCase() === "/living";
 
   const handleSearch = (query: string) => {
-    router.push(`/marketplace/search?q=${encodeURIComponent(query)}`);
+    router.push(`/living/search?q=${encodeURIComponent(query)}`);
   };
 
   const handleBack = () => {
@@ -19,7 +19,7 @@ const HeaderSection = () => {
   return (
     <SiteHeader
       isMainPage={isMainPage}
-      title="Marketplace"
+      title="Living"
       onSearch={handleSearch}
       onBack={handleBack}
       searchPlaceholder="Search for anything ..."

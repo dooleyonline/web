@@ -351,8 +351,6 @@ const ItemCarousel = memo((item: Item) => {
       return;
     }
 
-    console.log("carousel");
-
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
 
