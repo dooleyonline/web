@@ -28,10 +28,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 
 type SiteNavbarProps = {
-  primaryButtonText: string;
+  data: {
+    username: string;
+    profile: string;
+    avatar: string;
+    summary: { key: string; val: number }[];
+    links: { href: string; title: string; description: string }[];
+    button: { href: string; text: string };
+  };
 };
 
-export function SiteNavbar({ primaryButtonText }: SiteNavbarProps) {
+export function SiteNavbar({ data }: SiteNavbarProps) {
   const isMobile = useIsMobile();
   const paths = usePathname().slice(1).split("/");
 
@@ -74,7 +81,9 @@ export function SiteNavbar({ primaryButtonText }: SiteNavbarProps) {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>
-              <UserIcon size={24} />
+              <Link href={data.profile}>
+                <UserIcon size={24} />
+              </Link>
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -82,40 +91,50 @@ export function SiteNavbar({ primaryButtonText }: SiteNavbarProps) {
                   <NavigationMenuLink asChild>
                     <Link
                       className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
-                      href="/"
+                      href={data.profile}
                     >
                       {/* <Icons.logo className="h-6 w-6" /> */}
                       <Avatar>
-                        <AvatarImage
-                          src="https://github.com/shadcn.png"
-                          alt="@shadcn"
-                        />
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarImage src={data.avatar} alt="User avatar" />
+                        <AvatarFallback>
+                          {data.username
+                            .split(" ")
+                            .slice(0, 2)
+                            .map((word) => word.charAt(0).toUpperCase())}
+                        </AvatarFallback>
                       </Avatar>
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        @ecosbcae
+                      <div className="mb-1 mt-4 text-lg font-medium">
+                        {data.username}
                       </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Passionate collector and seller with a keen eye for
-                        unique items
-                      </p>
+                      <ul>
+                        {data.summary.map((e, i) => (
+                          <li
+                            key={i}
+                            className="text-sm leading-tight flex justify-between"
+                          >
+                            <span className="text-muted-foreground">
+                              {e.key}
+                            </span>
+                            <span>{e.val}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </Link>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/docs" title="Saved Items">
-                  View items you&apos;ve saved for later
-                </ListItem>
-                <ListItem href="/docs/installation" title="My Listings">
-                  Edit and track items you&apos;ve listed for sale
-                </ListItem>
+                {data.links.map((link, i) => (
+                  <ListItem key={i} href={link.href} title={link.title}>
+                    {link.description}
+                  </ListItem>
+                ))}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Button asChild variant={"default"}>
-              <Link href="/docs" passHref>
+              <Link href={data.button.href} passHref>
                 <PlusIcon size={16} />
-                {primaryButtonText}
+                {data.button.text}
               </Link>
             </Button>
           </NavigationMenuItem>

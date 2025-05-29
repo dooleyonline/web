@@ -8,6 +8,32 @@ export const metadata: Metadata = {
   description: "Find what you need. Sell what you don't",
 };
 
+const navData = {
+  username: "John Doe",
+  profile: "/marketplace/profile",
+  avatar: "https://github.com/shadcn.png",
+  summary: [
+    { key: "Saved", val: 32 },
+    { key: "Listed", val: 17 },
+  ],
+  links: [
+    {
+      href: "/marketplace/profile/saved",
+      title: "Saved Items",
+      description: "View items I've saved for later",
+    },
+    {
+      href: "/marketplace/profile/listing",
+      title: "My Listing",
+      description: "Edit and track items I've listed for sale",
+    },
+  ],
+  button: {
+    href: "/marketplace/new",
+    text: "Sell My Stuff"
+  }
+};
+
 const MarketplaceLayout = ({
   children,
 }: Readonly<{
@@ -15,7 +41,7 @@ const MarketplaceLayout = ({
 }>) => {
   return (
     <>
-      <SiteNavbar primaryButtonText="Sell My Stuff" />
+      <SiteNavbar data={navData} />
       <HeaderSection />
       {children}
     </>

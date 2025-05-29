@@ -19,6 +19,7 @@ const HeaderSection = () => {
   return (
     <SiteHeader
       isMainPage={isMainPage}
+      isVisible={isMainPage || pathname.includes("search")}
       title="Marketplace"
       onSearch={handleSearch}
       onBack={handleBack}
