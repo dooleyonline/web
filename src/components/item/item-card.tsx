@@ -120,6 +120,7 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
       quality={40}
       fill
       priority={index < 10}
+      loading="eager"
       sizes="(max-width: 40rem) 50vw, (max-width: 48rem) 30vw, (max-width: 64rem) 20vw, (max-width: 80rem) 400px"
       className="size-full object-cover cursor-pointer"
     />
@@ -374,7 +375,6 @@ const ItemCarousel = memo((item: Item) => {
                 alt={item.name}
                 fill
                 quality={60}
-                priority
                 sizes="600px"
                 className="object-cover"
               />
