@@ -233,7 +233,7 @@ const ItemDrawer = memo((item: Item) => {
   );
 
   return (
-    <DrawerContent className="h-[calc(100vh-20px)] p-4">
+    <DrawerContent className="h-[calc(100svh-20px)] p-4">
       <ScrollArea className="h-full pb-24">
         <ItemCarousel {...item} />
         <DrawerHeader className="text-left p-0 pt-2">
