@@ -212,7 +212,6 @@ const MarketplaceProfileSummarySection = () => {
               <Bar
                 dataKey={activeChart}
                 fill="var(--color-chart-1)"
-                // className="opacity-80"
               />
             </BarChart>
           </ChartContainer>

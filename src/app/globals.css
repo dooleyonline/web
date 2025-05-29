@@ -24,7 +24,7 @@
   --border: oklch(0.92 0.004 286.32);
   --input: var(--color-border);
   --ring: var(--color-primary);
-  --chart-1: oklch(82.8% 0.111 230.318);
+  --chart-1: oklch(29.3% 0.066 243.157 / 50%);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
