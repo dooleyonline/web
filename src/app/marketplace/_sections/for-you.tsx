@@ -4,8 +4,8 @@ import ItemGallery from "@/components/item/item-gallery";
 import { Section, SectionHeader } from "@/components/site-section";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useItems } from "@/hooks/marketplace/use-items";
 import useDataFetching from "@/hooks/useDataFetching";
-import { getItems } from "@/lib/item-service";
 import { getSubcategories } from "@/lib/subcategory-service";
 import type { Subcategory } from "@/types/subcategory";
 import { useState } from "react";
@@ -19,7 +19,11 @@ const ForYouSection = () => {
     error: subcategoriesError,
   } = useDataFetching(getSubcategories);
 
-  const itemsData = useDataFetching(getItems);
+  const {
+    data: itemsData,
+    isLoading: isItemsLoading,
+    error: itemsError,
+  } = useItems();
 
   if (subcategoriesError) {
     return <p>Error: {subcategoriesError}</p>;
@@ -62,9 +66,9 @@ const ForYouSection = () => {
 
       {/* GALLERY */}
       <ItemGallery
-        data={itemsData.data ? itemsData.data.slice(0, 10) : null}
-        isLoading={itemsData.isLoading}
-        error={itemsData.error}
+        data={itemsData?.slice(0, 10) || null}
+        isLoading={isItemsLoading}
+        error={itemsError}
       />
     </Section>
   );
