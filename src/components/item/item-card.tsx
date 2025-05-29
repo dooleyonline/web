@@ -291,7 +291,7 @@ const ItemDialog = memo((item: Item) => {
 
   return (
     <DialogContent>
-      <ScrollArea className="h-[min(90vh,1000px)] pb-24">
+      <ScrollArea className="h-[min(90svh,1000px)] pb-24">
         <ItemCarousel {...item} />
 
         <DialogHeader className="text-left p-0 pt-2">

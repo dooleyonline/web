@@ -1,13 +1,20 @@
 import { fonts } from "@/components/fonts";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "dooleyonline",
   description: "Welcome to dooleyonline, a hub for Emory students",
+  viewport: "",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -17,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fonts.sans.className} antialiased`}>
+      <body className={`${fonts.sans.className} antialiased h-svh`}>
         <SidebarProvider>
           <AppSidebar variant="inset" />
           <SidebarInset>{children}</SidebarInset>
