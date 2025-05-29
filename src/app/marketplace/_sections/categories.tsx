@@ -30,7 +30,7 @@ const CategoriesSection = () => {
 
 const CategoryCard = (category: Category) => {
   return (
-    <button className="shadow-xs flex h-[72px] flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24">
+    <button className="flex h-[72px] flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24">
       <DynamicIcon
         name={category.icon}
         className="size-6 text-muted-foreground"
@@ -44,7 +44,7 @@ const CategoryCard = (category: Category) => {
 
 const CategoryCardSkeleton = () => {
   return (
-    <Skeleton className="shadow-xs h-20 justify-between rounded-md p-3 sm:h-24 animate-pulse" />
+    <Skeleton className="h-20 justify-between rounded-md p-3 sm:h-24 animate-pulse" />
   );
 };
 
