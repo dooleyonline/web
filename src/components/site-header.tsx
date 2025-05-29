@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 type SiteHeaderProps = {
   isMainPage: boolean;
@@ -61,7 +61,12 @@ const SiteHeader = ({
             </motion.div>
           )}
         </AnimatePresence>
-        <SearchBar onSearch={onSearch} searchPlaceholder={searchPlaceholder} />
+        <Suspense>
+          <SearchBar
+            onSearch={onSearch}
+            searchPlaceholder={searchPlaceholder}
+          />
+        </Suspense>
       </div>
     </motion.header>
   );
