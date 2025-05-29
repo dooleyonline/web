@@ -344,9 +344,7 @@ const ItemCarousel = memo((item: Item) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!api) {
-      return;
-    }
+    if (!api) return;
 
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap());
@@ -355,6 +353,12 @@ const ItemCarousel = memo((item: Item) => {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  const handleClick = () => {
+    if (!api) return;
+    if (current === count - 1) api.scrollTo(0);
+    else api.scrollNext();
+  };
 
   return (
     <Carousel setApi={setApi}>
@@ -379,7 +383,7 @@ const ItemCarousel = memo((item: Item) => {
       </CarouselContent>
       <div className="flex justify-between mt-2">
         <CarouselPrevious className="relative translate-x-0 translate-y-0 left-0 top-0" />
-        <div className="py-2 flex gap-1 items-center">
+        <div onClick={handleClick} className="py-2 flex gap-1 items-center">
           {[...Array(count)].map((_, i) => (
             <motion.div
               key={i}
