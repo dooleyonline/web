@@ -18,121 +18,121 @@ import { useMemo, useState } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 const chartData = [
-  { date: "2024-04-01", desktop: 222, mobile: 150 },
-  { date: "2024-04-02", desktop: 97, mobile: 180 },
-  { date: "2024-04-03", desktop: 167, mobile: 120 },
-  { date: "2024-04-04", desktop: 242, mobile: 260 },
-  { date: "2024-04-05", desktop: 373, mobile: 290 },
-  { date: "2024-04-06", desktop: 301, mobile: 340 },
-  { date: "2024-04-07", desktop: 245, mobile: 180 },
-  { date: "2024-04-08", desktop: 409, mobile: 320 },
-  { date: "2024-04-09", desktop: 59, mobile: 110 },
-  { date: "2024-04-10", desktop: 261, mobile: 190 },
-  { date: "2024-04-11", desktop: 327, mobile: 350 },
-  { date: "2024-04-12", desktop: 292, mobile: 210 },
-  { date: "2024-04-13", desktop: 342, mobile: 380 },
-  { date: "2024-04-14", desktop: 137, mobile: 220 },
-  { date: "2024-04-15", desktop: 120, mobile: 170 },
-  { date: "2024-04-16", desktop: 138, mobile: 190 },
-  { date: "2024-04-17", desktop: 446, mobile: 360 },
-  { date: "2024-04-18", desktop: 364, mobile: 410 },
-  { date: "2024-04-19", desktop: 243, mobile: 180 },
-  { date: "2024-04-20", desktop: 89, mobile: 150 },
-  { date: "2024-04-21", desktop: 137, mobile: 200 },
-  { date: "2024-04-22", desktop: 224, mobile: 170 },
-  { date: "2024-04-23", desktop: 138, mobile: 230 },
-  { date: "2024-04-24", desktop: 387, mobile: 290 },
-  { date: "2024-04-25", desktop: 215, mobile: 250 },
-  { date: "2024-04-26", desktop: 75, mobile: 130 },
-  { date: "2024-04-27", desktop: 383, mobile: 420 },
-  { date: "2024-04-28", desktop: 122, mobile: 180 },
-  { date: "2024-04-29", desktop: 315, mobile: 240 },
-  { date: "2024-04-30", desktop: 454, mobile: 380 },
-  { date: "2024-05-01", desktop: 165, mobile: 220 },
-  { date: "2024-05-02", desktop: 293, mobile: 310 },
-  { date: "2024-05-03", desktop: 247, mobile: 190 },
-  { date: "2024-05-04", desktop: 385, mobile: 420 },
-  { date: "2024-05-05", desktop: 481, mobile: 390 },
-  { date: "2024-05-06", desktop: 498, mobile: 520 },
-  { date: "2024-05-07", desktop: 388, mobile: 300 },
-  { date: "2024-05-08", desktop: 149, mobile: 210 },
-  { date: "2024-05-09", desktop: 227, mobile: 180 },
-  { date: "2024-05-10", desktop: 293, mobile: 330 },
-  { date: "2024-05-11", desktop: 335, mobile: 270 },
-  { date: "2024-05-12", desktop: 197, mobile: 240 },
-  { date: "2024-05-13", desktop: 197, mobile: 160 },
-  { date: "2024-05-14", desktop: 448, mobile: 490 },
-  { date: "2024-05-15", desktop: 473, mobile: 380 },
-  { date: "2024-05-16", desktop: 338, mobile: 400 },
-  { date: "2024-05-17", desktop: 499, mobile: 420 },
-  { date: "2024-05-18", desktop: 315, mobile: 350 },
-  { date: "2024-05-19", desktop: 235, mobile: 180 },
-  { date: "2024-05-20", desktop: 177, mobile: 230 },
-  { date: "2024-05-21", desktop: 82, mobile: 140 },
-  { date: "2024-05-22", desktop: 81, mobile: 120 },
-  { date: "2024-05-23", desktop: 252, mobile: 290 },
-  { date: "2024-05-24", desktop: 294, mobile: 220 },
-  { date: "2024-05-25", desktop: 201, mobile: 250 },
-  { date: "2024-05-26", desktop: 213, mobile: 170 },
-  { date: "2024-05-27", desktop: 420, mobile: 460 },
-  { date: "2024-05-28", desktop: 233, mobile: 190 },
-  { date: "2024-05-29", desktop: 78, mobile: 130 },
-  { date: "2024-05-30", desktop: 340, mobile: 280 },
-  { date: "2024-05-31", desktop: 178, mobile: 230 },
-  { date: "2024-06-01", desktop: 178, mobile: 200 },
-  { date: "2024-06-02", desktop: 470, mobile: 410 },
-  { date: "2024-06-03", desktop: 103, mobile: 160 },
-  { date: "2024-06-04", desktop: 439, mobile: 380 },
-  { date: "2024-06-05", desktop: 88, mobile: 140 },
-  { date: "2024-06-06", desktop: 294, mobile: 250 },
-  { date: "2024-06-07", desktop: 323, mobile: 370 },
-  { date: "2024-06-08", desktop: 385, mobile: 320 },
-  { date: "2024-06-09", desktop: 438, mobile: 480 },
-  { date: "2024-06-10", desktop: 155, mobile: 200 },
-  { date: "2024-06-11", desktop: 92, mobile: 150 },
-  { date: "2024-06-12", desktop: 492, mobile: 420 },
-  { date: "2024-06-13", desktop: 81, mobile: 130 },
-  { date: "2024-06-14", desktop: 426, mobile: 380 },
-  { date: "2024-06-15", desktop: 307, mobile: 350 },
-  { date: "2024-06-16", desktop: 371, mobile: 310 },
-  { date: "2024-06-17", desktop: 475, mobile: 520 },
-  { date: "2024-06-18", desktop: 107, mobile: 170 },
-  { date: "2024-06-19", desktop: 341, mobile: 290 },
-  { date: "2024-06-20", desktop: 408, mobile: 450 },
-  { date: "2024-06-21", desktop: 169, mobile: 210 },
-  { date: "2024-06-22", desktop: 317, mobile: 270 },
-  { date: "2024-06-23", desktop: 480, mobile: 530 },
-  { date: "2024-06-24", desktop: 132, mobile: 180 },
-  { date: "2024-06-25", desktop: 141, mobile: 190 },
-  { date: "2024-06-26", desktop: 434, mobile: 380 },
-  { date: "2024-06-27", desktop: 448, mobile: 490 },
-  { date: "2024-06-28", desktop: 149, mobile: 200 },
-  { date: "2024-06-29", desktop: 103, mobile: 160 },
-  { date: "2024-06-30", desktop: 446, mobile: 400 },
+  { date: "2024-04-01", revenue: 222, view: 150 },
+  { date: "2024-04-02", revenue: 97, view: 180 },
+  { date: "2024-04-03", revenue: 167, view: 120 },
+  { date: "2024-04-04", revenue: 242, view: 260 },
+  { date: "2024-04-05", revenue: 373, view: 290 },
+  { date: "2024-04-06", revenue: 301, view: 340 },
+  { date: "2024-04-07", revenue: 245, view: 180 },
+  { date: "2024-04-08", revenue: 409, view: 320 },
+  { date: "2024-04-09", revenue: 59, view: 110 },
+  { date: "2024-04-10", revenue: 261, view: 190 },
+  { date: "2024-04-11", revenue: 327, view: 350 },
+  { date: "2024-04-12", revenue: 292, view: 210 },
+  { date: "2024-04-13", revenue: 342, view: 380 },
+  { date: "2024-04-14", revenue: 137, view: 220 },
+  { date: "2024-04-15", revenue: 120, view: 170 },
+  { date: "2024-04-16", revenue: 138, view: 190 },
+  { date: "2024-04-17", revenue: 446, view: 360 },
+  { date: "2024-04-18", revenue: 364, view: 410 },
+  { date: "2024-04-19", revenue: 243, view: 180 },
+  { date: "2024-04-20", revenue: 89, view: 150 },
+  { date: "2024-04-21", revenue: 137, view: 200 },
+  { date: "2024-04-22", revenue: 224, view: 170 },
+  { date: "2024-04-23", revenue: 138, view: 230 },
+  { date: "2024-04-24", revenue: 387, view: 290 },
+  { date: "2024-04-25", revenue: 215, view: 250 },
+  { date: "2024-04-26", revenue: 75, view: 130 },
+  { date: "2024-04-27", revenue: 383, view: 420 },
+  { date: "2024-04-28", revenue: 122, view: 180 },
+  { date: "2024-04-29", revenue: 315, view: 240 },
+  { date: "2024-04-30", revenue: 454, view: 380 },
+  { date: "2024-05-01", revenue: 165, view: 220 },
+  { date: "2024-05-02", revenue: 293, view: 310 },
+  { date: "2024-05-03", revenue: 247, view: 190 },
+  { date: "2024-05-04", revenue: 385, view: 420 },
+  { date: "2024-05-05", revenue: 481, view: 390 },
+  { date: "2024-05-06", revenue: 498, view: 520 },
+  { date: "2024-05-07", revenue: 388, view: 300 },
+  { date: "2024-05-08", revenue: 149, view: 210 },
+  { date: "2024-05-09", revenue: 227, view: 180 },
+  { date: "2024-05-10", revenue: 293, view: 330 },
+  { date: "2024-05-11", revenue: 335, view: 270 },
+  { date: "2024-05-12", revenue: 197, view: 240 },
+  { date: "2024-05-13", revenue: 197, view: 160 },
+  { date: "2024-05-14", revenue: 448, view: 490 },
+  { date: "2024-05-15", revenue: 473, view: 380 },
+  { date: "2024-05-16", revenue: 338, view: 400 },
+  { date: "2024-05-17", revenue: 499, view: 420 },
+  { date: "2024-05-18", revenue: 315, view: 350 },
+  { date: "2024-05-19", revenue: 235, view: 180 },
+  { date: "2024-05-20", revenue: 177, view: 230 },
+  { date: "2024-05-21", revenue: 82, view: 140 },
+  { date: "2024-05-22", revenue: 81, view: 120 },
+  { date: "2024-05-23", revenue: 252, view: 290 },
+  { date: "2024-05-24", revenue: 294, view: 220 },
+  { date: "2024-05-25", revenue: 201, view: 250 },
+  { date: "2024-05-26", revenue: 213, view: 170 },
+  { date: "2024-05-27", revenue: 420, view: 460 },
+  { date: "2024-05-28", revenue: 233, view: 190 },
+  { date: "2024-05-29", revenue: 78, view: 130 },
+  { date: "2024-05-30", revenue: 340, view: 280 },
+  { date: "2024-05-31", revenue: 178, view: 230 },
+  { date: "2024-06-01", revenue: 178, view: 200 },
+  { date: "2024-06-02", revenue: 470, view: 410 },
+  { date: "2024-06-03", revenue: 103, view: 160 },
+  { date: "2024-06-04", revenue: 439, view: 380 },
+  { date: "2024-06-05", revenue: 88, view: 140 },
+  { date: "2024-06-06", revenue: 294, view: 250 },
+  { date: "2024-06-07", revenue: 323, view: 370 },
+  { date: "2024-06-08", revenue: 385, view: 320 },
+  { date: "2024-06-09", revenue: 438, view: 480 },
+  { date: "2024-06-10", revenue: 155, view: 200 },
+  { date: "2024-06-11", revenue: 92, view: 150 },
+  { date: "2024-06-12", revenue: 492, view: 420 },
+  { date: "2024-06-13", revenue: 81, view: 130 },
+  { date: "2024-06-14", revenue: 426, view: 380 },
+  { date: "2024-06-15", revenue: 307, view: 350 },
+  { date: "2024-06-16", revenue: 371, view: 310 },
+  { date: "2024-06-17", revenue: 475, view: 520 },
+  { date: "2024-06-18", revenue: 107, view: 170 },
+  { date: "2024-06-19", revenue: 341, view: 290 },
+  { date: "2024-06-20", revenue: 408, view: 450 },
+  { date: "2024-06-21", revenue: 169, view: 210 },
+  { date: "2024-06-22", revenue: 317, view: 270 },
+  { date: "2024-06-23", revenue: 480, view: 530 },
+  { date: "2024-06-24", revenue: 132, view: 180 },
+  { date: "2024-06-25", revenue: 141, view: 190 },
+  { date: "2024-06-26", revenue: 434, view: 380 },
+  { date: "2024-06-27", revenue: 448, view: 490 },
+  { date: "2024-06-28", revenue: 149, view: 200 },
+  { date: "2024-06-29", revenue: 103, view: 160 },
+  { date: "2024-06-30", revenue: 446, view: 400 },
 ];
 
 const chartConfig = {
   views: {
     label: "Page Views",
   },
-  desktop: {
-    label: "Desktop",
+  revenue: {
+    label: "Revenue",
     color: "var(--chart-1)",
   },
-  mobile: {
-    label: "Mobile",
+  view: {
+    label: "View",
     color: "var(--chart-1)",
   },
 } satisfies ChartConfig;
 
 const MarketplaceProfileSummarySection = () => {
   const [activeChart, setActiveChart] =
-    useState<keyof typeof chartConfig>("desktop");
+    useState<keyof typeof chartConfig>("revenue");
 
   const total = useMemo(
     () => ({
-      desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),
-      mobile: chartData.reduce((acc, curr) => acc + curr.mobile, 0),
+      revenue: chartData.reduce((acc, curr) => acc + curr.revenue, 0),
+      view: chartData.reduce((acc, curr) => acc + curr.view, 0),
     }),
     []
   );
@@ -142,13 +142,11 @@ const MarketplaceProfileSummarySection = () => {
       <Card>
         <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
           <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-            <CardTitle>Your Marketplace Summary</CardTitle>
-            <CardDescription>
-              Your Activity for the last 3 months
-            </CardDescription>
+            <CardTitle>Summary</CardTitle>
+            <CardDescription>Summary of the last 3 months</CardDescription>
           </div>
           <div className="flex">
-            {["desktop", "mobile"].map((key) => {
+            {["revenue", "view"].map((key) => {
               const chart = key as keyof typeof chartConfig;
               return (
                 <button
@@ -200,7 +198,7 @@ const MarketplaceProfileSummarySection = () => {
                 content={
                   <ChartTooltipContent
                     className="w-[150px]"
-                    nameKey="views"
+                    nameKey={activeChart}
                     labelFormatter={(value) => {
                       return new Date(value).toLocaleDateString("en-US", {
                         month: "short",
@@ -211,7 +209,11 @@ const MarketplaceProfileSummarySection = () => {
                   />
                 }
               />
-              <Bar dataKey={activeChart} fill="var(--color-chart-1)" className="opacity-80" />
+              <Bar
+                dataKey={activeChart}
+                fill="var(--color-chart-1)"
+                // className="opacity-80"
+              />
             </BarChart>
           </ChartContainer>
         </CardContent>
