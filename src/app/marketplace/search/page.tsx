@@ -1,7 +1,7 @@
 "use client";
 
 import ItemGallery from "@/components/item/item-gallery";
-import { useItems } from "@/hooks/marketplace/use-items";
+import useItems from "@/hooks/marketplace/use-items";
 
 const MarketplaceSearch = () => {
   const { data, isLoading, error } = useItems();

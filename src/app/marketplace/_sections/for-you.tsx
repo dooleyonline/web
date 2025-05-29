@@ -4,9 +4,8 @@ import ItemGallery from "@/components/item/item-gallery";
 import { Section, SectionHeader } from "@/components/site-section";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useItems } from "@/hooks/marketplace/use-items";
-import useDataFetching from "@/hooks/useDataFetching";
-import { getSubcategories } from "@/lib/subcategory-service";
+import useItems from "@/hooks/marketplace/use-items";
+import useSubcategories from "@/hooks/marketplace/use-subcategories";
 import type { Subcategory } from "@/types/subcategory";
 import { useState } from "react";
 
@@ -14,10 +13,10 @@ const ForYouSection = () => {
   const [selected, setSelected] = useState<string>("All");
 
   const {
-    data: subcategories,
+    data: subcategoriesData,
     isLoading: isSubcategoriesLoading,
     error: subcategoriesError,
-  } = useDataFetching(getSubcategories);
+  } = useSubcategories();
 
   const {
     data: itemsData,
@@ -51,7 +50,7 @@ const ForYouSection = () => {
             >
               All
             </Button>
-            {subcategories?.map((item: Subcategory, i: number) => (
+            {subcategoriesData?.map((item: Subcategory, i: number) => (
               <Button
                 key={i}
                 variant={selected === item.name ? "default" : "secondary"}

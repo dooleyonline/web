@@ -3,12 +3,11 @@
 import DynamicIcon from "@/components/dynamic-icon";
 import { Section } from "@/components/site-section";
 import { Skeleton } from "@/components/ui/skeleton";
-import useDataFetching from "@/hooks/useDataFetching";
-import { getCategories } from "@/lib/category-service";
+import useCategories from "@/hooks/marketplace/use-categories";
 import type { Category } from "@/types/category";
 
 const CategoriesSection = () => {
-  const { data: categories, isLoading, error } = useDataFetching(getCategories);
+  const { data, isLoading, error } = useCategories();
 
   if (error) {
     return <p>Error: {error}</p>;
@@ -21,7 +20,7 @@ const CategoriesSection = () => {
           ? Array.from({ length: 10 }).map((_, i) => (
               <CategoryCardSkeleton key={i} />
             ))
-          : categories?.map((item: Category, i: number) => (
+          : data?.map((item: Category, i: number) => (
               <CategoryCard key={i} {...item} />
             ))}
       </div>
