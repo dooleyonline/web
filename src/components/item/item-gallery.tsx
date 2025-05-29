@@ -17,7 +17,7 @@ const ItemGallery = ({ data, isLoading, error }: ItemGalleryProps) => {
       {isLoading
         ? Array.from({ length: 10 }).map((_, i) => <ItemCardSkeleton key={i} />)
         : data?.map((item: Item, i: number) => (
-            <ItemCard key={i} item={item} />
+            <ItemCard key={i} item={item} index={i} />
           ))}
     </div>
   );

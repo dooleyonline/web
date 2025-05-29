@@ -62,6 +62,7 @@ import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
 
 interface ItemCardProps {
   item: Item;
+  index: number;
 }
 
 function getRelativeTime(datetime: string): string {
@@ -94,7 +95,7 @@ function formatPrice(price: number): string {
   return "$" + price.toFixed(2);
 }
 
-const ItemCard = ({ item }: ItemCardProps) => {
+const ItemCard = ({ item, index }: ItemCardProps) => {
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -105,8 +106,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
       src={item.images[0]}
       alt={item.name}
       quality={40}
-      priority
       fill
+      priority={index < 10}
       sizes="(max-width: 40rem) 50vw, (max-width: 48rem) 30vw, (max-width: 64rem) 20vw, (max-width: 80rem) 15vw"
       className="size-full object-cover cursor-pointer"
     />
