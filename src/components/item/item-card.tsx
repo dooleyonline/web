@@ -52,6 +52,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME } from "@/lib/env";
 import type { Item } from "@/types/item";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { HeartIcon } from "lucide-react";
@@ -95,6 +96,17 @@ function formatPrice(price: number): string {
   return "$" + price.toFixed(2);
 }
 
+function getImageURL(src: string): string {
+  if (!CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME) {
+    console.error("CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME not configured.");
+    return "";
+  }
+
+  const domain = CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME.replace(/\/+$/, "");
+  const path = src.replace(/^\/+/, "");
+  return `https://${domain}/${path}`;
+}
+
 const ItemCard = ({ item, index }: ItemCardProps) => {
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile();
@@ -103,7 +115,7 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
 
   const thumbnail = (
     <Image
-      src={item.images[0]}
+      src={getImageURL(item.images[0])}
       alt={item.name}
       quality={40}
       fill
@@ -338,7 +350,7 @@ const ItemCarousel = memo((item: Item) => {
       return;
     }
 
-    console.log("carousel")
+    console.log("carousel");
 
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
@@ -358,7 +370,7 @@ const ItemCarousel = memo((item: Item) => {
               className="rounded-lg overflow-hidden border"
             >
               <Image
-                src={image}
+                src={getImageURL(image)}
                 alt={item.name}
                 fill
                 quality={60}
