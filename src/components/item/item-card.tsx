@@ -338,6 +338,8 @@ const ItemCarousel = memo((item: Item) => {
       return;
     }
 
+    console.log("carousel")
+
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
 
@@ -359,7 +361,8 @@ const ItemCarousel = memo((item: Item) => {
                 src={image}
                 alt={item.name}
                 fill
-                quality={90}
+                quality={60}
+                priority
                 sizes="50vw"
                 className="object-cover"
               />
