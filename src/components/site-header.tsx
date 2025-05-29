@@ -107,7 +107,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
           aria-label="Search"
           className="w-full bg-transparent outline-hidden placeholder:text-muted-foreground ml-4"
         />
-        <Button size="icon" type="submit" className="rounded-full flex-none">
+        <Button variant="outline" size="icon" type="submit" className="rounded-full flex-none">
           <ArrowRightIcon />
         </Button>
       </form>
