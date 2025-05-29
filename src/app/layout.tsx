@@ -1,6 +1,6 @@
 import { fonts } from "@/components/fonts";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
+import { SiteNavbar } from "@/components/site-navbar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 
@@ -18,13 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${fonts.sans.className} antialiased`}
-      >
+      <body className={`${fonts.sans.className} antialiased`}>
         <SidebarProvider>
           <AppSidebar variant="inset" />
           <SidebarInset>
-            <SiteHeader />
+            <SiteNavbar />
             {children}
           </SidebarInset>
         </SidebarProvider>

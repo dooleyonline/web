@@ -361,5 +361,80 @@
     "category": "Automotive",
     "subcategory": "Parts & Accessories",
     "seller": "carparts4u"
+  },
+  {
+    "id": 22,
+    "name": "MacBook Pro 16-inch 2021",
+    "description": "Apple MacBook Pro with M1 Pro chip, 16GB RAM, and 512GB SSD. Features a stunning 16-inch Liquid Retina XDR display, 10-core CPU, and 16-core GPU. Includes MagSafe charging, HDMI port, and SD card slot. Like new condition with original packaging.",
+    "images": [
+      "/sample-images/sample-5.jpg",
+      "/sample-images/sample-2.jpg",
+      "/sample-images/sample-7.jpg"
+    ],
+    "price": 1899.99,
+    "postedAt": "2023-10-22T14:30:00Z",
+    "isSold": false,
+    "views": 345,
+    "condition": 5,
+    "isNegotiable": false,
+    "category": "Electronics",
+    "subcategory": "Laptop",
+    "seller": "techenthusiast"
+  },
+  {
+    "id": 23,
+    "name": "Vintage Vinyl Record Collection",
+    "description": "Collection of 50+ classic rock vinyl records from the 60s and 70s including The Beatles, Led Zeppelin, Pink Floyd, and The Rolling Stones. All in good to excellent condition with original sleeves. Perfect for collectors or music enthusiasts looking to start a vinyl collection.",
+    "images": [
+      "/sample-images/sample-1.jpg",
+      "/sample-images/sample-8.jpg",
+      "/sample-images/sample-3.jpg"
+    ],
+    "price": 599.99,
+    "postedAt": "2023-10-23T09:15:00Z",
+    "isSold": false,
+    "views": 278,
+    "condition": 3,
+    "isNegotiable": true,
+    "category": "Entertainment",
+    "subcategory": "Music",
+    "seller": "vinylcollector68"
+  },
+  {
+    "id": 24,
+    "name": "Herman Miller Aeron Chair",
+    "description": "Ergonomic office chair with PostureFit SL back support, adjustable arms, and tilt mechanism. Size B (medium) in graphite color. Purchased 1 year ago and in excellent condition. Perfect for home office or professional workspace.",
+    "images": [
+      "/sample-images/sample-0.jpg",
+      "/sample-images/sample-4.jpg"
+    ],
+    "price": 750.00,
+    "postedAt": "2023-10-24T16:45:00Z",
+    "isSold": false,
+    "views": 189,
+    "condition": 4,
+    "isNegotiable": true,
+    "category": "Home & Garden",
+    "subcategory": "Furniture",
+    "seller": "ergonomics101"
+  },
+  {
+    "id": 25,
+    "name": "DJI Mavic Air 2 Drone",
+    "description": "Compact drone with 4K/60fps video, 48MP photos, and 34-minute flight time. Features 3-axis gimbal, obstacle avoidance sensors, and intelligent shooting modes. Includes controller, extra batteries, carrying case, and ND filters. Used only a handful of times.",
+    "images": [
+      "/sample-images/sample-9.jpg",
+      "/sample-images/sample-2.jpg",
+      "/sample-images/sample-10.jpg"
+    ],
+    "price": 649.99,
+    "postedAt": "2023-10-25T11:20:00Z",
+    "isSold": false,
+    "views": 312,
+    "condition": 5,
+    "isNegotiable": false,
+    "category": "Electronics",
+    "subcategory": "Camera",
+    "seller": "skyviewer"
   }
 ]

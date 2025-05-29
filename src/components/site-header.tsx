@@ -1,148 +1,111 @@
 "use client";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { cn } from "@/lib/utils";
-import { PlusIcon, UserIcon } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Fragment, forwardRef } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
+type SiteHeaderProps = {
+  isMainPage: boolean;
+  onSearch: (query: string) => void;
+  onBack: () => void;
+  searchPlaceholder: string;
+};
 
-export function SiteHeader() {
-  const isMobile = useIsMobile();
-  const paths = usePathname().slice(1).split("/");
-
-  function slugToTitle(slug: string) {
-    return slug
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  }
-
+const SiteHeader = ({
+  isMainPage,
+  onSearch,
+  onBack,
+  searchPlaceholder,
+}: SiteHeaderProps) => {
   return (
-    <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear px-2 justify-between w-full">
-      <div className="w-fit p-2">
-        {isMobile && <SidebarTrigger className="-ml-1 text-foreground" />}
-
-        {!isMobile && paths.length > 1 && (
-          <Breadcrumb>
-            <BreadcrumbList>
-              {paths.slice(0, -1).map((p, i) => (
-                <Fragment key={i}>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink href={"/" + p}>
-                      {slugToTitle(p)}
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  {i < paths.length - 1 && <BreadcrumbSeparator />}
-                </Fragment>
-              ))}
-              <BreadcrumbItem>
-                <BreadcrumbPage>
-                  {slugToTitle(paths.slice(-1)[0])}
-                </BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+    <motion.header
+      animate={
+        isMainPage
+          ? {
+              paddingTop: "180px",
+              borderBottomWidth: "1px",
+            }
+          : {
+              paddingTop: "24px",
+              borderBottomWidth: "0px",
+            }
+      }
+      className="border-b px-4 sm:px-6 py-6 rounded-b-4xl w-full"
+    >
+      <AnimatePresence>
+        {isMainPage && (
+          <motion.h1
+            initial={{ opacity: 0, height: "0" }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: "0" }}
+            className="block overflow-hidden leading-normal"
+          >
+            Marketplace
+          </motion.h1>
         )}
-      </div>
+      </AnimatePresence>
 
-      <NavigationMenu className="max-w-[500px] flex-1 justify-end w-full">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              <UserIcon size={24} />
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <Link
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
-                      href="/"
-                    >
-                      {/* <Icons.logo className="h-6 w-6" /> */}
-                      <Avatar>
-                        <AvatarImage
-                          src="https://github.com/shadcn.png"
-                          alt="@shadcn"
-                        />
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        @ecosbcae
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Passionate collector and seller with a keen eye for
-                        unique items
-                      </p>
-                    </Link>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/docs" title="Saved Items">
-                  View items you&apos;ve saved for later
-                </ListItem>
-                <ListItem href="/docs/installation" title="My Listings">
-                  Edit and track items you&apos;ve listed for sale
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Button asChild variant={"default"}>
-              <Link href="/docs" passHref>
-                <PlusIcon size={16} />
-                Sell My Item
-              </Link>
-            </Button>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-    </header>
-  );
-}
-
-const ListItem = forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+      <div className="flex items-center">
+        <AnimatePresence>
+          {!isMainPage && (
+            <motion.div
+              key="modal"
+              animate={{ width: "auto", marginRight: "8px" }}
+              exit={{ width: "0px", marginRight: "0px" }}
+            >
+              <Button asChild onClick={onBack} variant="ghost" size="icon">
+                <ChevronLeftIcon className="text-muted-foreground" />
+              </Button>
+            </motion.div>
           )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
+        </AnimatePresence>
+        <SearchBar onSearch={onSearch} searchPlaceholder={searchPlaceholder} />
+      </div>
+    </motion.header>
   );
-});
-ListItem.displayName = "ListItem";
+};
+
+type SiteSearchBarProps = Pick<
+  SiteHeaderProps,
+  "onSearch" | "searchPlaceholder"
+>;
+
+const SearchBar = ({ onSearch, searchPlaceholder }: SiteSearchBarProps) => {
+  const [input, setInput] = useState("");
+  const searchParams = useSearchParams();
+  const query = searchParams.get("q");
+
+  useEffect(() => {
+    if (query) setInput(query);
+  }, [query]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch(input);
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      id="search-bar"
+      className="flex items-center gap-2 w-full bg-sidebar rounded-full p-2 border border-sidebar-border"
+    >
+      <input
+        id="search-input"
+        type="text"
+        placeholder={searchPlaceholder}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        aria-label="Search"
+        className="w-full bg-transparent outline-hidden placeholder:text-muted-foreground ml-4"
+      />
+      <Button size="icon" type="submit" className="rounded-full flex-none">
+        <ArrowRightIcon />
+      </Button>
+    </form>
+  );
+};
+
+export default SiteHeader;

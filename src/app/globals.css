@@ -132,19 +132,19 @@
   }
 
   main {
-    @apply p-4 sm:p-6;
+    @apply p-4 sm:px-6;
   }
 
   h1 {
-    @apply text-4xl leading-10 font-bold tracking-tight;
+    @apply text-4xl leading-tight font-semibold tracking-tight sm:text-5xl md:text-6xl;
   }
 
   h2 {
-    @apply text-2xl leading-8 font-semibold tracking-tight;
+    @apply text-xl leading-tight font-semibold tracking-tight sm:text-2xl;
   }
 
   h3 {
-    @apply text-lg leading-7 font-semibold;
+    @apply text-lg leading-tight font-semibold;
   }
 
   button {

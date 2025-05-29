@@ -56,7 +56,7 @@ import type { Item } from "@/types/item";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 
 import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
 
@@ -212,8 +212,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
   );
 };
 
-const ItemDrawer = (item: Item) => {
-  const relativeTime = getRelativeTime(item.postedAt);
+const ItemDrawer = memo((item: Item) => {
+  const relativeTime = useMemo(
+    () => getRelativeTime(item.postedAt),
+    [item.postedAt]
+  );
 
   return (
     <DrawerContent className="h-[calc(100vh-20px)] p-4">
@@ -263,10 +266,14 @@ const ItemDrawer = (item: Item) => {
       </ScrollArea>
     </DrawerContent>
   );
-};
+});
+ItemDrawer.displayName = "ItemDrawer";
 
-const ItemDialog = (item: Item) => {
-  const relativeTime = getRelativeTime(item.postedAt);
+const ItemDialog = memo((item: Item) => {
+  const relativeTime = useMemo(
+    () => getRelativeTime(item.postedAt),
+    [item.postedAt]
+  );
 
   return (
     <DialogContent>
@@ -317,9 +324,10 @@ const ItemDialog = (item: Item) => {
       </ScrollArea>
     </DialogContent>
   );
-};
+});
+ItemDialog.displayName = "ItemDialog";
 
-const ItemCarousel = (item: Item) => {
+const ItemCarousel = memo((item: Item) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -367,7 +375,8 @@ const ItemCarousel = (item: Item) => {
       </div>
     </Carousel>
   );
-};
+});
+ItemCarousel.displayName = "ItemCarousel";
 
 export const ItemCardSkeleton = () => {
   return (

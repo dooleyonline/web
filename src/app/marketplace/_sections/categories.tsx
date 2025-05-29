@@ -1,7 +1,7 @@
 "use client";
 
 import DynamicIcon from "@/components/dynamic-icon";
-import { Section } from "@/components/section/section";
+import { Section } from "@/components/site-section";
 import { Skeleton } from "@/components/ui/skeleton";
 import useDataFetching from "@/hooks/useDataFetching";
 import { getCategories } from "@/lib/category-service";
@@ -31,10 +31,10 @@ const CategoriesSection = () => {
 
 const CategoryCard = (category: Category) => {
   return (
-    <button className="shadow-xs flex h-20 flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24">
+    <button className="shadow-xs flex h-[72px] flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24">
       <DynamicIcon
         name={category.icon}
-        className="size-4 sm:size-6 text-muted-foreground"
+        className="size-6 text-muted-foreground"
       />
       <span className="block text-left text-sm font-semibold leading-none">
         {category.name}

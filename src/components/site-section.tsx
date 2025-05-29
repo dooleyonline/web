@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 
-interface SectionProps {
+type SectionProps = {
   id: string;
   children: ReactNode;
-}
+};
 
 export const Section = ({ id, children }: SectionProps) => {
   return (
@@ -13,19 +13,25 @@ export const Section = ({ id, children }: SectionProps) => {
   );
 };
 
-interface SectionHeaderProps {
+type SectionHeaderProps = {
   title: string;
   subtitle?: string;
-}
+  className?: string;
+};
 
-export const SectionHeader = ({ title, subtitle }: SectionHeaderProps) => {
+export const SectionHeader = ({
+  title,
+  subtitle,
+  className,
+}: SectionHeaderProps) => {
   return (
-    <div className="mb-4">
+    <div className={className}>
       <h2>{title}</h2>
       {subtitle && (
-        <p className="text-sm font-medium text-muted-foreground">{subtitle}</p>
+        <p className={"text-sm font-medium text-muted-foreground"}>
+          {subtitle}
+        </p>
       )}
     </div>
   );
 };
-

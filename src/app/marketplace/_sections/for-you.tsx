@@ -1,7 +1,7 @@
 "use client";
 
 import ItemGallery from "@/components/item/item-gallery";
-import { Section, SectionHeader } from "@/components/section/section";
+import { Section, SectionHeader } from "@/components/site-section";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import useDataFetching from "@/hooks/useDataFetching";
@@ -30,6 +30,7 @@ const ForYouSection = () => {
       <SectionHeader
         title="For You"
         subtitle="Picked based on your recent search. Updated daily."
+        className="mb-4"
       />
 
       {/* SUBCATEGORIES */}
@@ -60,7 +61,11 @@ const ForYouSection = () => {
       </div>
 
       {/* GALLERY */}
-      <ItemGallery {...itemsData} />
+      <ItemGallery
+        data={itemsData.data ? itemsData.data.slice(0, 10) : null}
+        isLoading={itemsData.isLoading}
+        error={itemsData.error}
+      />
     </Section>
   );
 };
