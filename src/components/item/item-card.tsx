@@ -56,6 +56,7 @@ import { CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME } from "@/lib/env";
 import type { Item } from "@/types/item";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { HeartIcon } from "lucide-react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { memo, useEffect, useMemo, useState } from "react";
 
@@ -236,7 +237,7 @@ const ItemDrawer = memo((item: Item) => {
     <DrawerContent className="h-[calc(100svh-20px)] p-4 gap-2 flex flex-col">
       <div className="h-full overflow-scroll flex flex-col gap-2">
         <ItemCarousel {...item} />
-        <DrawerHeader className="text-left p-0 grow mb-2">
+        <DrawerHeader className="text-left p-0 grow mb-2 flex flex-col">
           <DrawerTitle className="text-2xl font-medium">
             {item.name}
           </DrawerTitle>
@@ -348,10 +349,10 @@ const ItemCarousel = memo((item: Item) => {
     }
 
     setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
+    setCurrent(api.selectedScrollSnap());
 
     api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
+      setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
 
@@ -378,8 +379,21 @@ const ItemCarousel = memo((item: Item) => {
       </CarouselContent>
       <div className="flex justify-between mt-2">
         <CarouselPrevious className="relative translate-x-0 translate-y-0 left-0 top-0" />
-        <div className="py-2 text-center text-sm text-muted-foreground">
-          Image {current} of {count}
+        <div className="py-2 flex gap-1 items-center">
+          {[...Array(count)].map((_, i) => (
+            <motion.div
+              key={i}
+              animate={
+                i === current
+                  ? {
+                      width: 12,
+                      opacity: 0.8,
+                    }
+                  : { width: 8, opacity: 0.2 }
+              }
+              className="h-2 rounded-full border bg-muted-foreground"
+            />
+          ))}
         </div>
         <CarouselNext className="relative translate-x-0 translate-y-0 left-0 top-0" />
       </div>
