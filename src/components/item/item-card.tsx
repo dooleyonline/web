@@ -236,7 +236,7 @@ const ItemDrawer = memo((item: Item) => {
     <DrawerContent className="h-[calc(100svh-20px)] p-4 gap-2 flex flex-col">
       <div className="h-full overflow-scroll flex flex-col gap-2">
         <ItemCarousel {...item} />
-        <DrawerHeader className="text-left p-0 grow">
+        <DrawerHeader className="text-left p-0 grow mb-2">
           <DrawerTitle className="text-2xl font-medium">
             {item.name}
           </DrawerTitle>
@@ -291,7 +291,7 @@ const ItemDialog = memo((item: Item) => {
       <div className="h-full overflow-scroll flex flex-col gap-2">
         <ItemCarousel {...item} />
 
-        <DialogHeader className="text-left p-0 grow">
+        <DialogHeader className="text-left p-0 grow mb-2">
           <DialogTitle className="text-2xl font-medium">
             {item.name}
           </DialogTitle>
