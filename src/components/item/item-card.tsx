@@ -234,9 +234,9 @@ const ItemDrawer = memo((item: Item) => {
 
   return (
     <DrawerContent className="h-[calc(100svh-20px)] p-4 gap-2 flex flex-col">
-      <div className="h-full overflow-scroll">
+      <div className="h-full overflow-scroll flex flex-col gap-2">
         <ItemCarousel {...item} />
-        <DrawerHeader className="text-left p-0 pt-2">
+        <DrawerHeader className="text-left p-0 grow">
           <DrawerTitle className="text-2xl font-medium">
             {item.name}
           </DrawerTitle>
@@ -248,7 +248,7 @@ const ItemDrawer = memo((item: Item) => {
             {formatPrice(item.price)}
           </span>
 
-          <DrawerDescription className="text-secondary-foreground text-base mb-4!">
+          <DrawerDescription className="text-secondary-foreground text-base">
             {item.description}
           </DrawerDescription>
         </DrawerHeader>
@@ -288,10 +288,10 @@ const ItemDialog = memo((item: Item) => {
 
   return (
     <DialogContent className="h-[min(90svh,1000px)] flex flex-col gap-2">
-      <div className="h-full overflow-scroll">
+      <div className="h-full overflow-scroll flex flex-col gap-2">
         <ItemCarousel {...item} />
 
-        <DialogHeader className="text-left p-0 pt-2">
+        <DialogHeader className="text-left p-0 grow">
           <DialogTitle className="text-2xl font-medium">
             {item.name}
           </DialogTitle>
@@ -303,7 +303,7 @@ const ItemDialog = memo((item: Item) => {
             {formatPrice(item.price)}
           </span>
 
-          <DialogDescription className="text-secondary-foreground text-base mb-4!">
+          <DialogDescription className="text-secondary-foreground text-base">
             {item.description}
           </DialogDescription>
         </DialogHeader>
@@ -356,7 +356,7 @@ const ItemCarousel = memo((item: Item) => {
   }, [api]);
 
   return (
-    <Carousel setApi={setApi} className="w-full mb-3">
+    <Carousel setApi={setApi}>
       <CarouselContent>
         {item.images.map((image, index) => (
           <CarouselItem key={index}>
