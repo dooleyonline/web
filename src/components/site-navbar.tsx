@@ -27,7 +27,7 @@ import { Fragment, forwardRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 
-type SiteNavbarProps = {
+export type SiteNavbarProps = {
   data: {
     username: string;
     profile: string;

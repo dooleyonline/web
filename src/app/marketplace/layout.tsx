@@ -1,4 +1,4 @@
-import { SiteNavbar } from "@/components/site-navbar";
+import { SiteNavbar, type SiteNavbarProps } from "@/components/site-navbar";
 import { Metadata } from "next";
 
 import HeaderSection from "./_sections/header";
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Find what you need. Sell what you don't",
 };
 
-const navData = {
+const navData: SiteNavbarProps["data"] = {
   username: "John Doe",
   profile: "/marketplace/profile",
   avatar: "https://github.com/shadcn.png",
@@ -30,8 +30,8 @@ const navData = {
   ],
   button: {
     href: "/marketplace/new",
-    text: "Sell My Stuff"
-  }
+    text: "Sell My Stuff",
+  },
 };
 
 const MarketplaceLayout = ({
