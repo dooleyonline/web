@@ -121,7 +121,7 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
       fill
       priority={index < 10}
       loading="eager"
-      sizes="(max-width: 640px) 50vw, (max-width: 768px) 20vw, (max-width: 1024px) 18vw, (max-width: 1280px) 15vw, (max-width: 1920) 12vw, 50vw"
+      sizes="(max-width: 640px) 50vw, (max-width: 768px) 20vw, (max-width: 1024px) 18vw, (max-width: 1280px) 15vw, (max-width: 1920) 12vw, 350px"
       className="size-full object-cover cursor-pointer"
     />
   );
