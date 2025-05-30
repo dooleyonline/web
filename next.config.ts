@@ -4,9 +4,16 @@ const domain = process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME;
 
 const nextConfig: NextConfig = {
   images: {
-    domains: domain ? [domain] : [],
+    remotePatterns: domain
+      ? [
+          {
+            protocol: "https",
+            hostname: domain,
+            pathname: "/**",
+          },
+        ]
+      : [],
   },
-  /* config options here */
 };
 
 export default nextConfig;
