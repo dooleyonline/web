@@ -288,7 +288,7 @@ const ItemDialog = memo((item: Item) => {
 
   return (
     <DialogContent className="h-[min(90svh,1000px)] flex flex-col gap-2">
-      <div className="h-full overflow-scroll flex flex-col gap-2">
+      <div className="h-full overflow-auto flex flex-col gap-2">
         <ItemCarousel {...item} />
 
         <DialogHeader className="text-left p-0 grow mb-2">
