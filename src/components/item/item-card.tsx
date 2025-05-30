@@ -234,7 +234,7 @@ const ItemDrawer = memo((item: Item) => {
 
   return (
     <DrawerContent className="h-[calc(100svh-20px)] p-4 gap-2 flex flex-col">
-      <div className="h-full overflow-scroll flex flex-col gap-2">
+      <div className="h-full overflow-auto scroll flex flex-col gap-2">
         <ItemCarousel {...item} />
         <DrawerHeader className="text-left p-0 grow mb-2 flex flex-col">
           <DrawerTitle className="text-2xl font-medium">
