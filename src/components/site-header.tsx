@@ -49,7 +49,7 @@ const SiteHeader = (props: SiteHeaderProps) => {
             initial={{ opacity: 0, height: "0" }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: "0" }}
-            className="block overflow-hidden leading-relaxed"
+            className="font-display block overflow-hidden leading-relaxed"
           >
             {title}
           </motion.h1>

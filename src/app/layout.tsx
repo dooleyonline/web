@@ -16,6 +16,10 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const fontVariables = Object.entries(fonts)
+  .map(([, v]) => v.variable)
+  .join(" ");
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fonts.sans.className} antialiased h-svh`}>
+      <body className={`${fontVariables} font-sans antialiased h-svh`}>
         <SidebarProvider>
           <AppSidebar variant="inset" />
           <SidebarInset>{children}</SidebarInset>

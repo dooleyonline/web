@@ -1,22 +1,37 @@
-import { Geist, Geist_Mono, MuseoModerno } from "next/font/google";
+import {
+  Funnel_Display,
+  Geist,
+  Geist_Mono,
+  MuseoModerno,
+} from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const sans = Geist({
+  variable: "--font-sans",
+  weight: "variable",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const mono = Geist_Mono({
+  variable: "--font-mono",
+  weight: "variable",
   subsets: ["latin"],
 });
 
-const museoModerno = MuseoModerno({
-  variable: "--font-museomoderno",
+const display = Funnel_Display({
+  variable: "--font-display",
+  weight: "variable",
+  subsets: ["latin"],
+});
+
+const logo = MuseoModerno({
+  variable: "--font-logo",
+  weight: "500",
   subsets: ["latin"],
 });
 
 export const fonts = {
-  sans: geistSans,
-  mono: geistMono,
-  logo: museoModerno,
+  sans,
+  mono,
+  display,
+  logo,
 };
