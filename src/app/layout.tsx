@@ -4,6 +4,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
+import { SiteNavbar } from "@/components/site-navbar";
 
 export const metadata: Metadata = {
   title: "DooleyOnline",
@@ -30,7 +31,10 @@ export default function RootLayout({
       <body className={`${fontVariables} font-sans antialiased h-svh`}>
         <SidebarProvider>
           <AppSidebar variant="inset" />
-          <SidebarInset>{children}</SidebarInset>
+          <SidebarInset>
+            <SiteNavbar />
+            {children}
+          </SidebarInset>
         </SidebarProvider>
       </body>
     </html>

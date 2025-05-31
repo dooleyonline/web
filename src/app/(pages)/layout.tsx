@@ -8,7 +8,6 @@ const Layout = ({
 }>) => {
   return (
     <>
-      <SiteNavbar />
       <SiteHeader />
       {children}
     </>

@@ -32,6 +32,9 @@ export function SiteNavbar() {
   const isMobile = useIsMobile();
   const { paths, mainPage, navData } = useNav();
 
+  const isLinkVisible = navData.links.length > 0;
+  const isButtonVisible = navData.button.href !== "";
+
   const user = {
     fName: "John",
     lName: "Doe",
@@ -75,62 +78,66 @@ export function SiteNavbar() {
 
       <NavigationMenu className="max-w-[500px] flex-1 justify-end w-full">
         <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>
-              <Link href={`/${mainPage}/`}>
-                <UserIcon size={24} />
-              </Link>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <Link
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
-                      href={profileLink}
-                    >
-                      {/* <Icons.logo className="h-6 w-6" /> */}
-                      <Avatar>
-                        <AvatarImage src={user.avatar} alt="User avatar" />
-                        <AvatarFallback>
-                          {(user.fName + user.lName).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="mb-1 mt-4 text-lg font-medium">
-                        {user.id}
-                      </div>
-                      <ul>
-                        {user.summary.map((e, i) => (
-                          <li
-                            key={i}
-                            className="text-sm leading-tight flex justify-between"
-                          >
-                            <span className="text-muted-foreground">
-                              {e.key}
-                            </span>
-                            <span>{e.val}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </Link>
-                  </NavigationMenuLink>
-                </li>
-                {navData.links.map((link, i) => (
-                  <ListItem key={i} href={link.href} title={link.title}>
-                    {link.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Button asChild variant={"default"}>
-              <Link href={navData.button.href} passHref>
-                <PlusIcon size={16} />
-                {navData.button.text}
-              </Link>
-            </Button>
-          </NavigationMenuItem>
+          {isLinkVisible && (
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>
+                <Link href={`/${mainPage}/`}>
+                  <UserIcon size={24} />
+                </Link>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
+                        href={profileLink}
+                      >
+                        {/* <Icons.logo className="h-6 w-6" /> */}
+                        <Avatar>
+                          <AvatarImage src={user.avatar} alt="User avatar" />
+                          <AvatarFallback>
+                            {(user.fName + user.lName).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="mb-1 mt-4 text-lg font-medium">
+                          {user.id}
+                        </div>
+                        <ul>
+                          {user.summary.map((e, i) => (
+                            <li
+                              key={i}
+                              className="text-sm leading-tight flex justify-between"
+                            >
+                              <span className="text-muted-foreground">
+                                {e.key}
+                              </span>
+                              <span>{e.val}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  {navData.links.map((link, i) => (
+                    <ListItem key={i} href={link.href} title={link.title}>
+                      {link.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          )}
+          {isButtonVisible && (
+            <NavigationMenuItem>
+              <Button asChild variant={"default"}>
+                <Link href={navData.button.href} passHref>
+                  <PlusIcon size={16} />
+                  {navData.button.text}
+                </Link>
+              </Button>
+            </NavigationMenuItem>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
     </nav>
