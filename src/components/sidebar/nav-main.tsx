@@ -35,12 +35,10 @@ export function NavMain({
                 color:
                   path === item.url ? "var(--sidebar-accent-foreground)" : "",
               }}
+              className="cursor-pointer overflow-hidden rounded-md"
             >
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  tooltip={item.title}
-                  className="cursor-pointer"
-                >
+                <SidebarMenuButton tooltip={item.title}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                 </SidebarMenuButton>

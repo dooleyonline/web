@@ -80,12 +80,6 @@ const SearchBar = (props: SiteSearchBarProps) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (input.length === 0) {
-      // return to main page if no query
-      router.push(`${mainPage}`);
-      return;
-    }
     router.push(`/${mainPage}/search?q=${encodeURIComponent(input)}`);
   };
 
@@ -94,8 +88,13 @@ const SearchBar = (props: SiteSearchBarProps) => {
   };
 
   useEffect(() => {
-    if (query) setInput(query);
-  }, [query]);
+    if (query) {
+      setInput(query);
+    } else {
+      // return to main page if no query
+      router.push(`/${mainPage}`);
+    }
+  }, [query, mainPage, router]);
 
   return (
     <div className={`${className || ""} flex items-center w-full`}>
@@ -132,7 +131,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
           variant="outline"
           size="icon"
           type="submit"
-          disabled={input.length === 0}
+          disabled={input.length === 0 || mainPage !== "marketplace"} // temporary disable for non-marketplace pages
           className="rounded-full flex-none"
         >
           <ArrowRightIcon />

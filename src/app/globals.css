@@ -33,7 +33,7 @@
   --sidebar-foreground: var(--color-foreground);
   --sidebar-primary: var(--color-primary);
   --sidebar-primary-foreground: var(--color-primary-foreground);
-  --sidebar-accent: var(--color-secondary);
+  --sidebar-accent: oklch(96.7% 0.003 264.542);
   --sidebar-accent-foreground: var(--color-secondary-foreground);
   --sidebar-border: var(--color-border);
   --sidebar-ring: var(--color-primary);
