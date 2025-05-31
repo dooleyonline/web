@@ -7,25 +7,20 @@ export default function useNav() {
   const { paths, mainPage, isMainPage } = useMemo(() => {
     const lp = pathname.toLowerCase();
     const p = lp.slice(1).split("/");
+
+    if (p[0] === "") {
+      console.error("Can't load useNav in a root page!");
+    } else if (!(p[0] in nav)) {
+      console.error(`Unknown main page: ${p[0]}`); // most likely never gonna trigger since invalid urls are handled by Not Found page
+    }
+
     return {
       pathname: lp,
       paths: p,
-      mainPage: p[0] || "",
+      mainPage: p[0] as keyof typeof nav,
       isMainPage: p.length === 1 && p[0] !== "",
     };
   }, [pathname]);
-
-  if (mainPage !== "" && !(mainPage in nav)) {
-    console.log(mainPage);
-    console.error("No sugh page!");
-  }
-
-  const navData =
-    mainPage in nav ? nav[mainPage as keyof typeof nav] : undefined;
-
-  if (!navData) {
-    console.error("Could not find navigation data for", mainPage);
-  }
 
   return useMemo(
     () => ({
@@ -33,9 +28,10 @@ export default function useNav() {
       paths,
       mainPage,
       isMainPage,
-      navData,
+      navData: nav[mainPage],
+      pages: Object.keys(nav),
     }),
-    [pathname, paths, mainPage, isMainPage, navData]
+    [pathname, paths, mainPage, isMainPage]
   );
 }
 

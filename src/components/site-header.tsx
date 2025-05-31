@@ -12,7 +12,7 @@ import React, { Suspense, useEffect, useState } from "react";
 const SiteHeader = () => {
   const isMobile = useIsMobile();
 
-  const { pathname, mainPage, isMainPage } = useNav();
+  const { pathname, mainPage, isMainPage, pages } = useNav();
   const isVisible = isMainPage || pathname.includes("search");
 
   if (!isVisible) return;
@@ -56,6 +56,7 @@ const SiteHeader = () => {
         <SearchBar
           isMainPage={isMainPage}
           mainPage={mainPage}
+          pages={pages}
           searchPlaceholder="Search for anything ..."
         />
       </Suspense>
@@ -67,20 +68,26 @@ type SiteSearchBarProps = {
   isMainPage: boolean;
   mainPage: string;
   searchPlaceholder: string;
+  pages: string[];
   className?: string;
 };
 
 const SearchBar = (props: SiteSearchBarProps) => {
-  const { searchPlaceholder, isMainPage, mainPage, className } = props;
+  const { searchPlaceholder, isMainPage, mainPage, className, pages } = props;
   const router = useRouter();
   const isMobile = useIsMobile();
-  const [input, setInput] = useState("");
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
+  const [input, setInput] = useState(
+    pages.reduce((acc: Record<string, string>, page) => {
+      acc[page] = "";
+      return acc;
+    }, {})
+  );
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/${mainPage}/search?q=${encodeURIComponent(input)}`);
+    router.push(`/${mainPage}/search?q=${encodeURIComponent(input[mainPage])}`);
   };
 
   const handleBack = () => {
@@ -89,7 +96,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
 
   useEffect(() => {
     if (query) {
-      setInput(query);
+      setInput((prev) => ({ ...prev, [mainPage]: query }));
     } else {
       // return to main page if no query
       router.push(`/${mainPage}`);
@@ -122,8 +129,10 @@ const SearchBar = (props: SiteSearchBarProps) => {
           id="search-input"
           type="text"
           placeholder={searchPlaceholder}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          value={input[mainPage]}
+          onChange={(e) =>
+            setInput((prev) => ({ ...prev, [mainPage]: e.target.value }))
+          }
           aria-label="Search"
           className="w-full bg-transparent outline-hidden placeholder:text-muted-foreground ml-4"
         />
@@ -131,7 +140,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
           variant="outline"
           size="icon"
           type="submit"
-          disabled={input.length === 0 || mainPage !== "marketplace"} // temporary disable for non-marketplace pages
+          disabled={input[mainPage].length === 0 || mainPage !== "marketplace"} // temporary disable for non-marketplace pages
           className="rounded-full flex-none"
         >
           <ArrowRightIcon />
