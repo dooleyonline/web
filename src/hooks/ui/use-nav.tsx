@@ -8,16 +8,14 @@ export default function useNav() {
     const lp = pathname.toLowerCase();
     const p = lp.slice(1).split("/");
 
-    if (p[0] === "") {
-      console.error("Can't load useNav in a root page!");
-    } else if (!(p[0] in nav)) {
-      console.error(`Unknown main page: ${p[0]}`); // most likely never gonna trigger since invalid urls are handled by Not Found page
+    if (p[0] !== "" && !(p[0] in nav)) {
+      console.error(`Unknown page: ${p[0]}`); // most likely never gonna trigger since invalid urls are handled by Not Found page
     }
 
     return {
       pathname: lp,
       paths: p,
-      mainPage: p[0] as keyof typeof nav,
+      mainPage: p[0] === "" ? "home" : (p[0] as keyof typeof nav),
       isMainPage: p.length === 1 && p[0] !== "",
     };
   }, [pathname]);
@@ -35,7 +33,31 @@ export default function useNav() {
   );
 }
 
-const nav = {
+const nav: Record<
+  string,
+  {
+    profile: string;
+    links: { href: string; title: string; description: string }[];
+    button: { href: string; text: string };
+  }
+> = {
+  home: {
+    profile: "",
+    links: [],
+    button: {
+      href: "",
+      text: "",
+    },
+  },
+  // temporary for api routes
+  api: {
+    profile: "",
+    links: [],
+    button: {
+      href: "",
+      text: "",
+    },
+  },
   marketplace: {
     profile: "/marketplace/profile",
     links: [

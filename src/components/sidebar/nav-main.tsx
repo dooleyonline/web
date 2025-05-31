@@ -7,7 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import useNav from "@/hooks/use-nav";
+import useNav from "@/hooks/ui/use-nav";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 

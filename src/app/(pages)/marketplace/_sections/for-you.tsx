@@ -4,8 +4,8 @@ import ItemGallery from "@/components/item/item-gallery";
 import { Section, SectionHeader } from "@/components/site-section";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import useItems from "@/hooks/marketplace/use-items";
-import useSubcategories from "@/hooks/marketplace/use-subcategories";
+import useItems from "@/hooks/api/marketplace/use-items";
+import useSubcategories from "@/hooks/api/marketplace/use-subcategories";
 import type { Subcategory } from "@/types/subcategory";
 import { useState } from "react";
 
@@ -22,7 +22,7 @@ const ForYouSection = () => {
     data: itemsData,
     isLoading: isItemsLoading,
     error: itemsError,
-  } = useItems();
+  } = useItems({ q: "for" });
 
   if (subcategoriesError) {
     return <p>Error: {subcategoriesError}</p>;
@@ -64,7 +64,7 @@ const ForYouSection = () => {
 
       {/* GALLERY */}
       <ItemGallery
-        data={itemsData?.slice(0, 10) || null}
+        data={itemsData?.data || null}
         isLoading={isItemsLoading}
         error={itemsError}
       />

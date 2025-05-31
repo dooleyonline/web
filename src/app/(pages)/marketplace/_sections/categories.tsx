@@ -3,7 +3,7 @@
 import DynamicIcon from "@/components/dynamic-icon";
 import { Section } from "@/components/site-section";
 import { Skeleton } from "@/components/ui/skeleton";
-import useCategories from "@/hooks/marketplace/use-categories";
+import useCategories from "@/hooks/api/marketplace/use-categories";
 import type { Category } from "@/types/category";
 
 const CategoriesSection = () => {

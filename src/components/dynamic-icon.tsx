@@ -7,11 +7,11 @@ import { memo } from "react";
 
 type IconName = keyof typeof dynamicIconImports;
 
-interface DynamicIconProps {
+type DynamicIconProps = {
   name: string;
   className?: string;
   [key: string]: unknown;
-}
+};
 
 const DynamicIcon = memo(({ name, ...props }: DynamicIconProps) => {
   const Icon = dynamic(dynamicIconImports[name as IconName], {

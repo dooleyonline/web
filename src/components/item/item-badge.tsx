@@ -1,8 +1,8 @@
 import { Badge } from "../ui/badge";
 
-interface ItemConditionBadgeProps {
+type ItemConditionBadgeProps = {
   condition: number;
-}
+};
 
 export const ItemConditionBadge = ({ condition }: ItemConditionBadgeProps) => {
   const props = [
@@ -24,9 +24,9 @@ export const ItemConditionBadge = ({ condition }: ItemConditionBadgeProps) => {
   );
 };
 
-interface ItemNegotiableBadgeProps {
+type ItemNegotiableBadgeProps = {
   negotiable: boolean;
-}
+};
 
 export const ItemNegotiableBadge = ({
   negotiable,

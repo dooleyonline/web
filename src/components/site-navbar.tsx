@@ -17,9 +17,10 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useIsMobile } from "@/hooks/use-mobile";
-import useNav from "@/hooks/use-nav";
-import { cn, slugToTitle } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/ui/use-mobile";
+import useNav from "@/hooks/ui/use-nav";
+import { cn } from "@/lib/utils/cn";
+import { slugToTitle } from "@/lib/utils/slug-to-title";
 import { PlusIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { Fragment, forwardRef } from "react";

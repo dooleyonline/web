@@ -50,7 +50,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/ui/use-mobile";
 import { CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME } from "@/lib/env";
 import type { Item } from "@/types/item";
 import { DialogTitle } from "@radix-ui/react-dialog";
@@ -61,7 +61,7 @@ import { memo, useEffect, useMemo, useState } from "react";
 
 import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
 
-interface ItemCardProps {
+type ItemCardProps = {
   item: Item;
   index: number;
 }
@@ -226,7 +226,7 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
   );
 };
 
-const ItemDrawer = memo((item: Item) => {
+export const ItemDrawer = memo((item: Item) => {
   const relativeTime = useMemo(
     () => getRelativeTime(item.postedAt),
     [item.postedAt]
@@ -280,7 +280,7 @@ const ItemDrawer = memo((item: Item) => {
 });
 ItemDrawer.displayName = "ItemDrawer";
 
-const ItemDialog = memo((item: Item) => {
+export const ItemDialog = memo((item: Item) => {
   const relativeTime = useMemo(
     () => getRelativeTime(item.postedAt),
     [item.postedAt]
@@ -406,7 +406,7 @@ const ItemCarousel = memo((item: Item) => {
 });
 ItemCarousel.displayName = "ItemCarousel";
 
-export const ItemCardSkeleton = (() => {
+export const ItemCardSkeleton = () => {
   return (
     <Card className="overflow-hidden border-none rounded-none shadow-none m-1">
       <CardHeader className="relative overflow-hidden p-0 rounded-md mb-2">
@@ -423,6 +423,6 @@ export const ItemCardSkeleton = (() => {
       </CardFooter>
     </Card>
   );
-});
+};
 
 export default ItemCard;

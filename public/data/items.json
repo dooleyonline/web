@@ -2,12 +2,8 @@
   {
     "id": 1,
     "name": "Apple Watch Series 7",
-    "description": "The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking.\n Water-resistant design with always-on Retina display.\nPerfect for fitness enthusiasts and tech lovers.The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking. Water-resistant design with always-on Retina display. Perfect for fitness enthusiasts and tech lovers.The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking. Water-resistant design with always-on Retina display. Perfect for fitness enthusiasts and tech lovers. Quis esse cillum magna ipsum sunt laboris. Amet est est amet aute do proident amet irure aliqua consectetur nostrud qui. Ea magna Lorem elit id laborum dolor ex. Pariatur officia nisi occaecat eu. Magna culpa duis elit do pariatur aute anim officia minim minim laboris Lorem dolor adipisicing fugiat. Adipisicing Lorem proident elit esse aliquip commodo velit. Nulla minim esse proident laboris officia Lorem laborum incididunt cillum. Mollit cupidatat amet id in. Ipsum veniam fugiat esse consequat. Nulla ex consectetur pariatur magna id velit magna. Pariatur excepteur consequat qui nisi id nulla incididunt magna. Occaecat incididunt culpa dolore occaecat magna eiusmod Lorem amet quis ea pariatur laboris.",
-    "images": [
-      "/sample-3.jpg",
-      "/sample-7.jpg",
-      "/sample-1.jpg"
-    ],
+    "description": "The trending Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking.\n Water-resistant design with always-on Retina display.\nPerfect for fitness enthusiasts and tech lovers.The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking. Water-resistant design with always-on Retina display. Perfect for fitness enthusiasts and tech lovers.The latest Apple Watch with advanced health features including ECG, blood oxygen monitoring, and sleep tracking. Water-resistant design with always-on Retina display. Perfect for fitness enthusiasts and tech lovers. Quis esse cillum magna ipsum sunt laboris. Amet est est amet aute do proident amet irure aliqua consectetur nostrud qui. Ea magna Lorem elit id laborum dolor ex. Pariatur officia nisi occaecat eu. Magna culpa duis elit do pariatur aute anim officia minim minim laboris Lorem dolor adipisicing fugiat. Adipisicing Lorem proident elit esse aliquip commodo velit. Nulla minim esse proident laboris officia Lorem laborum incididunt cillum. Mollit cupidatat amet id in. Ipsum veniam fugiat esse consequat. Nulla ex consectetur pariatur magna id velit magna. Pariatur excepteur consequat qui nisi id nulla incididunt magna. Occaecat incididunt culpa dolore occaecat magna eiusmod Lorem amet quis ea pariatur laboris.",
+    "images": ["/sample-3.jpg", "/sample-7.jpg", "/sample-1.jpg"],
     "price": 349.99,
     "postedAt": "2023-10-01T12:00:00Z",
     "isSold": false,
@@ -21,7 +17,7 @@
   {
     "id": 2,
     "name": "Samsung Galaxy S21",
-    "description": "Latest Samsung smartphone with high-end features including a 120Hz AMOLED display, Exynos 2100 processor, and a triple camera system. Includes 128GB storage and 8GB RAM. Barely used, in perfect condition with original packaging and accessories.",
+    "description": "Latest Samsung smartphone with high-end trending features including a 120Hz AMOLED display, Exynos 2100 processor, and a triple camera system. Includes 128GB storage and 8GB RAM. Barely used, in perfect condition with original packaging and accessories.",
     "images": ["/sample-0.jpg", "/sample-2.jpg"],
     "price": 699.99,
     "postedAt": "2023-10-02T12:00:00Z",
@@ -36,12 +32,8 @@
   {
     "id": 3,
     "name": "Sony WH-1000XM4",
-    "description": "Industry-leading noise-cancelling over-ear headphones with up to 30 hours of battery life. Features adaptive sound control, speak-to-chat technology, and touch controls. Includes carrying case, charging cable, and audio cable for wired use.",
-    "images": [
-      "/sample-5.jpg",
-      "/sample-9.jpg",
-      "/sample-4.jpg"
-    ],
+    "description": "Industry-leading trending noise-cancelling over-ear headphones with up to 30 hours of battery life. Features adaptive sound control, speak-to-chat technology, and touch controls. Includes carrying case, charging cable, and audio cable for wired use.",
+    "images": ["/sample-5.jpg", "/sample-9.jpg", "/sample-4.jpg"],
     "price": 249.99,
     "postedAt": "2023-10-03T12:00:00Z",
     "isSold": false,
@@ -56,11 +48,7 @@
     "id": 4,
     "name": "Dell XPS 13",
     "description": "High-performance laptop with a sleek design, featuring an Intel Core i7 processor, 16GB RAM, and 512GB SSD. The 13.4-inch InfinityEdge display offers stunning 4K resolution. Perfect for professionals and students needing reliable computing power.",
-    "images": [
-      "/sample-8.jpg",
-      "/sample-6.jpg",
-      "/sample-10.jpg"
-    ],
+    "images": ["/sample-8.jpg", "/sample-6.jpg", "/sample-10.jpg"],
     "price": 1199.99,
     "postedAt": "2023-10-04T12:00:00Z",
     "isSold": false,
@@ -89,12 +77,8 @@
   {
     "id": 6,
     "name": "Adidas Ultraboost",
-    "description": "High-performance running shoes with responsive Boost midsole and Primeknit upper for adaptive support and comfort. Features Continental™ Rubber outsole for extraordinary grip. Perfect for long-distance running or casual wear. Size UK 9.",
-    "images": [
-      "/sample-2.jpg",
-      "/sample-4.jpg",
-      "/sample-9.jpg"
-    ],
+    "description": "High-performance running shoes with trending responsive Boost midsole and Primeknit upper for adaptive support and comfort. Features Continental™ Rubber outsole for extraordinary grip. Perfect for long-distance running or casual wear. Size UK 9.",
+    "images": ["/sample-2.jpg", "/sample-4.jpg", "/sample-9.jpg"],
     "price": 139.99,
     "postedAt": "2023-10-06T12:00:00Z",
     "isSold": false,
@@ -124,11 +108,7 @@
     "id": 8,
     "name": "Levi's 501 Original Fit Jeans",
     "description": "Classic straight leg denim jeans with button fly and five-pocket styling. Made from high-quality denim that gets better with age. Medium wash with slight fading for a vintage look. Size 32W x 32L. Only worn a few times.",
-    "images": [
-      "/sample-6.jpg",
-      "/sample-0.jpg",
-      "/sample-8.jpg"
-    ],
+    "images": ["/sample-6.jpg", "/sample-0.jpg", "/sample-8.jpg"],
     "price": 49.99,
     "postedAt": "2023-10-08T12:00:00Z",
     "isSold": false,
@@ -157,12 +137,8 @@
   {
     "id": 10,
     "name": "GoPro HERO9",
-    "description": "Versatile action camera for adventure enthusiasts with 5K video recording and 20MP photos. Includes waterproof case for underwater photography up to 33ft. Features HyperSmooth 3.0 stabilization, TimeWarp 3.0, and front display for vlogging. Perfect for travel, sports, and outdoor activities.",
-    "images": [
-      "/sample-7.jpg",
-      "/sample-1.jpg",
-      "/sample-3.jpg"
-    ],
+    "description": "Versatile trending action camera for adventure enthusiasts with 5K video recording and 20MP photos. Includes waterproof case for underwater photography up to 33ft. Features HyperSmooth 3.0 stabilization, TimeWarp 3.0, and front display for vlogging. Perfect for travel, sports, and outdoor activities.",
+    "images": ["/sample-7.jpg", "/sample-1.jpg", "/sample-3.jpg"],
     "price": 349.99,
     "postedAt": "2023-10-10T12:00:00Z",
     "isSold": false,
@@ -190,13 +166,9 @@
   },
   {
     "id": 12,
-    "name": "Apple iPad Pro 12.9",
+    "name": "Trending Apple iPad Pro 12.9",
     "description": "High-performance tablet with stunning Liquid Retina XDR display and M1 chip for laptop-level performance. Features 256GB storage, Face ID, and support for Apple Pencil and Magic Keyboard. Perfect for creative professionals, students, or entertainment. Includes charger and original box.",
-    "images": [
-      "/sample-9.jpg",
-      "/sample-0.jpg",
-      "/sample-5.jpg"
-    ],
+    "images": ["/sample-9.jpg", "/sample-0.jpg", "/sample-5.jpg"],
     "price": 999.99,
     "postedAt": "2023-10-12T12:00:00Z",
     "isSold": false,
@@ -226,11 +198,7 @@
     "id": 14,
     "name": "Tiffany & Co. Diamond Engagement Ring",
     "description": "Stunning 1.2 carat diamond solitaire ring-3 set in platinum. Features Tiffany's signature six-prong setting that maximizes the diamond's brilliance. Diamond is VS1 clarity with E color grade. Includes original blue box, certificate of authenticity, and receipt. Perfect for a special proposal.",
-    "images": [
-      "/sample-2.jpg",
-      "/sample-7.jpg",
-      "/sample-5.jpg"
-    ],
+    "images": ["/sample-2.jpg", "/sample-7.jpg", "/sample-5.jpg"],
     "price": 8500.0,
     "postedAt": "2023-10-14T12:00:00Z",
     "isSold": false,
@@ -260,11 +228,7 @@
     "id": 16,
     "name": "IKEA MALM Queen Bed Frame",
     "description": "Minimalist Scandinavian design bed frame with clean lines and wood veneer finish. Features adjustable bed sides to allow use of mattresses of different heights. Includes slatted bed base for added comfort. Purchased last year and in excellent condition. Disassembled for easy transport.",
-    "images": [
-      "/sample-3.jpg",
-      "/sample-9.jpg",
-      "/sample-4.jpg"
-    ],
+    "images": ["/sample-3.jpg", "/sample-9.jpg", "/sample-4.jpg"],
     "price": 199.99,
     "postedAt": "2023-10-16T12:00:00Z",
     "isSold": false,
@@ -294,11 +258,7 @@
     "id": 18,
     "name": "SK-II Facial Treatment Essence",
     "description": "Luxury skincare product containing over 90% Pitera, a bio-ingredient rich in vitamins, minerals, and amino acids that promotes skin's natural renewal process. Helps improve skin texture, reduce dark spots, and enhance radiance. 230ml bottle, used only twice. Authentic product purchased from Sephora.",
-    "images": [
-      "/sample-0.jpg",
-      "/sample-5.jpg",
-      "/sample-2.jpg"
-    ],
+    "images": ["/sample-0.jpg", "/sample-5.jpg", "/sample-2.jpg"],
     "price": 169.99,
     "postedAt": "2023-10-18T12:00:00Z",
     "isSold": false,
@@ -328,11 +288,7 @@
     "id": 20,
     "name": "LEGO Star Wars Millennium Falcon",
     "description": "Massive 7,541-piece collector's edition of the iconic Star Wars spacecraft. Features detailed exterior and interior, including the cockpit, main hold, and gunner stations. Includes minifigures of Han Solo, Chewbacca, Princess Leia, and more. Assembled once and displayed in smoke-free home.",
-    "images": [
-      "/sample-4.jpg",
-      "/sample-8.jpg",
-      "/sample-1.jpg"
-    ],
+    "images": ["/sample-4.jpg", "/sample-8.jpg", "/sample-1.jpg"],
     "price": 699.99,
     "postedAt": "2023-10-20T12:00:00Z",
     "isSold": false,
@@ -347,11 +303,7 @@
     "id": 21,
     "name": "Michelin All-Season Tires Set of 4",
     "description": "Premium all-season tires with excellent wet and dry traction, comfortable ride, and long tread life. Size 225/65R17, perfect for SUVs and crossovers. Used for only 5,000 miles before upgrading vehicle. Tread depth is approximately 9/10ths of original. Great value for high-quality tires.",
-    "images": [
-      "/sample-9.jpg",
-      "/sample-6.jpg",
-      "/sample-10.jpg"
-    ],
+    "images": ["/sample-9.jpg", "/sample-6.jpg", "/sample-10.jpg"],
     "price": 450.0,
     "postedAt": "2023-10-21T12:00:00Z",
     "isSold": false,
@@ -366,11 +318,7 @@
     "id": 22,
     "name": "MacBook Pro 16-inch 2021",
     "description": "Apple MacBook Pro with M1 Pro chip, 16GB RAM, and 512GB SSD. Features a stunning 16-inch Liquid Retina XDR display, 10-core CPU, and 16-core GPU. Includes MagSafe charging, HDMI port, and SD card slot. Like new condition with original packaging.",
-    "images": [
-      "/sample-5.jpg",
-      "/sample-2.jpg",
-      "/sample-7.jpg"
-    ],
+    "images": ["/sample-5.jpg", "/sample-2.jpg", "/sample-7.jpg"],
     "price": 1899.99,
     "postedAt": "2023-10-22T14:30:00Z",
     "isSold": false,
@@ -385,11 +333,7 @@
     "id": 23,
     "name": "Vintage Vinyl Record Collection",
     "description": "Collection of 50+ classic rock vinyl records from the 60s and 70s including The Beatles, Led Zeppelin, Pink Floyd, and The Rolling Stones. All in good to excellent condition with original sleeves. Perfect for collectors or music enthusiasts looking to start a vinyl collection.",
-    "images": [
-      "/sample-1.jpg",
-      "/sample-8.jpg",
-      "/sample-3.jpg"
-    ],
+    "images": ["/sample-1.jpg", "/sample-8.jpg", "/sample-3.jpg"],
     "price": 599.99,
     "postedAt": "2023-10-23T09:15:00Z",
     "isSold": false,
@@ -419,11 +363,7 @@
     "id": 25,
     "name": "DJI Mavic Air 2 Drone",
     "description": "Compact drone with 4K/60fps video, 48MP photos, and 34-minute flight time. Features 3-axis gimbal, obstacle avoidance sensors, and intelligent shooting modes. Includes controller, extra batteries, carrying case, and ND filters. Used only a handful of times.",
-    "images": [
-      "/sample-9.jpg",
-      "/sample-2.jpg",
-      "/sample-10.jpg"
-    ],
+    "images": ["/sample-9.jpg", "/sample-2.jpg", "/sample-10.jpg"],
     "price": 649.99,
     "postedAt": "2023-10-25T11:20:00Z",
     "isSold": false,
@@ -453,11 +393,7 @@
     "id": 27,
     "name": "Patagonia Down Sweater Jacket",
     "description": "Lightweight, windproof, and water-resistant down jacket. Features 800-fill-power Advanced Global Traceable Down, zippered handwarmer pockets, and adjustable hem. Size M, navy blue. Worn only a few times.",
-    "images": [
-      "/sample-13.jpg",
-      "/sample-14.jpg",
-      "/sample-15.jpg"
-    ],
+    "images": ["/sample-13.jpg", "/sample-14.jpg", "/sample-15.jpg"],
     "price": 129.99,
     "postedAt": "2023-10-27T09:30:00Z",
     "isSold": false,
@@ -532,11 +468,7 @@
     "id": 32,
     "name": "The North Face Borealis Backpack",
     "description": "Durable 28L backpack with FlexVent suspension system, padded laptop sleeve, and multiple compartments. Black color, gently used, no rips or stains.",
-    "images": [
-      "/sample-24.jpg",
-      "/sample-25.jpg",
-      "/sample-26.jpg"
-    ],
+    "images": ["/sample-24.jpg", "/sample-25.jpg", "/sample-26.jpg"],
     "price": 59.99,
     "postedAt": "2023-11-01T09:00:00Z",
     "isSold": false,
@@ -716,11 +648,7 @@
     "id": 44,
     "name": "Fender Player Stratocaster",
     "description": "Electric guitar with maple neck, 3 single-coil pickups, and classic sunburst finish. Includes gig bag and strap. Lightly played, no scratches.",
-    "images": [
-      "/sample-19.jpg",
-      "/sample-27.jpg",
-      "/sample-35.jpg"
-    ],
+    "images": ["/sample-19.jpg", "/sample-27.jpg", "/sample-35.jpg"],
     "price": 599.99,
     "postedAt": "2023-11-13T15:00:00Z",
     "isSold": false,
