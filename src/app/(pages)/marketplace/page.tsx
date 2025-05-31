@@ -1,5 +1,3 @@
-"use client";
-
 import CategoriesSection from "./_sections/categories";
 import ForYouSection from "./_sections/for-you";
 

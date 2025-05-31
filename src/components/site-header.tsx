@@ -2,23 +2,18 @@
 
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import useNav from "@/hooks/use-nav";
+import { slugToTitle } from "@/lib/utils";
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 
-type SiteHeaderProps = {
-  isMainPage: boolean;
-  isVisible: boolean;
-  title: string;
-  onSearch: (query: string) => void;
-  onBack: () => void;
-  searchPlaceholder: string;
-};
-
-const SiteHeader = (props: SiteHeaderProps) => {
-  const { isMainPage, title, isVisible } = props;
+const SiteHeader = () => {
   const isMobile = useIsMobile();
+
+  const { pathname, mainPage, isMainPage } = useNav();
+  const isVisible = isMainPage || pathname.includes("search");
 
   if (!isVisible) return;
 
@@ -51,39 +46,56 @@ const SiteHeader = (props: SiteHeaderProps) => {
             exit={{ opacity: 0, height: "0" }}
             className="font-display block overflow-hidden leading-relaxed"
           >
-            {title}
+            {slugToTitle(mainPage)}
           </motion.h1>
         )}
       </AnimatePresence>
 
       {/* Surrounding with Suspense for this: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
       <Suspense>
-        <SearchBar {...props} />
+        <SearchBar
+          isMainPage={isMainPage}
+          mainPage={mainPage}
+          searchPlaceholder="Search for anything ..."
+        />
       </Suspense>
     </motion.header>
   );
 };
 
-type SiteSearchBarProps = SiteHeaderProps & {
+type SiteSearchBarProps = {
+  isMainPage: boolean;
+  mainPage: string;
+  searchPlaceholder: string;
   className?: string;
 };
 
 const SearchBar = (props: SiteSearchBarProps) => {
-  const { onSearch, searchPlaceholder, isMainPage, onBack, className } = props;
-
+  const { searchPlaceholder, isMainPage, mainPage, className } = props;
+  const router = useRouter();
   const isMobile = useIsMobile();
   const [input, setInput] = useState("");
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (input.length === 0) {
+      // return to main page if no query
+      router.push(`${mainPage}`);
+      return;
+    }
+    router.push(`/${mainPage}/search?q=${encodeURIComponent(input)}`);
+  };
+
+  const handleBack = () => {
+    router.back();
+  };
+
   useEffect(() => {
     if (query) setInput(query);
   }, [query]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch(input);
-  };
 
   return (
     <div className={`${className || ""} flex items-center w-full`}>
@@ -96,14 +108,14 @@ const SearchBar = (props: SiteSearchBarProps) => {
             exit={{ width: "0px", marginRight: "0px" }}
             className="overflow-hidden"
           >
-            <Button asChild onClick={onBack} variant="ghost" size="icon">
+            <Button asChild onClick={handleBack} variant="ghost" size="icon">
               <ChevronLeftIcon className="text-muted-foreground" />
             </Button>
           </motion.div>
         )}
       </AnimatePresence>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSearch}
         id="search-bar"
         className="flex items-center gap-2 bg-sidebar rounded-full p-2 border flex-1"
       >
