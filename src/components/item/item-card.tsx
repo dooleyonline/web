@@ -406,7 +406,7 @@ const ItemCarousel = memo((item: Item) => {
 });
 ItemCarousel.displayName = "ItemCarousel";
 
-export const ItemCardSkeleton = () => {
+export const ItemCardSkeleton = (() => {
   return (
     <Card className="overflow-hidden border-none rounded-none shadow-none m-1">
       <CardHeader className="relative overflow-hidden p-0 rounded-md mb-2">
@@ -423,6 +423,6 @@ export const ItemCardSkeleton = () => {
       </CardFooter>
     </Card>
   );
-};
+});
 
 export default ItemCard;
