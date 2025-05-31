@@ -33,7 +33,6 @@ const ForYouSection = () => {
       <SectionHeader
         title="For You"
         subtitle="Picked based on your recent search. Updated daily."
-        className="mb-4"
       />
 
       {/* SUBCATEGORIES */}
