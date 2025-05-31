@@ -7,9 +7,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import useNav from "@/hooks/use-nav";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export function NavMain({
   items,
@@ -20,7 +20,7 @@ export function NavMain({
     icon?: LucideIcon;
   }[];
 }) {
-  const path = usePathname();
+  const { mainPage } = useNav();
 
   return (
     <SidebarGroup>
@@ -31,9 +31,12 @@ export function NavMain({
               key={item.title}
               href={item.url}
               style={{
-                background: path === item.url ? "var(--sidebar-accent)" : "",
+                background:
+                  mainPage === item.url.slice(1) ? "var(--sidebar-accent)" : "",
                 color:
-                  path === item.url ? "var(--sidebar-accent-foreground)" : "",
+                  mainPage === item.url.slice(1)
+                    ? "var(--sidebar-accent-foreground)"
+                    : "",
               }}
               className="cursor-pointer overflow-hidden rounded-md"
             >
