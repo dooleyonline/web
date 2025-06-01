@@ -8,7 +8,7 @@ export default function useNav() {
     const lp = pathname.toLowerCase();
     const p = lp.slice(1).split("/");
 
-    if (p[0] !== "" && !(p[0] in nav)) {
+    if (p[0] !== "" && p[0] !== "_not-found" && !(p[0] in nav)) {
       console.warn(`Unknown page: ${p[0]}`);
     }
 
