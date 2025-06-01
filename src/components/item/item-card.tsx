@@ -30,7 +30,6 @@ import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { MouseEvent } from "react";
 
 import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
 
@@ -46,7 +45,7 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
   const isMobile = useIsMobile();
   const router = useRouter();
 
-  function handleNavigate(e: MouseEvent<HTMLAnchorElement>) {
+  function handleNavigate(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (isMobile) {
       // Skip intercepting route if on mobile

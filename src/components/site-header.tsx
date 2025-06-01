@@ -7,7 +7,7 @@ import slugToTitle from "@/lib/utils/slug-to-title";
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SiteHeader = () => {
   const [status, setStatus] = useState<"disabled" | "collapsed" | "expanded">(
@@ -70,15 +70,13 @@ const SiteHeader = () => {
         )}
       </AnimatePresence>
 
-      {/* Surrounding with Suspense for this: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
-      <Suspense>
-        <SearchBar
-          status={status}
-          mainPage={currentPage}
-          pages={pages}
-          searchPlaceholder="Search for anything ..."
-        />
-      </Suspense>
+      <SearchBar
+        status={status}
+        mainPage={currentPage}
+        pages={pages}
+        searchParams={searchParams}
+        searchPlaceholder="Search for anything ..."
+      />
     </motion.header>
   );
 };
@@ -88,14 +86,22 @@ type SiteSearchBarProps = {
   mainPage: string;
   searchPlaceholder: string;
   pages: string[];
+  searchParams: URLSearchParams;
   className?: string;
 };
 
 const SearchBar = (props: SiteSearchBarProps) => {
-  const { searchPlaceholder, status, mainPage, className, pages } = props;
+  const {
+    searchPlaceholder,
+    status,
+    mainPage,
+    className,
+    pages,
+    searchParams,
+  } = props;
   const router = useRouter();
   const isMobile = useIsMobile();
-  const searchParams = useSearchParams();
+
   const query = searchParams.get("q");
   const [input, setInput] = useState(
     pages.reduce((acc: Record<string, string>, page) => {

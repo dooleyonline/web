@@ -1,6 +1,6 @@
 import SiteHeader from "@/components/site-header";
 import { Metadata } from "next";
-import React from "react";
+import React, { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Marketplace @ dooleyonline",
@@ -18,9 +18,11 @@ const MarketplaceLayout = ({
 }>) => {
   return (
     <>
-      <SiteHeader />
+      <Suspense fallback={<p className="text-muted-foreground">Loading...</p>}>
+        <SiteHeader />
+      </Suspense>
       <main>
-        {gallery}
+        <Suspense>{gallery}</Suspense>
         {itemModal}
         {children}
       </main>
