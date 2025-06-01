@@ -152,8 +152,8 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent touch-none relative cursor-pointer">
+        <HoverCardTrigger asChild className="touch-pan-y">
+          <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent relative cursor-pointer">
             <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
               <ItemLink>
                 <AspectRatio ratio={1 / 1} className="w-full relative">

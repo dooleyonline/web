@@ -1,5 +1,6 @@
 "use client";
 
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Carousel,
   CarouselApi,
@@ -10,7 +11,6 @@ import {
 } from "@/components/ui/carousel";
 import type { Item } from "@/lib/api/marketplace/types";
 import getImageURL from "@/lib/utils/get-image-url";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { memo, useEffect, useState } from "react";
