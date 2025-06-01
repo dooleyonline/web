@@ -17,7 +17,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useIsMobile } from "@/hooks/ui/use-mobile";
+import { useIsMobile } from "@/hooks/ui/use-is-mobile";
 import useNav from "@/hooks/ui/use-nav";
 import cn from "@/lib/utils/cn";
 import slugToTitle from "@/lib/utils/slug-to-title";

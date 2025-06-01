@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ItemConditionBadge,
   ItemNegotiableBadge,
@@ -5,25 +7,39 @@ import {
 import ItemCarousel from "@/components/item/item-carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { itemsApi } from "@/lib/api/marketplace";
+import { useItems } from "@/hooks/api/marketplace";
 import formatPrice from "@/lib/utils/format-price";
 import getRelativeTime from "@/lib/utils/get-relative-time";
 import { HeartIcon } from "lucide-react";
+import { use } from "react";
 
-const MarketplaceItem = async ({
+const MarketplaceItem = ({
   params,
 }: {
   params: Promise<{ itemId: string }>;
 }) => {
-  const { itemId } = await params;
-  const data = await itemsApi.get({ id: itemId });
+  const { itemId } = use(params);
+  const { data, isLoading, error } = useItems({ id: itemId });
+
+  if (isLoading || !data) {
+    return <p className="text-muted-foreground">Loading...</p>;
+  }
+
+  if (error) {
+    return (
+      <p className="text-destructive-foreground">
+        Error loading item: {error.message}
+      </p>
+    );
+  }
+
   const item = data.data[0];
 
   const relativeTime = getRelativeTime(item.postedAt);
 
   return (
-    <main className="w-full h-full lg:h-fit">
-      <div className="h-full overflow-auto flex flex-col lg:flex-row gap-4">
+    <div className="w-full h-full lg:h-fit max-h-full">
+      <div className="h-full overflow-auto flex flex-col lg:flex-row gap-4 lg:gap-6">
         <div className="w-full lg:w-1/3">
           <ItemCarousel item={item} />
         </div>
@@ -67,7 +83,7 @@ const MarketplaceItem = async ({
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

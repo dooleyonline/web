@@ -21,6 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useIsMobile } from "@/hooks/ui/use-is-mobile";
 import type { Item } from "@/lib/api/marketplace/types";
 import formatPrice from "@/lib/utils/format-price";
 import getImageURL from "@/lib/utils/get-image-url";
@@ -28,7 +29,8 @@ import getRelativeTime from "@/lib/utils/get-relative-time";
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { MouseEvent } from "react";
 
 import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
 
@@ -41,6 +43,18 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
   const searchParams = useSearchParams();
   const relativeTime = getRelativeTime(item.postedAt);
   const link = `/marketplace/item/${item.id}?${searchParams.toString()}`;
+  const isMobile = useIsMobile();
+  const router = useRouter();
+
+  function handleNavigate(e: MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    if (isMobile) {
+      // Skip intercepting route if on mobile
+      window.location.href = link;
+    } else {
+      router.push(link);
+    }
+  }
 
   const thumbnail = (
     <Image
@@ -116,7 +130,7 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
       <HoverCardTrigger asChild className="touch-pan-y">
         <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent relative cursor-pointer">
           <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
-            <Link href={link}>
+            <Link href={link} onNavigate={handleNavigate}>
               <AspectRatio ratio={1 / 1} className="w-full relative">
                 {thumbnail}
               </AspectRatio>
@@ -125,7 +139,9 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
             {favoriteButton}
           </CardContent>
 
-          <Link href={link}>{info}</Link>
+          <Link href={link} onNavigate={handleNavigate}>
+            {info}
+          </Link>
         </Card>
       </HoverCardTrigger>
 

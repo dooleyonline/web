@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/ui/use-mobile";
+import { useIsMobile } from "@/hooks/ui/use-is-mobile";
 import useNav from "@/hooks/ui/use-nav";
 import slugToTitle from "@/lib/utils/slug-to-title";
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
@@ -21,12 +21,11 @@ const SiteHeader = () => {
     setStatus((prev) => {
       if (paths.includes("profile")) {
         return "disabled";
-      } else if (searchParams.size === 0) {
+      } else if (isMainPage && searchParams.size === 0) {
         return "expanded";
       } else {
         if (prev === "expanded" && paths.includes("item")) {
           // case when on main page and item modal is open, do nothing
-          console.log("keep open");
           return "expanded";
         } else {
           return "collapsed";
@@ -56,7 +55,7 @@ const SiteHeader = () => {
             }
       }
       transition={{ ease: "anticipate" }}
-      className="border-b px-4 sm:px-6 py-6 rounded-b-4xl w-full relative"
+      className="border-b p-4 sm:p-6 rounded-b-4xl w-full relative"
     >
       <AnimatePresence>
         {status === "expanded" && (
@@ -117,9 +116,6 @@ const SearchBar = (props: SiteSearchBarProps) => {
   useEffect(() => {
     if (query) {
       setInput((prev) => ({ ...prev, [mainPage]: query }));
-    } else {
-      // return to main page if no query
-      router.push(`/${mainPage}`);
     }
   }, [query, mainPage, router]);
 

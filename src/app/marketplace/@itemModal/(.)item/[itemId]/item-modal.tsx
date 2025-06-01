@@ -48,7 +48,7 @@ export const ItemModal = memo((props: ItemModalProps) => {
 
   return (
     <Dialog defaultOpen onOpenChange={router.back}>
-      <DialogContent className="h-[min(90svh,1000px)] flex flex-col gap-2 bg-background">
+      <DialogContent className="p-4 sm:p-6 h-[min(90svh,1000px)] flex flex-col gap-2 bg-background rounded-lg">
         <div className="h-full overflow-auto flex flex-col gap-2">
           <ItemCarousel item={item} />
 
@@ -83,7 +83,7 @@ export const ItemModal = memo((props: ItemModalProps) => {
           </div>
         </div>
 
-        <DialogFooter className="p-0 flex gap-2 grow-0 justify-start! space-x-0! w-full bg-background rounded-md">
+        <DialogFooter className="p-0 flex !flex-row gap-2 grow-0 !justify-start !space-x-0 w-full bg-background rounded-md">
           <DialogClose asChild>
             <Button variant="default" size="lg" className="flex-1">
               Contact Seller

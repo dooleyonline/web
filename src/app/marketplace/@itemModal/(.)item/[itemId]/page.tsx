@@ -1,13 +1,15 @@
+"use client";
+
+import { use } from "react";
+
 import ItemModal from "./item-modal";
 
-const ItemModalPage = async ({
+export default function ItemModalPage({
   params,
 }: {
   params: Promise<{ itemId: string }>;
-}) => {
-  const { itemId } = await params;
+}) {
+  const { itemId } = use(params);
 
   return <ItemModal itemId={itemId} />;
-};
-
-export default ItemModalPage;
+}
