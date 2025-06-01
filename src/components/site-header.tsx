@@ -107,7 +107,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/${mainPage}?q=${encodeURIComponent(input[mainPage])}`);
+    router.push(`/${mainPage}?q=${encodeURIComponent(input[mainPage].trim())}`);
   };
 
   const handleBack = () => {
@@ -160,7 +160,9 @@ const SearchBar = (props: SiteSearchBarProps) => {
           variant="outline"
           size="icon"
           type="submit"
-          disabled={input[mainPage].length === 0 || mainPage !== "marketplace"} // temporary disable for non-marketplace pages
+          disabled={
+            input[mainPage].trim().length === 0 || mainPage !== "marketplace"
+          } // temporary disable for non-marketplace pages
           className="rounded-full flex-none"
         >
           <ArrowRightIcon />
