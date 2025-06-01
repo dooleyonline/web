@@ -2,7 +2,7 @@
 
 import ItemGallery from "@/components/item/item-gallery";
 import { Section, SectionHeader } from "@/components/site-section";
-import useItems from "@/hooks/api/marketplace/use-items";
+import { useItems } from "@/hooks/api/marketplace";
 
 const TrendingSection = () => {
   const {

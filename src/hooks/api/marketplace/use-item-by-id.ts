@@ -1,4 +1,4 @@
-import { itemsApi } from "@/lib/api/marketplace/items";
+import { itemsApi } from "@/lib/api/marketplace";
 import { useMemo } from "react";
 import useSWR from "swr";
 

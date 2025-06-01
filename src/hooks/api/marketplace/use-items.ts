@@ -1,4 +1,4 @@
-import { itemsApi } from "@/lib/api/marketplace/items";
+import { itemsApi } from "@/lib/api/marketplace";
 import type { ItemQueryParams } from "@/lib/api/marketplace/types";
 import createQueryString from "@/lib/utils/create-query-string";
 import { useMemo } from "react";

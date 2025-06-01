@@ -1,19 +1,13 @@
 import type { Item } from "@/lib/api/marketplace/types";
-import fs from "fs/promises";
 import { NextResponse } from "next/server";
-import path from "path";
 
-async function readItemsData(): Promise<Item[]> {
-  const filePath = path.join(process.cwd(), "public/data/items.json");
-  const jsonData = await fs.readFile(filePath, "utf8");
-  return JSON.parse(jsonData);
-}
+import itemsData from "../items.json";
 
 export async function GET() {
   try {
-    const items = await readItemsData();
+    const items = itemsData as Item[];
     const ids = items.map((item) => item.id);
-
+    console.log(ids);
     return NextResponse.json({ ids });
   } catch (error) {
     console.error("Error fetching item IDs:", error);

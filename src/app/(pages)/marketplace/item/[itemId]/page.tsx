@@ -5,7 +5,7 @@ import {
 import ItemCarousel from "@/components/item/item-carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { itemsApi } from "@/lib/api/marketplace/items";
+import { itemsApi } from "@/lib/api/marketplace";
 import formatPrice from "@/lib/utils/format-price";
 import getRelativeTime from "@/lib/utils/get-relative-time";
 import { HeartIcon } from "lucide-react";

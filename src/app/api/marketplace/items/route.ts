@@ -1,14 +1,7 @@
 import type { Item, ItemsResponse } from "@/lib/api/marketplace/types";
-import fs from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
 
-// Helper to read the JSON data file
-async function readItemsData(): Promise<Item[]> {
-  const filePath = path.join(process.cwd(), "public/data/items.json");
-  const jsonData = await fs.readFile(filePath, "utf8");
-  return JSON.parse(jsonData);
-}
+import itemsData from "./items.json";
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,8 +11,7 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get("category");
     const subcategory = searchParams.get("subcategory");
 
-    // Get all items
-    const items = await readItemsData();
+    const items = itemsData as Item[];
 
     // Apply filters
     let filteredItems = [...items];

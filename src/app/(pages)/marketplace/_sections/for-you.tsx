@@ -4,7 +4,7 @@ import ItemGallery from "@/components/item/item-gallery";
 import { Section, SectionHeader } from "@/components/site-section";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import useItems from "@/hooks/api/marketplace/use-items";
+import { useItems } from "@/hooks/api/marketplace";
 import useSubcategories from "@/hooks/api/marketplace/use-subcategories";
 import type { Subcategory } from "@/lib/api/marketplace/types";
 import { useState } from "react";
