@@ -34,7 +34,7 @@ export const SectionHeader = ({
         </div>
       )}
       <div className={className}>
-        <h2 className="font-display">{title}</h2>
+        <h2>{title}</h2>
         {subtitle && (
           <p className={"text-sm font-base text-muted-foreground"}>
             {subtitle}

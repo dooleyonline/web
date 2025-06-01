@@ -10,18 +10,37 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 
 const SiteHeader = () => {
+  const [status, setStatus] = useState<"disabled" | "collapsed" | "expanded">(
+    "disabled"
+  );
   const isMobile = useIsMobile();
+  const { paths, currentPage, isMainPage, pages } = useNav();
+  const searchParams = useSearchParams();
 
-  const { pathname, mainPage, isMainPage, pages } = useNav();
-  const isVisible =
-    (isMainPage || pathname.includes("search")) && pages.includes(mainPage);
+  useEffect(() => {
+    setStatus((prev) => {
+      if (paths.includes("profile")) {
+        return "disabled";
+      } else if (searchParams.size === 0) {
+        return "expanded";
+      } else {
+        if (prev === "expanded" && paths.includes("item")) {
+          // case when on main page and item modal is open, do nothing
+          console.log("keep open");
+          return "expanded";
+        } else {
+          return "collapsed";
+        }
+      }
+    });
+  }, [isMainPage, paths, searchParams.size, status]);
 
-  if (!isVisible) return null;
+  if (status === "disabled") return null;
 
   return (
     <motion.header
       animate={
-        isMainPage
+        status === "expanded"
           ? isMobile
             ? {
                 paddingTop: "60px",
@@ -40,14 +59,14 @@ const SiteHeader = () => {
       className="border-b px-4 sm:px-6 py-6 rounded-b-4xl w-full relative"
     >
       <AnimatePresence>
-        {isMainPage && (
+        {status === "expanded" && (
           <motion.h1
             initial={{ opacity: 0, height: "0" }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: "0" }}
             className="font-display block overflow-hidden leading-relaxed"
           >
-            {slugToTitle(mainPage)}
+            {slugToTitle(currentPage)}
           </motion.h1>
         )}
       </AnimatePresence>
@@ -55,8 +74,8 @@ const SiteHeader = () => {
       {/* Surrounding with Suspense for this: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
       <Suspense>
         <SearchBar
-          isMainPage={isMainPage}
-          mainPage={mainPage}
+          status={status}
+          mainPage={currentPage}
           pages={pages}
           searchPlaceholder="Search for anything ..."
         />
@@ -66,7 +85,7 @@ const SiteHeader = () => {
 };
 
 type SiteSearchBarProps = {
-  isMainPage: boolean;
+  status: "disabled" | "collapsed" | "expanded";
   mainPage: string;
   searchPlaceholder: string;
   pages: string[];
@@ -74,7 +93,7 @@ type SiteSearchBarProps = {
 };
 
 const SearchBar = (props: SiteSearchBarProps) => {
-  const { searchPlaceholder, isMainPage, mainPage, className, pages } = props;
+  const { searchPlaceholder, status, mainPage, className, pages } = props;
   const router = useRouter();
   const isMobile = useIsMobile();
   const searchParams = useSearchParams();
@@ -88,7 +107,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/${mainPage}/search?q=${encodeURIComponent(input[mainPage])}`);
+    router.push(`/${mainPage}?q=${encodeURIComponent(input[mainPage])}`);
   };
 
   const handleBack = () => {
@@ -107,7 +126,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
   return (
     <div className={`${className || ""} flex items-center w-full`}>
       <AnimatePresence>
-        {!isMainPage && !isMobile && (
+        {status === "collapsed" && !isMobile && (
           <motion.div
             key="modal"
             initial={{ width: "0px", marginRight: "0px" }}

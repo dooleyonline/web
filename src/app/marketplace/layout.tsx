@@ -1,3 +1,4 @@
+import SiteHeader from "@/components/site-header";
 import { Metadata } from "next";
 import React from "react";
 
@@ -7,11 +8,24 @@ export const metadata: Metadata = {
 };
 
 const MarketplaceLayout = ({
+  gallery,
+  itemModal,
   children,
 }: Readonly<{
+  gallery: React.ReactNode;
+  itemModal: React.ReactNode;
   children: React.ReactNode;
 }>) => {
-  return <>{children}</>;
+  return (
+    <>
+      <SiteHeader />
+      <main>
+        {gallery}
+        {itemModal}
+        {children}
+      </main>
+    </>
+  );
 };
 
 export default MarketplaceLayout;

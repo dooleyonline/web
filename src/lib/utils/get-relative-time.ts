@@ -1,5 +1,10 @@
 export default function getRelativeTime(datetime: string): string {
   const date = new Date(datetime);
+
+  if (isNaN(date.getTime())) {
+    throw new Error("Invalid date format");
+  }
+
   const now = new Date();
   const diff = now.getTime() - date.getTime();
   const seconds = Math.floor(diff / 1000);

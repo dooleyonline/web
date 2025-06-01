@@ -1,4 +1,3 @@
-// Item listing operations
 import createQueryString from "@/lib/utils/create-query-string";
 
 import { apiFetch } from "../core/client";
