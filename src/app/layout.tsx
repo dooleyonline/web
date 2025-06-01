@@ -1,10 +1,10 @@
 import { fonts } from "@/components/fonts";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { SiteNavbar } from "@/components/site-navbar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
-import { SiteNavbar } from "@/components/site-navbar";
 
 export const metadata: Metadata = {
   title: "DooleyOnline",

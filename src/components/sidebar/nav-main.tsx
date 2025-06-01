@@ -20,7 +20,7 @@ export function NavMain({
     icon?: LucideIcon;
   }[];
 }) {
-  const { mainPage } = useNav();
+  const { currentPage } = useNav();
 
   return (
     <SidebarGroup>
@@ -32,9 +32,9 @@ export function NavMain({
               href={item.url}
               style={{
                 background:
-                  mainPage === item.url.slice(1) ? "var(--sidebar-accent)" : "",
+                  currentPage === item.url.slice(1) ? "var(--sidebar-accent)" : "",
                 color:
-                  mainPage === item.url.slice(1)
+                  currentPage === item.url.slice(1)
                     ? "var(--sidebar-accent-foreground)"
                     : "",
               }}

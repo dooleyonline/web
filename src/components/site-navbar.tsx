@@ -17,7 +17,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useIsMobile } from "@/hooks/ui/use-mobile";
+import { useIsMobile } from "@/hooks/ui/use-is-mobile";
 import useNav from "@/hooks/ui/use-nav";
 import cn from "@/lib/utils/cn";
 import slugToTitle from "@/lib/utils/slug-to-title";
@@ -30,7 +30,7 @@ import { Button } from "./ui/button";
 
 export function SiteNavbar() {
   const isMobile = useIsMobile();
-  const { paths, mainPage, navData } = useNav();
+  const { paths, currentPage, navData } = useNav();
 
   const isLinkVisible = navData?.links.length > 0 || false;
   const isButtonVisible = navData?.button.href !== "" || false;
@@ -50,7 +50,7 @@ export function SiteNavbar() {
     ],
   };
 
-  const profileLink = `/${mainPage}/usr/${user.id}`;
+  const profileLink = `/${currentPage}/usr/${user.id}`;
 
   return (
     <nav className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear px-2 justify-between w-full">
@@ -85,7 +85,7 @@ export function SiteNavbar() {
           {isLinkVisible && (
             <NavigationMenuItem>
               <NavigationMenuTrigger>
-                <Link href={`/${mainPage}/`}>
+                <Link href={`/${currentPage}/`}>
                   <UserIcon size={24} />
                 </Link>
               </NavigationMenuTrigger>

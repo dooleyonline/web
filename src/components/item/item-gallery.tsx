@@ -1,6 +1,7 @@
 "use client";
 
 import type { Item } from "@/lib/api/marketplace/types";
+import { Suspense } from "react";
 
 import ItemCard, { ItemCardSkeleton } from "./item-card";
 
@@ -23,7 +24,9 @@ const ItemGallery = ({ data, isLoading, error }: ItemGalleryProps) => {
       {isLoading
         ? Array.from({ length: 10 }).map((_, i) => <ItemCardSkeleton key={i} />)
         : data?.map((item: Item, i: number) => (
-            <ItemCard key={i} item={item} index={i} />
+            <Suspense fallback={<ItemCardSkeleton />} key={i}>
+              <ItemCard key={i} item={item} index={i} />
+            </Suspense>
           ))}
     </div>
   );

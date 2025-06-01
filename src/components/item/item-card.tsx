@@ -1,8 +1,6 @@
 "use client";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,15 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   HoverCard,
   HoverCardContent,
@@ -32,7 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useIsMobile } from "@/hooks/ui/use-mobile";
+import { useIsMobile } from "@/hooks/ui/use-is-mobile";
 import type { Item } from "@/lib/api/marketplace/types";
 import formatPrice from "@/lib/utils/format-price";
 import getImageURL from "@/lib/utils/get-image-url";
@@ -40,11 +29,9 @@ import getRelativeTime from "@/lib/utils/get-relative-time";
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { memo, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
-import ItemCarousel from "./item-carousel";
 
 type ItemCardProps = {
   item: Item;
@@ -52,33 +39,21 @@ type ItemCardProps = {
 };
 
 const ItemCard = ({ item, index }: ItemCardProps) => {
+  const searchParams = useSearchParams();
   const relativeTime = getRelativeTime(item.postedAt);
-  const link = `/marketplace/item/${item.id}`;
-  const [open, setOpen] = useState(false);
-  const router = useRouter();
+  const link = `/marketplace/item/${item.id}?${searchParams.toString()}`;
   const isMobile = useIsMobile();
+  const router = useRouter();
 
-  const ItemLink = ({
-    children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) => {
-    return (
-      <Link
-        href={link}
-        onNavigate={(e) => {
-          e.preventDefault();
-          if (isMobile) {
-            router.push(link);
-          } else {
-            setOpen(true);
-          }
-        }}
-      >
-        {children}
-      </Link>
-    );
-  };
+  function handleNavigate(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (isMobile) {
+      // Skip intercepting route if on mobile
+      window.location.href = link;
+    } else {
+      router.push(link);
+    }
+  }
 
   const thumbnail = (
     <Image
@@ -150,87 +125,29 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
   );
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <HoverCard>
-        <HoverCardTrigger asChild className="touch-pan-y">
-          <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent relative cursor-pointer">
-            <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
-              <ItemLink>
-                <AspectRatio ratio={1 / 1} className="w-full relative">
-                  {thumbnail}
-                </AspectRatio>
-              </ItemLink>
+    <HoverCard>
+      <HoverCardTrigger asChild className="touch-pan-y">
+        <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent relative cursor-pointer">
+          <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
+            <Link href={link} onNavigate={handleNavigate}>
+              <AspectRatio ratio={1 / 1} className="w-full relative">
+                {thumbnail}
+              </AspectRatio>
+            </Link>
 
-              {favoriteButton}
-            </CardContent>
+            {favoriteButton}
+          </CardContent>
 
-            <ItemLink>{info}</ItemLink>
-          </Card>
-        </HoverCardTrigger>
+          <Link href={link} onNavigate={handleNavigate}>
+            {info}
+          </Link>
+        </Card>
+      </HoverCardTrigger>
 
-        {hoverCard}
-      </HoverCard>
-      <ItemDialog item={item} />
-    </Dialog>
+      {hoverCard}
+    </HoverCard>
   );
 };
-
-export const ItemDialog = memo(({ item }: { item: Item }) => {
-  const relativeTime = useMemo(
-    () => getRelativeTime(item.postedAt),
-    [item.postedAt]
-  );
-
-  return (
-    <DialogContent className="h-[min(90svh,1000px)] flex flex-col gap-2 bg-background">
-      <div className="h-full overflow-auto flex flex-col gap-2">
-        <ItemCarousel item={item} />
-
-        <DialogHeader className="text-left p-0 grow mb-2">
-          <DialogTitle className="text-2xl font-medium">
-            {item.name}
-          </DialogTitle>
-          <div className="flex gap-1 my-2!">
-            <ItemConditionBadge condition={item.condition} />
-            <ItemNegotiableBadge negotiable={item.isNegotiable} />
-          </div>
-          <span className="block my-3! text-xl font-semibold">
-            {formatPrice(item.price)}
-          </span>
-
-          <DialogDescription className="text-secondary-foreground text-base">
-            {item.description}
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex gap-2 items-center mb-3">
-          <Avatar className="size-8">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div>
-            <span className="mr-2 inline-block">{item.seller}</span>
-            <small className="text-muted-foreground">
-              {relativeTime} · {item.views} views
-            </small>
-          </div>
-        </div>
-      </div>
-
-      <DialogFooter className="p-0 flex gap-2 grow-0 justify-start! space-x-0! w-full bg-background rounded-md">
-        <DialogClose asChild>
-          <Button variant="default" size="lg" className="flex-1">
-            Contact Seller
-          </Button>
-        </DialogClose>
-        <Button size="lg" variant="outline" className="shrink-0">
-          <HeartIcon />
-        </Button>
-      </DialogFooter>
-    </DialogContent>
-  );
-});
-ItemDialog.displayName = "ItemDialog";
 
 export const ItemCardSkeleton = () => {
   return (

@@ -1,27 +1,45 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/ui/use-mobile";
+import { useIsMobile } from "@/hooks/ui/use-is-mobile";
 import useNav from "@/hooks/ui/use-nav";
 import slugToTitle from "@/lib/utils/slug-to-title";
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SiteHeader = () => {
+  const [status, setStatus] = useState<"disabled" | "collapsed" | "expanded">(
+    "disabled"
+  );
   const isMobile = useIsMobile();
+  const { paths, currentPage, isMainPage, pages } = useNav();
+  const searchParams = useSearchParams();
 
-  const { pathname, mainPage, isMainPage, pages } = useNav();
-  const isVisible =
-    (isMainPage || pathname.includes("search")) && pages.includes(mainPage);
+  useEffect(() => {
+    setStatus((prev) => {
+      if (paths.includes("profile")) {
+        return "disabled";
+      } else if (isMainPage && searchParams.size === 0) {
+        return "expanded";
+      } else {
+        if (prev === "expanded" && paths.includes("item")) {
+          // case when on main page and item modal is open, do nothing
+          return "expanded";
+        } else {
+          return "collapsed";
+        }
+      }
+    });
+  }, [isMainPage, paths, searchParams.size, status]);
 
-  if (!isVisible) return null;
+  if (status === "disabled") return null;
 
   return (
     <motion.header
       animate={
-        isMainPage
+        status === "expanded"
           ? isMobile
             ? {
                 paddingTop: "60px",
@@ -37,47 +55,53 @@ const SiteHeader = () => {
             }
       }
       transition={{ ease: "anticipate" }}
-      className="border-b px-4 sm:px-6 py-6 rounded-b-4xl w-full relative"
+      className="border-b p-4 sm:p-6 rounded-b-4xl w-full relative"
     >
       <AnimatePresence>
-        {isMainPage && (
+        {status === "expanded" && (
           <motion.h1
             initial={{ opacity: 0, height: "0" }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: "0" }}
             className="font-display block overflow-hidden leading-relaxed"
           >
-            {slugToTitle(mainPage)}
+            {slugToTitle(currentPage)}
           </motion.h1>
         )}
       </AnimatePresence>
 
-      {/* Surrounding with Suspense for this: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */}
-      <Suspense>
-        <SearchBar
-          isMainPage={isMainPage}
-          mainPage={mainPage}
-          pages={pages}
-          searchPlaceholder="Search for anything ..."
-        />
-      </Suspense>
+      <SearchBar
+        status={status}
+        mainPage={currentPage}
+        pages={pages}
+        searchParams={searchParams}
+        searchPlaceholder="Search for anything ..."
+      />
     </motion.header>
   );
 };
 
 type SiteSearchBarProps = {
-  isMainPage: boolean;
+  status: "disabled" | "collapsed" | "expanded";
   mainPage: string;
   searchPlaceholder: string;
   pages: string[];
+  searchParams: URLSearchParams;
   className?: string;
 };
 
 const SearchBar = (props: SiteSearchBarProps) => {
-  const { searchPlaceholder, isMainPage, mainPage, className, pages } = props;
+  const {
+    searchPlaceholder,
+    status,
+    mainPage,
+    className,
+    pages,
+    searchParams,
+  } = props;
   const router = useRouter();
   const isMobile = useIsMobile();
-  const searchParams = useSearchParams();
+
   const query = searchParams.get("q");
   const [input, setInput] = useState(
     pages.reduce((acc: Record<string, string>, page) => {
@@ -88,7 +112,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/${mainPage}/search?q=${encodeURIComponent(input[mainPage])}`);
+    router.push(`/${mainPage}?q=${encodeURIComponent(input[mainPage].trim())}`);
   };
 
   const handleBack = () => {
@@ -98,16 +122,13 @@ const SearchBar = (props: SiteSearchBarProps) => {
   useEffect(() => {
     if (query) {
       setInput((prev) => ({ ...prev, [mainPage]: query }));
-    } else {
-      // return to main page if no query
-      router.push(`/${mainPage}`);
     }
   }, [query, mainPage, router]);
 
   return (
     <div className={`${className || ""} flex items-center w-full`}>
       <AnimatePresence>
-        {!isMainPage && !isMobile && (
+        {status === "collapsed" && !isMobile && (
           <motion.div
             key="modal"
             initial={{ width: "0px", marginRight: "0px" }}
@@ -141,7 +162,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
           variant="outline"
           size="icon"
           type="submit"
-          disabled={input[mainPage].length === 0 || mainPage !== "marketplace"} // temporary disable for non-marketplace pages
+          disabled={input[mainPage].trim().length === 0}
           className="rounded-full flex-none"
         >
           <ArrowRightIcon />

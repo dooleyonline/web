@@ -4,7 +4,7 @@ import { useMemo } from "react";
 export default function useNav() {
   const pathname = usePathname().toLowerCase();
 
-  const { paths, mainPage, isMainPage } = useMemo(() => {
+  const { paths, currentPage, isMainPage } = useMemo(() => {
     const lp = pathname.toLowerCase();
     const p = lp.slice(1).split("/");
 
@@ -15,7 +15,7 @@ export default function useNav() {
     return {
       pathname: lp,
       paths: p,
-      mainPage: p[0] === "" ? "home" : (p[0] as keyof typeof nav),
+      currentPage: p[0] === "" ? "home" : (p[0] as keyof typeof nav),
       isMainPage: p.length === 1 && p[0] !== "",
     };
   }, [pathname]);
@@ -24,12 +24,12 @@ export default function useNav() {
     () => ({
       pathname,
       paths,
-      mainPage,
+      currentPage,
       isMainPage,
-      navData: nav[mainPage],
+      navData: nav[currentPage],
       pages: Object.keys(nav),
     }),
-    [pathname, paths, mainPage, isMainPage]
+    [pathname, paths, currentPage, isMainPage]
   );
 }
 

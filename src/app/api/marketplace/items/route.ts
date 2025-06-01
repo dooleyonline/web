@@ -11,6 +11,10 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get("category");
     const subcategory = searchParams.get("subcategory");
 
+    if (!q && !id && !category && !subcategory) {
+      return NextResponse.json({ data: [], count: 0 } satisfies ItemsResponse);
+    }
+
     const items = itemsData as Item[];
 
     // Apply filters
