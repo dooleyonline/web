@@ -4,7 +4,7 @@ import DynamicIcon from "@/components/dynamic-icon";
 import { Section } from "@/components/site-section";
 import { Skeleton } from "@/components/ui/skeleton";
 import useCategories from "@/hooks/api/marketplace/use-categories";
-import type { Category } from "@/types/category";
+import type { Category } from "@/lib/api/marketplace/types";
 
 const CategoriesSection = () => {
   const { data, isLoading, error } = useCategories();

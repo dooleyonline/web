@@ -19,8 +19,8 @@ import {
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useIsMobile } from "@/hooks/ui/use-mobile";
 import useNav from "@/hooks/ui/use-nav";
-import { cn } from "@/lib/utils/cn";
-import { slugToTitle } from "@/lib/utils/slug-to-title";
+import cn from "@/lib/utils/cn";
+import slugToTitle from "@/lib/utils/slug-to-title";
 import { PlusIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { Fragment, forwardRef } from "react";
@@ -32,8 +32,8 @@ export function SiteNavbar() {
   const isMobile = useIsMobile();
   const { paths, mainPage, navData } = useNav();
 
-  const isLinkVisible = navData.links.length > 0;
-  const isButtonVisible = navData.button.href !== "";
+  const isLinkVisible = navData?.links.length > 0 || false;
+  const isButtonVisible = navData?.button.href !== "" || false;
 
   const user = {
     fName: "John",

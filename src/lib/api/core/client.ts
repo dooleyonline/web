@@ -18,8 +18,6 @@ export async function apiFetch<T>(
     headers.set("Content-Type", "application/json");
   }
 
-  console.log("Fetching URL:", url);
-
   // Add auth token if available
   if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
     const token = localStorage.getItem("auth_token");
@@ -34,7 +32,8 @@ export async function apiFetch<T>(
 
     // Handle 204 No Content response
     if (response.status === 204) {
-      return [] as T;
+      console.warn(`No content returned for ${endpoint}`);
+      return null as T;
     }
 
     const data = await response.json().catch(() => null);
@@ -48,6 +47,6 @@ export async function apiFetch<T>(
     return data as T;
   } catch (error) {
     console.error(`API fetch error for ${endpoint}:`, error);
-    return [] as T;
+    return null as T;
   }
 }

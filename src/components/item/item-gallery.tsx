@@ -1,11 +1,11 @@
 "use client";
 
-import type { Item } from "@/types/item";
+import type { Item } from "@/lib/api/marketplace/types";
 
 import ItemCard, { ItemCardSkeleton } from "./item-card";
 
 type ItemGalleryProps = {
-  data: Item[] | null;
+  data: Item[] | null | undefined;
   isLoading: boolean;
   error: string | null;
 };

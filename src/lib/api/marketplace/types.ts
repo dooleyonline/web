@@ -17,6 +17,7 @@ export type Item = {
 };
 
 export type ItemQueryParams = {
+  id?: number | string;
   q?: string;
   category?: string;
   subcategory?: string;

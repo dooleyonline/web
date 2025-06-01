@@ -1,4 +1,4 @@
-import type { Category } from "@/types/category";
+import type { Category } from "@/lib/api/marketplace/types";
 import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());

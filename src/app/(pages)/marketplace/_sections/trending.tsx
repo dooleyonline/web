@@ -15,7 +15,7 @@ const TrendingSection = () => {
     <Section id="trending">
       <SectionHeader title="Trending" subtitle="Discover hot new items" />
       <ItemGallery
-        data={itemsData?.data || null}
+        data={itemsData?.data}
         isLoading={isItemsLoading}
         error={itemsError}
       />

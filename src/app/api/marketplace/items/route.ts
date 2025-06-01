@@ -1,9 +1,10 @@
+import type { Item, ItemsResponse } from "@/lib/api/marketplace/types";
 import fs from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 
 // Helper to read the JSON data file
-async function readItemsData() {
+async function readItemsData(): Promise<Item[]> {
   const filePath = path.join(process.cwd(), "public/data/items.json");
   const jsonData = await fs.readFile(filePath, "utf8");
   return JSON.parse(jsonData);
@@ -93,7 +94,7 @@ export async function GET(request: NextRequest) {
       //   page > 1
       //     ? `/api/marketplace/items?page=${page - 1}${searchParams.toString() ? "&" + searchParams.toString() : ""}`
       //     : null,
-    });
+    } satisfies ItemsResponse);
   } catch (error) {
     console.error("Error fetching items:", error);
     return NextResponse.json(

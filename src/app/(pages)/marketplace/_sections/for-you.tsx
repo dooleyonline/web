@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import useItems from "@/hooks/api/marketplace/use-items";
 import useSubcategories from "@/hooks/api/marketplace/use-subcategories";
-import type { Subcategory } from "@/types/subcategory";
+import type { Subcategory } from "@/lib/api/marketplace/types";
 import { useState } from "react";
 
 const ForYouSection = () => {
@@ -64,7 +64,7 @@ const ForYouSection = () => {
 
       {/* GALLERY */}
       <ItemGallery
-        data={itemsData?.data || null}
+        data={itemsData?.data}
         isLoading={isItemsLoading}
         error={itemsError}
       />

@@ -8,15 +8,16 @@ export const metadata: Metadata = {
 
 const MarketplaceLayout = ({
   children,
-  modal,
+  gallery,
 }: Readonly<{
   children: React.ReactNode;
+  gallery: React.ReactNode;
   modal: React.ReactNode;
 }>) => {
   return (
     <>
+      {gallery}
       {children}
-      {modal}
     </>
   );
 };

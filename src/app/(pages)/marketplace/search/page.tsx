@@ -18,11 +18,7 @@ const MarketplaceSearch = () => {
   return (
     <main>
       <section id="search-results">
-        <ItemGallery
-          data={data?.data || null}
-          isLoading={isLoading}
-          error={error}
-        />
+        <ItemGallery data={data?.data} isLoading={isLoading} error={error} />
       </section>
     </main>
   );

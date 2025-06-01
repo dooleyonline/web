@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/ui/use-mobile";
 import useNav from "@/hooks/ui/use-nav";
-import { slugToTitle } from "@/lib/utils/slug-to-title";
+import slugToTitle from "@/lib/utils/slug-to-title";
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
