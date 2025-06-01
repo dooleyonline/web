@@ -160,9 +160,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
           variant="outline"
           size="icon"
           type="submit"
-          disabled={
-            input[mainPage].trim().length === 0 || mainPage !== "marketplace"
-          } // temporary disable for non-marketplace pages
+          disabled={input[mainPage].trim().length === 0}
           className="rounded-full flex-none"
         >
           <ArrowRightIcon />

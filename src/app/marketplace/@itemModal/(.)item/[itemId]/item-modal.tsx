@@ -21,14 +21,13 @@ import formatPrice from "@/lib/utils/format-price";
 import getRelativeTime from "@/lib/utils/get-relative-time";
 import { HeartIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { memo, useState } from "react";
+import { memo } from "react";
 
 type ItemModalProps = {
   itemId: string;
 };
 
 export const ItemModal = memo((props: ItemModalProps) => {
-  const [open, setOpen] = useState(true);
   const { itemId } = props;
   const { data, isLoading, error } = useItems({
     id: itemId,
@@ -48,7 +47,7 @@ export const ItemModal = memo((props: ItemModalProps) => {
   const relativeTime = getRelativeTime(item?.postedAt);
 
   return (
-    <Dialog defaultOpen open={open} onOpenChange={router.back}>
+    <Dialog defaultOpen onOpenChange={router.back}>
       <DialogContent className="h-[min(90svh,1000px)] flex flex-col gap-2 bg-background">
         <div className="h-full overflow-auto flex flex-col gap-2">
           <ItemCarousel item={item} />
