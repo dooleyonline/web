@@ -73,7 +73,11 @@ const MarketplaceItem = async ({
 
 export async function generateStaticParams() {
   const data = await itemsApi.getAllIds();
-  const ids = data.ids;
+  const ids = data?.ids;
+
+  if (!ids || ids.length === 0) {
+    return [];
+  }
 
   return ids.map((id) => ({
     id: String(id),

@@ -15,7 +15,7 @@ const SiteHeader = () => {
   const { pathname, mainPage, isMainPage, pages } = useNav();
   const isVisible = isMainPage || pathname.includes("search");
 
-  if (!isVisible) return;
+  if (!isVisible || !(mainPage in pages)) return null;
 
   return (
     <motion.header

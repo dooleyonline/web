@@ -9,7 +9,7 @@ export default function useNav() {
     const p = lp.slice(1).split("/");
 
     if (p[0] !== "" && !(p[0] in nav)) {
-      console.error(`Unknown page: ${p[0]}`); // most likely never gonna trigger since invalid urls are handled by Not Found page
+      console.warn(`Unknown page: ${p[0]}`);
     }
 
     return {
@@ -41,23 +41,14 @@ const nav: Record<
     button: { href: string; text: string };
   }
 > = {
-  home: {
-    profile: "",
-    links: [],
-    button: {
-      href: "",
-      text: "",
-    },
-  },
-  // temporary for api routes
-  api: {
-    profile: "",
-    links: [],
-    button: {
-      href: "",
-      text: "",
-    },
-  },
+  // home: {
+  //   profile: "",
+  //   links: [],
+  //   button: {
+  //     href: "",
+  //     text: "",
+  //   },
+  // },
   marketplace: {
     profile: "/marketplace/profile",
     links: [

@@ -29,7 +29,7 @@ export function NavMain({
           {items.map((item) => (
             <Link
               key={item.title}
-              href={`/${mainPage === "home" ? "" : mainPage}`}
+              href={item.url}
               style={{
                 background:
                   mainPage === item.url.slice(1) ? "var(--sidebar-accent)" : "",

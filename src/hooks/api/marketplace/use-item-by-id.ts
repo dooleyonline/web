@@ -14,7 +14,7 @@ export default function useItemById(id: string | number) {
     return `/marketplace/items?id=${id}`;
   }, [id]);
 
-  return useSWR(queryKey, () => itemsApi.getById(String(id)), {
+  return useSWR(queryKey, () => itemsApi.get({ id: id }), {
     revalidateOnFocus: false,
     dedupingInterval: 60000, // 1 minute
   });

@@ -35,6 +35,10 @@ export function SiteNavbar() {
   const isLinkVisible = navData?.links.length > 0 || false;
   const isButtonVisible = navData?.button.href !== "" || false;
 
+  if (!navData) {
+    return null;
+  }
+
   const user = {
     fName: "John",
     lName: "Doe",
