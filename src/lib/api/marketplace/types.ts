@@ -1,6 +1,4 @@
-// Marketplace-specific types
-
-export type Item = {
+export type MarketplaceItem = {
   id: number;
   name: string;
   description: string;
@@ -16,26 +14,24 @@ export type Item = {
   seller: string;
 };
 
-export type ItemQueryParams = {
-  id?: number | string;
-  q?: string;
-  category?: string;
-  subcategory?: string;
+export type MarketplaceItemQueryParams = {
+  id: string;
+  q: string;
+  category: string;
+  subcategory: string;
 };
 
 export type ItemsResponse = {
-  data: Item[];
+  data: MarketplaceItem[];
   count: number;
-  // next?: string;
-  // previous?: string;
 };
 
-export type Category = {
+export type MarketplaceItemCategory = {
   name: string;
   icon: string;
 };
 
-export type Subcategory = {
+export type MarketplaceItemSubcategory = {
   name: string;
-  parent: Category["name"];
+  parent: MarketplaceItemCategory["name"];
 };

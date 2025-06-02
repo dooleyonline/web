@@ -1,11 +1,24 @@
 import createQueryString from "@/lib/utils/create-query-string";
 
 import { apiFetch } from "../core/client";
-import type { Item, ItemQueryParams, ItemsResponse } from "./types";
+import type {
+  ItemsResponse,
+  MarketplaceItem,
+  MarketplaceItemQueryParams,
+} from "./types";
 
 export const itemsApi = {
-  get: (params: ItemQueryParams): Promise<ItemsResponse> => {
-    const queryString = createQueryString(params || {});
+  get: (
+    params: Partial<MarketplaceItemQueryParams>
+  ): Promise<ItemsResponse> => {
+    const queryString = createQueryString(params);
+    if (queryString.length === 0) {
+      return Promise.resolve({
+        data: [],
+        count: 0,
+      } satisfies ItemsResponse);
+    }
+
     return apiFetch(`/marketplace/items?${queryString}`);
   },
 
@@ -13,7 +26,7 @@ export const itemsApi = {
     return apiFetch("/marketplace/items/ids");
   },
 
-  create: (item: Omit<Item, "id">): Promise<Item> =>
+  create: (item: Omit<MarketplaceItem, "id">): Promise<MarketplaceItem> =>
     apiFetch("/marketplace/items/", {
       method: "POST",
       body: JSON.stringify(item),

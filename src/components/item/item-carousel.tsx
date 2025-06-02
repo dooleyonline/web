@@ -9,13 +9,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import type { Item } from "@/lib/api/marketplace/types";
+import type { MarketplaceItem } from "@/lib/api/marketplace/types";
 import getImageURL from "@/lib/utils/get-image-url";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { memo, useEffect, useState } from "react";
 
-export const ItemCarousel = memo(({ item }: { item: Item }) => {
+export const ItemCarousel = memo(({ item }: { item: MarketplaceItem }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);

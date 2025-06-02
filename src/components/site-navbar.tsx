@@ -57,8 +57,8 @@ export function SiteNavbar() {
       <div className="w-fit p-2">
         {isMobile && <SidebarTrigger className="-ml-1 text-foreground" />}
 
-        {!isMobile && paths.length > 1 && (
-          <Breadcrumb>
+        {paths.length > 1 && (
+          <Breadcrumb className="hidden md:block">
             <BreadcrumbList>
               {paths.slice(0, -1).map((p, i) => (
                 <Fragment key={i}>

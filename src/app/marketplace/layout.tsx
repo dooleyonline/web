@@ -18,7 +18,8 @@ const MarketplaceLayout = ({
 }>) => {
   return (
     <>
-      <Suspense fallback={<p className="text-muted-foreground">Loading...</p>}>
+      {/* Doesn't need fallback since header is hidden until mounted */}
+      <Suspense>
         <SiteHeader />
       </Suspense>
       <main>

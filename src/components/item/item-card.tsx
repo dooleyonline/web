@@ -22,7 +22,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useIsMobile } from "@/hooks/ui/use-is-mobile";
-import type { Item } from "@/lib/api/marketplace/types";
+import type { MarketplaceItem } from "@/lib/api/marketplace/types";
 import formatPrice from "@/lib/utils/format-price";
 import getImageURL from "@/lib/utils/get-image-url";
 import getRelativeTime from "@/lib/utils/get-relative-time";
@@ -34,7 +34,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
 
 type ItemCardProps = {
-  item: Item;
+  item: MarketplaceItem;
   index: number;
 };
 

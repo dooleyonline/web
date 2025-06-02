@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useItems } from "@/hooks/api/marketplace";
 import useSubcategories from "@/hooks/api/marketplace/use-subcategories";
-import type { Subcategory } from "@/lib/api/marketplace/types";
+import type { MarketplaceItemSubcategory } from "@/lib/api/marketplace/types";
 import { useState } from "react";
 
 const ForYouSection = () => {
@@ -49,15 +49,17 @@ const ForYouSection = () => {
             >
               All
             </Button>
-            {subcategoriesData?.map((item: Subcategory, i: number) => (
-              <Button
-                key={i}
-                variant={selected === item.name ? "default" : "secondary"}
-                onClick={() => setSelected(item.name)}
-              >
-                {item.name}
-              </Button>
-            ))}
+            {subcategoriesData?.map(
+              (item: MarketplaceItemSubcategory, i: number) => (
+                <Button
+                  key={i}
+                  variant={selected === item.name ? "default" : "secondary"}
+                  onClick={() => setSelected(item.name)}
+                >
+                  {item.name}
+                </Button>
+              )
+            )}
           </>
         )}
       </div>

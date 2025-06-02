@@ -4,7 +4,7 @@ import DynamicIcon from "@/components/dynamic-icon";
 import { Section } from "@/components/site-section";
 import { Skeleton } from "@/components/ui/skeleton";
 import useCategories from "@/hooks/api/marketplace/use-categories";
-import type { Category } from "@/lib/api/marketplace/types";
+import type { MarketplaceItemCategory } from "@/lib/api/marketplace/types";
 
 const CategoriesSection = () => {
   const { data, isLoading, error } = useCategories();
@@ -20,7 +20,7 @@ const CategoriesSection = () => {
           ? Array.from({ length: 10 }).map((_, i) => (
               <CategoryCardSkeleton key={i} />
             ))
-          : data?.map((item: Category, i: number) => (
+          : data?.map((item: MarketplaceItemCategory, i: number) => (
               <CategoryCard key={i} {...item} />
             ))}
       </div>
@@ -28,7 +28,7 @@ const CategoriesSection = () => {
   );
 };
 
-const CategoryCard = (category: Category) => {
+const CategoryCard = (category: MarketplaceItemCategory) => {
   return (
     <button className="flex h-[72px] flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24">
       <DynamicIcon

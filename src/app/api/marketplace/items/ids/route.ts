@@ -1,11 +1,11 @@
-import type { Item } from "@/lib/api/marketplace/types";
+import type { MarketplaceItem } from "@/lib/api/marketplace/types";
 import { NextResponse } from "next/server";
 
 import itemsData from "../items.json";
 
 export async function GET() {
   try {
-    const items = itemsData as Item[];
+    const items = itemsData as MarketplaceItem[];
     const ids = items.map((item) => item.id);
     console.log(ids);
     return NextResponse.json({ ids });

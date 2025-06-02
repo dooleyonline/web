@@ -1,4 +1,7 @@
-import type { Item, ItemsResponse } from "@/lib/api/marketplace/types";
+import type {
+  ItemsResponse,
+  MarketplaceItem,
+} from "@/lib/api/marketplace/types";
 import { NextRequest, NextResponse } from "next/server";
 
 import itemsData from "./items.json";
@@ -15,7 +18,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ data: [], count: 0 } satisfies ItemsResponse);
     }
 
-    const items = itemsData as Item[];
+    const items = itemsData as MarketplaceItem[];
 
     // Apply filters
     let filteredItems = [...items];

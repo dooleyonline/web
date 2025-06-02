@@ -4,14 +4,16 @@
  * Each key represents a parameter name, and each value represents the parameter value.
  * @returns A string representing the query string. Not prefixed with '?'.
  */
-export default function createQueryString(params: Record<string, unknown>): string {
+export default function createQueryString(
+  params: Record<string, string>
+): string {
   const queryString = params
     ? new URLSearchParams(
         Object.entries(params)
-          .filter(([, v]) => v !== undefined)
+          .filter(([, v]) => v.trim().length > 0)
           .map(([k, v]) => [k, String(v)])
       ).toString()
     : "";
 
-  return queryString ? `${queryString}` : "";
+  return queryString;
 }
