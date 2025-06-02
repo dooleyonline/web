@@ -17,8 +17,6 @@ const Gallery = () => {
     queryParams as MarketplaceItemQueryParams
   );
 
-  console.log("data:", data);
-
   if (!isSearch) {
     // If no search parameters are provided, show the homepage sections
     return (

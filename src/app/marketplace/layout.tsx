@@ -25,7 +25,7 @@ const MarketplaceLayout = ({
       <main>
         <Suspense>{gallery}</Suspense>
         {itemModal}
-        {children}
+        <Suspense>{children}</Suspense>
       </main>
     </>
   );

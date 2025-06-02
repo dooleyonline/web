@@ -3,7 +3,7 @@
 import { ForumPostQueryParams } from "@/lib/api/forum";
 import { LivingPostQueryParams } from "@/lib/api/housing";
 import { MarketplaceItemQueryParams } from "@/lib/api/marketplace";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 // Map page names to their corresponding param types
@@ -15,13 +15,12 @@ type PageToParamsMap = {
 
 type PageType = keyof PageToParamsMap;
 
-type QueryParams = PageToParamsMap[PageType];
-
-const useValidSearchParams = (props: { page: PageType }) => {
+const useValidSearchParams = <T extends PageType>(props: { page: T }) => {
   const { page } = props;
   const searchParams = useSearchParams();
+  const router = useRouter();
 
-  const [queryParams, setQueryParams] = useState<QueryParams>();
+  const [queryParams, setQueryParams] = useState<PageToParamsMap[T]>();
   const [isValid, setIsValid] = useState(true);
   const isSearch = searchParams.size > 0;
 
@@ -31,7 +30,7 @@ const useValidSearchParams = (props: { page: PageType }) => {
       return;
     }
 
-    let params: QueryParams;
+    let params: PageToParamsMap[T];
 
     switch (page) {
       case "marketplace":
@@ -40,24 +39,25 @@ const useValidSearchParams = (props: { page: PageType }) => {
           q: searchParams.get("q") || "",
           category: searchParams.get("category") || "",
           subcategory: searchParams.get("subcategory") || "",
-        } satisfies MarketplaceItemQueryParams;
+        } satisfies MarketplaceItemQueryParams as PageToParamsMap[T];
         break;
       case "living":
         params = {
           id: searchParams.get("id") || "",
           q: searchParams.get("q") || "",
-        } satisfies LivingPostQueryParams;
+        } satisfies LivingPostQueryParams as PageToParamsMap[T];
         break;
 
       case "forum":
         params = {
           id: searchParams.get("id") || "",
           q: searchParams.get("q") || "",
-        } satisfies ForumPostQueryParams;
+        } satisfies ForumPostQueryParams as PageToParamsMap[T];
         break;
 
       default:
-        throw new Error("Invalid page:", page);
+        // Most likely never reached since the hook is typed with PageType
+        throw new Error(`Invalid page type: ${page}`);
     }
 
     setQueryParams(params);
@@ -67,14 +67,14 @@ const useValidSearchParams = (props: { page: PageType }) => {
   useEffect(() => {
     if (!isValid) {
       console.warn("Invalid search params, redirecting to main page");
-      window.location.replace(`/${page}`);
+      router.replace(`/${page}`);
     }
-  }, [isValid, page]);
+  }, [isValid, page, router]);
 
   return {
     isSearch,
     isValid,
-    queryParams: queryParams as QueryParams,
+    queryParams: queryParams!,
   };
 };
 
