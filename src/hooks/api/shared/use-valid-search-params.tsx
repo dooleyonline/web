@@ -15,7 +15,9 @@ type PageToParamsMap = {
 
 type PageType = keyof PageToParamsMap;
 
-const useValidSearchParams = <T extends PageType>(props: { page: T }) => {
+export default function useValidSearchParams<T extends PageType>(props: {
+  page: T;
+}) {
   const { page } = props;
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -76,6 +78,4 @@ const useValidSearchParams = <T extends PageType>(props: { page: T }) => {
     isValid,
     queryParams: queryParams!,
   };
-};
-
-export default useValidSearchParams;
+}

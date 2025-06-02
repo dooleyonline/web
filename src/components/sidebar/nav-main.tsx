@@ -7,7 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import useNav from "@/hooks/ui/use-nav";
+import { useNav } from "@/hooks/ui";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -32,7 +32,9 @@ export function NavMain({
               href={item.url}
               style={{
                 background:
-                  currentPage === item.url.slice(1) ? "var(--sidebar-accent)" : "",
+                  currentPage === item.url.slice(1)
+                    ? "var(--sidebar-accent)"
+                    : "",
                 color:
                   currentPage === item.url.slice(1)
                     ? "var(--sidebar-accent-foreground)"

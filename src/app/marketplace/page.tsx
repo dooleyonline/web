@@ -1,6 +1,6 @@
 "use client";
 
-import useValidSearchParams from "@/hooks/ui/use-valid-search-params";
+import { useValidSearchParams } from "@/hooks/api/shared";
 
 export default function Marketplace() {
   useValidSearchParams({

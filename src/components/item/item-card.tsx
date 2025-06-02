@@ -21,7 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useIsMobile } from "@/hooks/ui/use-is-mobile";
+import { useIsMobile } from "@/hooks/ui";
 import type { MarketplaceItem } from "@/lib/api/marketplace/types";
 import formatPrice from "@/lib/utils/format-price";
 import getImageURL from "@/lib/utils/get-image-url";
@@ -148,6 +148,7 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
     </HoverCard>
   );
 };
+export default ItemCard;
 
 export const ItemCardSkeleton = () => {
   return (
@@ -167,5 +168,3 @@ export const ItemCardSkeleton = () => {
     </Card>
   );
 };
-
-export default ItemCard;

@@ -5,13 +5,14 @@ type SectionProps = {
   children: ReactNode;
 };
 
-export const Section = ({ id, children }: SectionProps) => {
+const Section = ({ id, children }: SectionProps) => {
   return (
     <section id={id} className="mb-10">
       {children}
     </section>
   );
 };
+export default Section;
 
 type SectionHeaderProps = {
   title: string;

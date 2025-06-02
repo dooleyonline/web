@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/ui/use-is-mobile";
-import useNav from "@/hooks/ui/use-nav";
+import { useIsMobile } from "@/hooks/ui";
+import { useNav } from "@/hooks/ui";
 import slugToTitle from "@/lib/utils/slug-to-title";
 import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";

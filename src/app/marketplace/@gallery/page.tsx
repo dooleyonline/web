@@ -1,34 +1,15 @@
 "use client";
 
-import ItemGallery from "@/components/item/item-gallery";
-import { useItems } from "@/hooks/api/marketplace";
-import useValidSearchParams from "@/hooks/ui/use-valid-search-params";
-import { MarketplaceItemQueryParams } from "@/lib/api/marketplace";
+import { useValidSearchParams } from "@/hooks/api/shared";
 
-import CategoriesSection from "../_sections/categories";
-import ForYouSection from "../_sections/for-you";
-import TrendingSection from "../_sections/trending";
+import Home from "./home";
+import Search from "./search";
 
 const Gallery = () => {
   const { queryParams, isSearch } = useValidSearchParams({
     page: "marketplace",
   });
-  const { data, isLoading, error } = useItems(
-    queryParams as MarketplaceItemQueryParams
-  );
 
-  if (!isSearch) {
-    // If no search parameters are provided, show the homepage sections
-    return (
-      <>
-        <CategoriesSection />
-        <ForYouSection />
-        <TrendingSection />
-      </>
-    );
-  }
-
-  return <ItemGallery data={data?.data} isLoading={isLoading} error={error} />;
+  return isSearch ? <Search queryParams={queryParams} /> : <Home />;
 };
-
 export default Gallery;
