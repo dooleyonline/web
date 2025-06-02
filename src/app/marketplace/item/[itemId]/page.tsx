@@ -21,6 +21,7 @@ const MarketplaceItem = ({
   const { itemId } = use(params);
   const { data, isLoading, error } = useItems({ id: itemId });
 
+  // TODO: Create skeleton loading state
   if (isLoading || !data) {
     return <p className="text-muted-foreground">Loading...</p>;
   }

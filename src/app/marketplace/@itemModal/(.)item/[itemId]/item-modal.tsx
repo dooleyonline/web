@@ -35,6 +35,7 @@ export const ItemModal = memo((props: ItemModalProps) => {
   const item = data?.data[0];
   const router = useRouter();
 
+  // TODO: Create skeleton loading state
   if (isLoading) {
     return null;
   }
