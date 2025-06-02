@@ -1,5 +1,3 @@
-import { itemsApi } from "./items";
-
-// Export all marketplace APIs
 export * from "./types";
-export { itemsApi };
+export { itemsApi } from "./items";
+export { categoriesApi } from "./categories";
