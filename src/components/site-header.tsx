@@ -43,19 +43,22 @@ const SiteHeader = () => {
           ? isMobile
             ? {
                 paddingTop: "60px",
+                paddingBottom: "24px",
                 borderBottomWidth: "1px",
               }
             : {
                 paddingTop: "180px",
+                paddingBottom: "24px",
                 borderBottomWidth: "1px",
               }
           : {
-              paddingTop: "24px",
+              paddingTop: "16px",
+              paddingBottom: "0px",
               borderBottomWidth: "0px",
             }
       }
       transition={{ ease: "anticipate" }}
-      className="border-b p-4 sm:p-6 rounded-b-4xl w-full relative"
+      className="border-b px-4 sm:px-6 rounded-b-4xl w-full relative"
     >
       <AnimatePresence>
         {status === "expanded" && (
@@ -136,7 +139,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
             className="overflow-hidden"
           >
             <Button asChild onClick={handleBack} variant="ghost" size="icon">
-              <ChevronLeftIcon className="text-muted-foreground" />
+              <ChevronLeftIcon className="text-muted-foreground !size-8 sm:!size-9" />
             </Button>
           </motion.div>
         )}
@@ -144,7 +147,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
       <form
         onSubmit={handleSearch}
         id="search-bar"
-        className="flex items-center gap-2 bg-sidebar rounded-full p-2 border flex-1"
+        className="flex items-center gap-2 bg-sidebar rounded-full p-1 sm:p-2 border flex-1"
       >
         <input
           id="search-input"
