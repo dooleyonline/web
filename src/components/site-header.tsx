@@ -100,7 +100,6 @@ const SearchBar = (props: SiteSearchBarProps) => {
     searchParams,
   } = props;
   const router = useRouter();
-  const isMobile = useIsMobile();
 
   const query = searchParams.get("q");
   const [input, setInput] = useState(
@@ -128,7 +127,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
   return (
     <div className={`${className || ""} flex items-center w-full`}>
       <AnimatePresence>
-        {status === "collapsed" && !isMobile && (
+        {status === "collapsed" && (
           <motion.div
             key="modal"
             initial={{ width: "0px", marginRight: "0px" }}
