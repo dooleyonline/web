@@ -1,11 +1,15 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { MarketplaceItemCategory } from "@/lib/api/marketplace";
+import Link from "next/link";
 
 import DynamicIcon from "../dynamic-icon";
 
 const CategoryCard = (category: MarketplaceItemCategory) => {
   return (
-    <button className="flex h-[72px] flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24">
+    <Link
+      href={`/marketplace?category=${category.name}`}
+      className="flex h-[72px] flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24"
+    >
       <DynamicIcon
         name={category.icon}
         className="size-6 text-muted-foreground"
@@ -13,7 +17,7 @@ const CategoryCard = (category: MarketplaceItemCategory) => {
       <span className="block text-left text-sm font-semibold leading-none">
         {category.name}
       </span>
-    </button>
+    </Link>
   );
 };
 export default CategoryCard;

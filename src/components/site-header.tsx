@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/ui";
 import { useNav } from "@/hooks/ui";
 import slugToTitle from "@/lib/utils/slug-to-title";
-import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
+import { ArrowRightIcon, ChevronLeftIcon, XIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -93,6 +93,21 @@ type SiteSearchBarProps = {
   className?: string;
 };
 
+function parseInput(input: string) {
+  let q = input.trim();
+  const category = q.match(/#\w+/g)?.[0];
+  if (category) {
+    q = q.replace(category, "").trim();
+  }
+
+  const qURI = q.length > 0 ? `q=${encodeURIComponent(q)}` : "";
+  const categoryURI = category
+    ? `&category=${encodeURIComponent(category.replace("#", ""))}`
+    : "";
+
+  return { qURI, categoryURI };
+}
+
 const SearchBar = (props: SiteSearchBarProps) => {
   const {
     searchPlaceholder,
@@ -104,7 +119,8 @@ const SearchBar = (props: SiteSearchBarProps) => {
   } = props;
   const router = useRouter();
 
-  const query = searchParams.get("q");
+  const q = searchParams.get("q");
+  const category = searchParams.get("category");
   const [input, setInput] = useState(
     pages.reduce((acc: Record<string, string>, page) => {
       acc[page] = "";
@@ -114,7 +130,8 @@ const SearchBar = (props: SiteSearchBarProps) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/${mainPage}?q=${encodeURIComponent(input[mainPage].trim())}`);
+    const { qURI, categoryURI } = parseInput(input[mainPage]);
+    router.push(`/${mainPage}?${qURI}${categoryURI}`);
   };
 
   const handleBack = () => {
@@ -122,10 +139,10 @@ const SearchBar = (props: SiteSearchBarProps) => {
   };
 
   useEffect(() => {
-    if (query) {
-      setInput((prev) => ({ ...prev, [mainPage]: query }));
+    if (q) {
+      setInput((prev) => ({ ...prev, [mainPage]: `${q}` }));
     }
-  }, [query, mainPage, router]);
+  }, [mainPage, q, category]);
 
   return (
     <div className={`${className || ""} flex items-center w-full`}>
@@ -144,11 +161,26 @@ const SearchBar = (props: SiteSearchBarProps) => {
           </motion.div>
         )}
       </AnimatePresence>
+
       <form
         onSubmit={handleSearch}
         id="search-bar"
-        className="flex items-center gap-2 bg-sidebar rounded-full p-1 sm:p-2 border flex-1"
+        className="flex items-center gap-2 bg-sidebar rounded-full p-1 sm:p-2 border flex-1 !pl-4 sm:!pl-5"
       >
+        {category && (
+          <div className="flex gap-1 p-1 items-center rounded-sm border bg-secondary font-medium text-sm text-secondary-foreground">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                const { qURI } = parseInput(input[mainPage]);
+                router.push(`/${mainPage}?${qURI}`);
+              }}
+            >
+              <XIcon size={16} className="text-muted-foreground" />
+            </button>
+            {category}
+          </div>
+        )}
         <input
           id="search-input"
           type="text"
@@ -158,7 +190,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
             setInput((prev) => ({ ...prev, [mainPage]: e.target.value }))
           }
           aria-label="Search"
-          className="w-full bg-transparent outline-hidden placeholder:text-muted-foreground ml-4"
+          className="w-full bg-transparent outline-hidden placeholder:text-muted-foreground"
         />
         <Button
           variant="outline"

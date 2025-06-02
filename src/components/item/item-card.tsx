@@ -30,6 +30,7 @@ import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { memo } from "react";
 
 import { ItemConditionBadge, ItemNegotiableBadge } from "./item-badge";
 
@@ -38,7 +39,7 @@ type ItemCardProps = {
   index: number;
 };
 
-const ItemCard = ({ item, index }: ItemCardProps) => {
+const ItemCard = memo(({ item, index }: ItemCardProps) => {
   const searchParams = useSearchParams();
   const relativeTime = getRelativeTime(item.postedAt);
   const link = `/marketplace/item/${item.id}?${searchParams.toString()}`;
@@ -147,7 +148,8 @@ const ItemCard = ({ item, index }: ItemCardProps) => {
       {hoverCard}
     </HoverCard>
   );
-};
+});
+ItemCard.displayName = "ItemCard";
 export default ItemCard;
 
 export const ItemCardSkeleton = () => {
