@@ -1,5 +1,7 @@
+import { ApiResponse } from "../core";
+
 export type MarketplaceItem = {
-  id: number;
+  id: string;
   name: string;
   description: string;
   category: string;
@@ -14,24 +16,29 @@ export type MarketplaceItem = {
   seller: string;
 };
 
-export type MarketplaceItemQueryParams = {
-  id: string;
-  q: string;
-  category: string;
-  subcategory: string;
-};
-
-export type ItemsResponse = {
-  data: MarketplaceItem[];
-  count: number;
-};
-
 export type MarketplaceItemCategory = {
   name: string;
   icon: string;
+  subcategories: MarketplaceItem["subcategory"][];
 };
 
 export type MarketplaceItemSubcategory = {
   name: string;
   parent: MarketplaceItemCategory["name"];
 };
+
+export type MarketplaceItemQueryParams = {
+  id: MarketplaceItem["id"];
+  q: string;
+  category: string;
+  subcategory: string;
+};
+
+export type MarketplaceItemCategoryQueryParams = {
+  name: MarketplaceItemCategory["name"];
+};
+
+export type MarketplaceItemsResponse = ApiResponse<MarketplaceItem> & {};
+
+export type MarketplaceItemCategoriesResponse =
+  ApiResponse<MarketplaceItemCategory> & {};

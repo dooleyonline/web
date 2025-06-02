@@ -1,1 +1,4 @@
-// Shared API types
+export type ApiResponse<T> = {
+  data: T[];
+  count: number;
+};

@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Electronics",
+    "icon": "monitor",
+    "subcategories": ["Smartphone", "Computer"]
+  },
+  {
+    "name": "Home & Garden",
+    "icon": "armchair",
+    "subcategories": ["Furniture", "Garden Tools", "Kitchen", "Decor"]
+  },
+  {
+    "name": "Clothing",
+    "icon": "shirt",
+    "subcategories": ["Men's", "Women's", "Children's", "Shoes"]
+  },
+  {
+    "name": "Books",
+    "icon": "book",
+    "subcategories": ["Fiction", "Non-fiction", "Textbooks", "Comics"]
+  },
+  {
+    "name": "Accessories",
+    "icon": "watch",
+    "subcategories": ["Jewelry", "Bags", "Belts", "Hats"]
+  },
+  {
+    "name": "Health & Beauty",
+    "icon": "heart",
+    "subcategories": ["Skincare", "Makeup", "Personal Care", "Wellness"]
+  },
+  {
+    "name": "Sports & Outdoors",
+    "icon": "dumbbell",
+    "subcategories": ["Fitness", "Camping", "Team Sports", "Water Sports"]
+  },
+  {
+    "name": "Toys & Games",
+    "icon": "blocks",
+    "subcategories": [
+      "Board Games",
+      "Action Figures",
+      "Puzzles",
+      "Outdoor Toys"
+    ]
+  },
+  {
+    "name": "Automotive",
+    "icon": "car",
+    "subcategories": ["Car Parts", "Tools", "Accessories", "Car Care"]
+  }
+]

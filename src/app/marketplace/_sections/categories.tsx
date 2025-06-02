@@ -7,7 +7,7 @@ import useCategories from "@/hooks/api/marketplace/use-categories";
 import type { MarketplaceItemCategory } from "@/lib/api/marketplace/types";
 
 const CategoriesSection = () => {
-  const { data, isLoading, error } = useCategories();
+  const { data, isLoading, error } = useCategories({});
 
   if (error) {
     return <p>Error: {error}</p>;
@@ -20,7 +20,7 @@ const CategoriesSection = () => {
           ? Array.from({ length: 10 }).map((_, i) => (
               <CategoryCardSkeleton key={i} />
             ))
-          : data?.map((item: MarketplaceItemCategory, i: number) => (
+          : data?.data.map((item: MarketplaceItemCategory, i: number) => (
               <CategoryCard key={i} {...item} />
             ))}
       </div>

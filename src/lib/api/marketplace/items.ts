@@ -2,29 +2,29 @@ import createQueryString from "@/lib/utils/create-query-string";
 
 import { apiFetch } from "../core/client";
 import type {
-  ItemsResponse,
   MarketplaceItem,
   MarketplaceItemQueryParams,
+  MarketplaceItemsResponse,
 } from "./types";
 
 export const itemsApi = {
   get: (
     params: Partial<MarketplaceItemQueryParams>
-  ): Promise<ItemsResponse> => {
+  ): Promise<MarketplaceItemsResponse> => {
     const queryString = createQueryString(params);
     if (queryString.length === 0) {
       return Promise.resolve({
         data: [],
         count: 0,
-      } satisfies ItemsResponse);
+      } satisfies MarketplaceItemsResponse);
     }
 
     return apiFetch(`/marketplace/items?${queryString}`);
   },
 
-  getAllIds: (): Promise<{ ids: number[] }> => {
-    return apiFetch("/marketplace/items/ids");
-  },
+  // getAllIds: (): Promise<{ ids: number[] }> => {
+  //   return apiFetch("/marketplace/items/ids");
+  // },
 
   create: (item: Omit<MarketplaceItem, "id">): Promise<MarketplaceItem> =>
     apiFetch("/marketplace/items/", {

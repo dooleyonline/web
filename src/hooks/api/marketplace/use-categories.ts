@@ -1,11 +1,26 @@
-import type { MarketplaceItemCategory } from "@/lib/api/marketplace/types";
+import { categoriesApi } from "@/lib/api/marketplace/categories";
+import type { MarketplaceItemCategoryQueryParams } from "@/lib/api/marketplace/types";
+import createQueryString from "@/lib/utils/create-query-string";
+import { useMemo } from "react";
 import useSWR from "swr";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+/**
+ * Custom hook to fetch categories from the marketplace API.
+ *
+ * @param params The query parameters for fetching categories.
+ * @returns An object containing the data, loading state, and error state for the categories.
+ */
+export default function useCategories(
+  params: Partial<MarketplaceItemCategoryQueryParams>
+) {
+  // Create a stable cache key
+  const queryKey = useMemo(() => {
+    const queryString = createQueryString(params);
+    return `/marketplace/categories/${queryString}`;
+  }, [params]);
 
-export default function useCategories() {
-  return useSWR<MarketplaceItemCategory[]>("/data/categories.json", fetcher, {
+  return useSWR(queryKey, () => categoriesApi.get(params), {
     revalidateOnFocus: false,
-    dedupingInterval: 60000, // 1 min
+    dedupingInterval: 60000, // 1 minute
   });
 }

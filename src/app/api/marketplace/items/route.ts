@@ -1,6 +1,6 @@
 import type {
-  ItemsResponse,
   MarketplaceItem,
+  MarketplaceItemsResponse,
 } from "@/lib/api/marketplace/types";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -15,7 +15,10 @@ export async function GET(request: NextRequest) {
     const subcategory = searchParams.get("subcategory");
 
     if (!q && !id && !category && !subcategory) {
-      return NextResponse.json({ data: [], count: 0 } satisfies ItemsResponse);
+      return NextResponse.json({
+        data: [],
+        count: 0,
+      } satisfies MarketplaceItemsResponse);
     }
 
     const items = itemsData as MarketplaceItem[];
@@ -93,7 +96,7 @@ export async function GET(request: NextRequest) {
       //   page > 1
       //     ? `/api/marketplace/items?page=${page - 1}${searchParams.toString() ? "&" + searchParams.toString() : ""}`
       //     : null,
-    } satisfies ItemsResponse);
+    } satisfies MarketplaceItemsResponse);
   } catch (error) {
     console.error("Error fetching items:", error);
     return NextResponse.json(
