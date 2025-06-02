@@ -4,15 +4,16 @@ import Image from "next/image";
 const Home = () => {
   return (
     <main>
-      <header className="w-full h-[30svh] max-h-[500px] bg-muted rounded-xl overflow-hidden relative">
+      <header className="w-full h-[30svh] min-h-[200px] max-h-[400px] rounded-xl overflow-hidden relative">
         <Image
           src={banner}
           alt="Site banner"
           fill
           placeholder="blur"
-          className="object-cover z-0 brightness-50"
+          className="object-cover"
         />
-        <div className="absolute bottom-6 left-6">
+
+        <div className="relative size-full flex flex-col justify-end backdrop-blur-3xl p-6 bg-primary/50">
           <h1 className="text-background font-bold font-display">
             Welcome to DooleyOnline
           </h1>

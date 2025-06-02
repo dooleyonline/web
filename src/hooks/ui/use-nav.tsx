@@ -41,14 +41,14 @@ const nav: Record<
     button: { href: string; text: string };
   }
 > = {
-  // home: {
-  //   profile: "",
-  //   links: [],
-  //   button: {
-  //     href: "",
-  //     text: "",
-  //   },
-  // },
+  home: {
+    profile: "",
+    links: [],
+    button: {
+      href: "",
+      text: "",
+    },
+  },
   marketplace: {
     profile: "/marketplace/profile",
     links: [
