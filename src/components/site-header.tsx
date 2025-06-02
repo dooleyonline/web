@@ -7,7 +7,7 @@ import slugToTitle from "@/lib/utils/slug-to-title";
 import { ArrowRightIcon, ChevronLeftIcon, XIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 const SiteHeader = () => {
   const [status, setStatus] = useState<"disabled" | "collapsed" | "expanded">(
@@ -108,7 +108,7 @@ function parseInput(input: string) {
   return { qURI, categoryURI };
 }
 
-const SearchBar = (props: SiteSearchBarProps) => {
+const SearchBar = memo((props: SiteSearchBarProps) => {
   const {
     searchPlaceholder,
     status,
@@ -204,8 +204,7 @@ const SearchBar = (props: SiteSearchBarProps) => {
       </form>
     </div>
   );
-};
-
-SearchBar.displayName = "SearchBar"; // Good practice to add display name for forwardRef components
+});
+SearchBar.displayName = "SearchBar";
 
 export default SiteHeader;
