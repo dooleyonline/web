@@ -1,7 +1,7 @@
 import { ApiResponse } from "../core";
 
 export type MarketplaceItem = {
-  id: string;
+  id: string | number;
   name: string;
   description: string;
   category: string;

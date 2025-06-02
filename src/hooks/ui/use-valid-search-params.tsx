@@ -61,7 +61,7 @@ const useValidSearchParams = <T extends PageType>(props: { page: T }) => {
     }
 
     setQueryParams(params);
-    setIsValid(Object.values(params).some((val) => val.length > 0));
+    setIsValid(Object.values(params).some((val) => val.toString().length > 0));
   }, [page, searchParams, isSearch]);
 
   useEffect(() => {

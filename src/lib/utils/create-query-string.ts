@@ -5,12 +5,12 @@
  * @returns A string representing the query string. Not prefixed with '?'.
  */
 export default function createQueryString(
-  params: Record<string, string>
+  params: Record<string, string | number>
 ): string {
   const queryString = params
     ? new URLSearchParams(
         Object.entries(params)
-          .filter(([, v]) => v.trim().length > 0)
+          .filter(([, v]) => v.toString().trim().length > 0)
           .map(([k, v]) => [k, String(v)])
       ).toString()
     : "";
