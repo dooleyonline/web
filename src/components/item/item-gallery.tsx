@@ -71,7 +71,18 @@ const ItemGallery = ({ data, isLoading, error }: ItemGalleryProps) => {
                 className="leading-none items-center"
               >
                 {subcategory}
-                <span className="text-muted-foreground text-xs">{count}</span>
+
+                <span
+                  style={{
+                    color:
+                      selected === subcategory
+                        ? "var(--muted)"
+                        : "var(--muted-foreground)",
+                  }}
+                  className="text-xs"
+                >
+                  {count}
+                </span>
               </Button>
             ))}
           </>
