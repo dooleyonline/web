@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const allowedOrigins = ["https://acme.com", "https://my-app.org"];
+const allowedOrigins = [
+  "https://dooleyonline.up.railway.app",
+  "http://localhost:3000",
+];
 
 const corsOptions = {
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -9,7 +12,7 @@ const corsOptions = {
 
 export function middleware(request: NextRequest) {
   const origin = request.headers.get("origin") ?? "";
-  const isAllowedOrigin = true || allowedOrigins.includes(origin);
+  const isAllowedOrigin = allowedOrigins.includes(origin);
   const isPreflight = request.method === "OPTIONS";
 
   if (isPreflight) {
