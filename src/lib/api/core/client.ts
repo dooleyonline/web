@@ -1,4 +1,3 @@
-// Base API client with authentication and error handling// src/lib/api/core/client.ts
 import axios from "axios";
 
 import { API_BASE_URL } from "./config";
