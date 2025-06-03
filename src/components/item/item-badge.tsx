@@ -1,4 +1,5 @@
 import { Badge } from "../ui/badge";
+import { Skeleton } from "../ui/skeleton";
 
 type ItemConditionBadgeProps = {
   condition: number;
@@ -39,4 +40,8 @@ export const ItemNegotiableBadge = ({
       {negotiable ? "negotiable" : "not negotiable"}
     </Badge>
   );
+};
+
+export const ItemBadgeSkeleton = () => {
+  return <Skeleton className="h-5 w-20" />;
 };

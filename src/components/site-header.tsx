@@ -8,6 +8,7 @@ import { ArrowRightIcon, ChevronLeftIcon, XIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { memo, useEffect, useState } from "react";
+import { set } from "zod";
 
 const SiteHeader = () => {
   const [status, setStatus] = useState<"disabled" | "collapsed" | "expanded">(
@@ -109,40 +110,28 @@ function parseInput(input: string) {
 }
 
 const SearchBar = memo((props: SiteSearchBarProps) => {
-  const {
-    searchPlaceholder,
-    status,
-    mainPage,
-    className,
-    pages,
-    searchParams,
-  } = props;
+  const { searchPlaceholder, status, mainPage, className, searchParams } =
+    props;
   const router = useRouter();
 
   const q = searchParams.get("q");
   const category = searchParams.get("category");
-  const [input, setInput] = useState(
-    pages.reduce((acc: Record<string, string>, page) => {
-      acc[page] = "";
-      return acc;
-    }, {})
-  );
+  const [input, setInput] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const { qURI, categoryURI } = parseInput(input[mainPage]);
+    const { qURI, categoryURI } = parseInput(input);
     router.push(`/${mainPage}?${qURI}${categoryURI}`);
   };
 
   const handleBack = () => {
+    setInput("");
     router.back();
   };
 
   useEffect(() => {
-    if (q) {
-      setInput((prev) => ({ ...prev, [mainPage]: `${q}` }));
-    }
-  }, [mainPage, q, category]);
+    setInput(`${category ? `#${category}` : ""}${q ? ` ${q}` : ""}`);
+  }, [q, category]);
 
   return (
     <div className={`${className || ""} flex items-center w-full`}>
@@ -167,28 +156,12 @@ const SearchBar = memo((props: SiteSearchBarProps) => {
         id="search-bar"
         className="flex items-center gap-2 bg-sidebar rounded-full p-1 sm:p-2 border flex-1 !pl-4 sm:!pl-5"
       >
-        {category && (
-          <div className="flex gap-1 p-1 items-center rounded-sm border bg-secondary font-medium text-sm text-secondary-foreground">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                const { qURI } = parseInput(input[mainPage]);
-                router.push(`/${mainPage}?${qURI}`);
-              }}
-            >
-              <XIcon size={16} className="text-muted-foreground" />
-            </button>
-            {category}
-          </div>
-        )}
         <input
           id="search-input"
           type="text"
           placeholder={searchPlaceholder}
-          value={input[mainPage]}
-          onChange={(e) =>
-            setInput((prev) => ({ ...prev, [mainPage]: e.target.value }))
-          }
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
           aria-label="Search"
           className="w-full bg-transparent outline-hidden placeholder:text-muted-foreground"
         />
@@ -196,7 +169,7 @@ const SearchBar = memo((props: SiteSearchBarProps) => {
           variant="outline"
           size="icon"
           type="submit"
-          disabled={input[mainPage].trim().length === 0}
+          disabled={input.trim().length === 0}
           className="rounded-full flex-none"
         >
           <ArrowRightIcon />

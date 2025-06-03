@@ -50,7 +50,7 @@ const ItemGallery = ({ data, isLoading, error }: ItemGalleryProps) => {
 
   return (
     <>
-      <div className="flex flex-wrap gap-2 mb-4">
+      <div className="flex flex-wrap overflow-hidden gap-2 mb-4">
         {isLoading ? (
           Array.from({ length: 10 }).map((_, i) => (
             <Skeleton key={i} className="h-9 rounded-md w-16 animate-pulse" />

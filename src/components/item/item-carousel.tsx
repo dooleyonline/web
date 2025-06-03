@@ -15,6 +15,8 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { memo, useEffect, useState } from "react";
 
+import { Skeleton } from "../ui/skeleton";
+
 const ItemCarousel = memo(({ item }: { item: MarketplaceItem }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -85,3 +87,11 @@ const ItemCarousel = memo(({ item }: { item: MarketplaceItem }) => {
 ItemCarousel.displayName = "ItemCarousel";
 
 export default ItemCarousel;
+
+export const ItemCarouselSkeleton = () => {
+  return (
+    <AspectRatio ratio={1 / 1} className="rounded-lg w-full">
+      <Skeleton className="size-full" />
+    </AspectRatio>
+  );
+};
