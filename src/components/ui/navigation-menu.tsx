@@ -2,6 +2,15 @@ import cn from "@/lib/utils/cn";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 import * as React from "react";
 
 const NavigationMenu = React.forwardRef<
@@ -26,14 +35,26 @@ const NavigationMenuList = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
 >(({ className, ...props }, ref) => (
-  <NavigationMenuPrimitive.List
-    ref={ref}
-    className={cn(
-      "group flex flex-1 list-none items-center justify-center space-x-1",
-      className
-    )}
-    {...props}
-  />
+  <>
+    <SignedIn>
+      <SignOutButton />
+      <NavigationMenuPrimitive.List
+        ref={ref}
+        className={cn(
+          "group flex flex-1 list-none items-center justify-center space-x-1",
+          className
+        )}
+        {...props}
+      />
+      
+    </SignedIn>
+    <SignedOut>
+      <div className="flex space-x-4">
+        <SignInButton />
+        <SignUpButton />
+      </div>
+    </SignedOut>
+  </>
 ));
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 
