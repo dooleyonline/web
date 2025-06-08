@@ -61,7 +61,7 @@ export default function Step1(props: Step1Props) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Item Name</FormLabel>
               <FormControl>
                 <Input
                   id="name"

@@ -22,7 +22,7 @@ const StepVisualizer = (props: StepVisualizerProps) => {
             <Step name={step} status={status} />{" "}
             {index < steps.length - 1 &&
               (status === "completed" ? (
-                <div className="grow mx-5 bg-green-600 h-[1px]" />
+                <div className="grow mx-4 bg-green-600 h-[1px]" />
               ) : (
                 <div className="grow mx-5 bg-border h-[1px]" />
               ))}
