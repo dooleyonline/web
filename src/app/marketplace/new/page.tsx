@@ -1,0 +1,132 @@
+"use client";
+
+import StepVisualizer from "@/components/form/step-visualizer";
+import ItemModal from "@/components/item/item-modal";
+import { MarketplaceItem } from "@/lib/api/marketplace";
+import { zodResolver } from "@hookform/resolvers/zod";
+// import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm, useFormState } from "react-hook-form";
+import { toast } from "sonner";
+
+import { FormValues, defaultFormValues, formSchema } from "./(form)/schema";
+import Step1 from "./(form)/step-1";
+import Step2 from "./(form)/step-2";
+import Step3 from "./(form)/step-3";
+
+const MarketplaceNew = () => {
+  // const router = useRouter();
+  const [step, setStep] = useState(1);
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      ...defaultFormValues,
+    },
+    mode: "onChange",
+  });
+
+  const validatedForm = formSchema.safeParse({ ...form.watch() });
+
+  const { isDirty } = useFormState({ control: form.control });
+
+  useEffect(() => {
+    // Handle browser refresh/close
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty) {
+        e.preventDefault();
+        return "";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+  }, [isDirty]);
+
+  function onSubmit(values: FormValues) {
+    try {
+      setStep((prev) => {
+        if (prev === 3) {
+          toast.success("Your item is successfully posted!", {
+            description: new Date().toLocaleString(),
+            action: {
+              label: "View Item",
+              onClick: () => console.log("Viewing Item"), // TODO: Implement navigation to item
+            },
+          });
+
+          form.reset();
+          // router.push("/marketplace");
+          return 1;
+        }
+
+        return prev + 1;
+      });
+
+      console.log("Form submitted:", values);
+    } catch (error) {
+      console.error("Form submission error", error);
+      toast.error("Failed to submit the form. Please try again.");
+    }
+  }
+
+  function onBack() {
+    if (step > 1) {
+      setStep((prev) => prev - 1);
+    } else {
+      toast.error("You are already on the first step.");
+    }
+  }
+
+  const steps = [
+    {
+      title: "Basic Information",
+      form: <Step1 form={form} onSubmit={onSubmit} />,
+    },
+    {
+      title: "Condition & Price",
+      form: <Step2 form={form} onSubmit={onSubmit} onBack={onBack} />,
+    },
+    {
+      title: "Confirm",
+      form: <Step3 form={form} onSubmit={onSubmit} onBack={onBack} />,
+    },
+  ];
+
+  return (
+    <main className="flex gap-6 w-full h-full">
+      {/* FORM */}
+      <div className="flex-2/3 flex flex-col gap-6">
+        <StepVisualizer
+          steps={steps.map((step) => step.title)}
+          currentStep={step}
+        />
+        <h2>{steps[step - 1].title}</h2>
+        {steps[step - 1].form}
+      </div>
+
+      {/* PREVIEW */}
+      <div className="flex-1/3 hidden lg:block min-w-sm max-w-2xl p-6 border rounded-xl">
+        <ItemModal
+          item={
+            {
+              ...form.watch(),
+              ...validatedForm.data, // override with validated data
+              id: -1,
+              postedAt: new Date().toLocaleDateString(),
+              isSold: false,
+              isNegotiable: validatedForm.data?.negotiable || false,
+              views: 112,
+              seller: "John Doe",
+              images: form
+                .watch("images")
+                .map((img) => URL.createObjectURL(img)),
+            } satisfies MarketplaceItem
+          }
+          isPreview
+        />
+      </div>
+    </main>
+  );
+};
+
+export default MarketplaceNew;
