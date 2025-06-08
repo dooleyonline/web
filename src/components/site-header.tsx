@@ -4,11 +4,10 @@ import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/ui";
 import { useNav } from "@/hooks/ui";
 import slugToTitle from "@/lib/utils/slug-to-title";
-import { ArrowRightIcon, ChevronLeftIcon, XIcon } from "lucide-react";
+import { ArrowRightIcon, ChevronLeftIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { memo, useEffect, useState } from "react";
-import { set } from "zod";
 
 const SiteHeader = () => {
   const [status, setStatus] = useState<"disabled" | "collapsed" | "expanded">(
