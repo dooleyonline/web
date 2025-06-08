@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm, useFormState } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
 
 import { FormValues, defaultFormValues, formSchema } from "./(form)/schema";
 import Step1 from "./(form)/step-1";
@@ -26,7 +27,14 @@ const MarketplaceNew = () => {
     mode: "onChange",
   });
 
-  const validatedForm = formSchema.safeParse({ ...form.watch() });
+  const [validatedForm, setValidatedForm] =
+    useState<z.SafeParseReturnType<FormValues, FormValues>>();
+
+  useEffect(() => {
+    formSchema
+      .safeParseAsync({ ...form.watch() })
+      .then((result) => setValidatedForm(result));
+  }, [form, form.watch]);
 
   const { isDirty } = useFormState({ control: form.control });
 
@@ -110,16 +118,16 @@ const MarketplaceNew = () => {
           item={
             {
               ...form.watch(),
-              ...validatedForm.data, // override with validated data
+              ...validatedForm?.data, // override with validated data
               id: -1,
               postedAt: new Date().toLocaleDateString(),
               isSold: false,
-              isNegotiable: validatedForm.data?.negotiable || false,
+              isNegotiable: validatedForm?.data?.negotiable || false,
               views: 112,
               seller: "John Doe",
               images: form
                 .watch("images")
-                .map((img) => URL.createObjectURL(img)),
+                .map((img) => URL.createObjectURL(img as File)),
             } satisfies MarketplaceItem
           }
           isPreview

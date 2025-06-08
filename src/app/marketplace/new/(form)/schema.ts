@@ -1,3 +1,4 @@
+// import { processImage } from "@/lib/utils";
 import * as z from "zod";
 
 export const formSchema = z.object({
@@ -9,9 +10,15 @@ export const formSchema = z.object({
   subcategory: z.string().min(1, "Subcategory is required"),
   images: z
     .array(
-      z.instanceof(File).refine((file) => file.size < 4 * 1024 * 1024, {
-        message: "File size must be less than 4MB",
-      })
+      z
+        .instanceof(File)
+        .refine((file) => isValidImageType(file), {
+          message:
+            "Invalid file type. Only images are allowed (jpg, png, gif, webp, svg).",
+        })
+        .refine((file) => file.size < 4 * 1024 * 1024, {
+          message: "File size must be less than 4MB",
+        })
     )
     .min(1, {
       message: "At least one image is required",
@@ -35,4 +42,18 @@ export const defaultFormValues = {
   condition: 3,
   negotiable: false,
   price: 0,
+};
+
+const isValidImageType = (file: File) => {
+  const validTypes = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    "image/svg+xml",
+    "image/heic",
+    "image/heif",
+  ];
+  return validTypes.includes(file.type);
 };

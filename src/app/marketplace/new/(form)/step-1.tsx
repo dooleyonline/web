@@ -6,6 +6,7 @@ import {
   FileUploader,
   FileUploaderContent,
   FileUploaderItem,
+  useFileUpload,
 } from "@/components/ui/file-upload";
 import {
   Form,
@@ -26,7 +27,27 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useCategories } from "@/hooks/api/marketplace";
-import { CloudUpload, Paperclip } from "lucide-react";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  KeyboardSensor,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { ImageIcon, Trash2Icon } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { FormValues } from "./schema";
@@ -48,6 +69,47 @@ export default function Step1(props: Step1Props) {
     maxFiles: 5,
     maxSize: 1024 * 1024 * 4,
     multiple: true,
+  };
+
+  // Setup drag sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  // Add these state variables to your Step1 component
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeImage, setActiveImage] = useState<File | null>(null);
+
+  // Handle the end of a drag operation
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    setActiveId(null);
+    setActiveImage(null);
+
+    if (over && active.id !== over.id) {
+      const oldIndex = Number(active.id.toString().replace("file-", ""));
+      const newIndex = Number(over.id.toString().replace("file-", ""));
+
+      // Get current images
+      const images = form.getValues("images");
+
+      // Reorder the images array
+      const reorderedImages = arrayMove(images, oldIndex, newIndex);
+
+      // Update the form value
+      form.setValue("images", reorderedImages, { shouldValidate: true });
+    }
+  };
+
+  // Add a handleDragStart function
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+    const index = Number(active.id.toString().replace("file-", ""));
+    setActiveId(active.id.toString());
+    setActiveImage(form.getValues("images")[index]);
   };
 
   return (
@@ -208,36 +270,70 @@ export default function Step1(props: Step1Props) {
                   value={field.value}
                   onValueChange={field.onChange}
                   dropzoneOptions={dropZoneConfig}
-                  className="relative bg-background rounded-lg p-2"
+                  className="relative my-1"
                 >
                   <FileInput
                     id="fileInput"
-                    className="outline-dashed outline-1 outline-slate-500"
+                    className="rounded-md outline-dashed outline-2 -outline-offset-2 outline-border"
                   >
                     <div className="flex items-center justify-center flex-col p-8 w-full ">
-                      <CloudUpload className="text-gray-500 w-10 h-10" />
-                      <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
+                      <ImageIcon className="text-muted-foreground w-10 h-10" />
+                      <p className="mb-1 text-sm text-muted-foreground">
                         <span className="font-semibold">Click to upload</span>
                         &nbsp; or drag and drop
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-muted-foreground">
                         SVG, PNG, JPG or GIF
                       </p>
                     </div>
                   </FileInput>
-                  <FileUploaderContent>
-                    {field.value &&
-                      field.value.length > 0 &&
-                      field.value.map((file, i) => (
-                        <FileUploaderItem key={i} index={i}>
-                          <Paperclip className="h-4 w-4 stroke-current" />
-                          <span>{file.name}</span>
-                        </FileUploaderItem>
-                      ))}
-                  </FileUploaderContent>
+
+                  {field.value.length > 0 && (
+                    <DndContext
+                      sensors={sensors}
+                      collisionDetection={closestCenter}
+                      onDragEnd={handleDragEnd}
+                      onDragStart={handleDragStart}
+                    >
+                      <SortableContext
+                        items={field.value.map((_, i) => `file-${i}`)}
+                        strategy={verticalListSortingStrategy}
+                      >
+                        <FileUploaderContent className="h-fit px-0 py-1 gap-0">
+                          {field.value.map((image, i) => (
+                            <SortableFileItem
+                              key={`file-${i}`}
+                              image={image}
+                              index={i}
+                            />
+                          ))}
+                        </FileUploaderContent>
+                      </SortableContext>
+
+                      <DragOverlay adjustScale={true} dropAnimation={null}>
+                        {activeId && activeImage ? (
+                          <FileUploaderItem
+                            index={Number(activeId.replace("file-", ""))}
+                            className="w-full h-fit border-primary shadow-md"
+                          >
+                            <Image
+                              src={URL.createObjectURL(activeImage)}
+                              alt="dragging"
+                              width={40}
+                              height={40}
+                              className="object-cover rounded-sm overflow-hidden relative"
+                            />
+                            <span>{activeImage.name}</span>
+                          </FileUploaderItem>
+                        ) : null}
+                      </DragOverlay>
+                    </DndContext>
+                  )}
                 </FileUploader>
               </FormControl>
-              <FormDescription>Select a file to upload.</FormDescription>
+              <FormDescription>
+                Upload images of your item. Drag and drop to reorder.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -249,3 +345,39 @@ export default function Step1(props: Step1Props) {
     </Form>
   );
 }
+
+const SortableFileItem = ({ image, index }: { image: File; index: number }) => {
+  const { removeFileFromSet } = useFileUpload();
+
+  const { attributes, listeners, setNodeRef } = useSortable({
+    id: `file-${index}`,
+  });
+
+  return (
+    <div className="relative">
+      <FileUploaderItem
+        {...listeners}
+        {...attributes}
+        ref={setNodeRef}
+        index={index}
+        className="h-fit cursor-grab bg-background hover:bg-accent rounded-sm"
+      >
+        <Image
+          src={URL.createObjectURL(image)}
+          alt="image"
+          width={40}
+          height={40}
+          className="object-cover rounded-sm overflow-hidden relative"
+        />
+        <span>{image.name}</span>
+      </FileUploaderItem>
+      <Button
+        variant="ghost"
+        onClick={() => removeFileFromSet(index)}
+        className="absolute right-0 top-1/2 -translate-y-1/2"
+      >
+        <Trash2Icon size={16} />
+      </Button>
+    </div>
+  );
+};

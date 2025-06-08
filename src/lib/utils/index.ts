@@ -3,6 +3,7 @@ import createQueryString from "./create-query-string";
 import formatPrice from "./format-price";
 import getImageURL from "./get-image-url";
 import getRelativeTime from "./get-relative-time";
+import processImage from "./process-image";
 import slugToTitle from "./slug-to-title";
 
 export {
@@ -12,4 +13,5 @@ export {
   getImageURL,
   getRelativeTime,
   slugToTitle,
+  processImage,
 };
