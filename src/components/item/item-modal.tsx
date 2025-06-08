@@ -40,7 +40,7 @@ export const ItemModal = memo((props: ItemModalProps) => {
 
   return (
     <Card className={cn("h-full shadow-none border-none p-0", className)}>
-      <CardContent className="h-full p-0 bg-background">
+      <CardContent className="h-full p-0 bg-background relative">
         <div
           className={cn(
             "h-full overflow-auto flex flex-col gap-2 pb-14",
@@ -119,7 +119,7 @@ export const ItemModal = memo((props: ItemModalProps) => {
         </div>
 
         {!isPreview && (
-          <CardFooter className="absolute bottom-6 px-6 left-0 gap-2 w-full bg-background">
+          <CardFooter className="absolute bottom-0 left-0 gap-2 p-0 w-full bg-background">
             <Button variant="default" size="lg" className="flex-1">
               Contact Seller
             </Button>
@@ -132,6 +132,6 @@ export const ItemModal = memo((props: ItemModalProps) => {
     </Card>
   );
 });
-ItemModal.displayName = "ItemDialog";
+ItemModal.displayName = "ItemModal";
 
 export default ItemModal;

@@ -50,16 +50,16 @@ const ItemCarousel = memo((props: ItemCarouselProps) => {
 
   return (
     <Carousel setApi={setApi}>
-      <CarouselContent>
+      <CarouselContent className="@container">
         {isLoading || item!.images.length === 0 ? ( // non-null assertion since isLoading is true when item is falsy
-          <CarouselItem>
+          <CarouselItem className="@xl:basis-1/2 @2xl:basis-1/3">
             <AspectRatio ratio={1 / 1} className="rounded-lg w-full">
               <Skeleton className="size-full" />
             </AspectRatio>
           </CarouselItem>
         ) : (
           item!.images.map((image, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem key={index} className="@xl:basis-1/2 @2xl:basis-1/3">
               <AspectRatio
                 ratio={1 / 1}
                 className="rounded-lg overflow-hidden border"

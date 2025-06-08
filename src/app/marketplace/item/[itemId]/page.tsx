@@ -13,7 +13,11 @@ const MarketplaceItem = ({
   const { data, isLoading, error } = useItems({ id: itemId });
   const item = data?.data[0];
 
-  return <ItemModal item={item} isLoading={isLoading} error={error} />;
+  return (
+    <main className="size-full">
+      <ItemModal item={item} isLoading={isLoading} error={error} />
+    </main>
+  );
 };
 
 export default MarketplaceItem;
