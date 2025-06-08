@@ -2,6 +2,7 @@ import { fonts } from "@/components/fonts";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
@@ -31,8 +32,9 @@ export default function RootLayout({
       <body className={`${fontVariables} font-sans antialiased h-svh`}>
         <SidebarProvider>
           <AppSidebar variant="inset" />
-          <SidebarInset>
+          <SidebarInset className="@container">
             <SiteNavbar />
+            <Toaster />
             {children}
           </SidebarInset>
         </SidebarProvider>

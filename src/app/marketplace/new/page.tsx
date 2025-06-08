@@ -1,136 +1,130 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import StepVisualizer from "@/components/form/step-visualizer";
+import ItemModal from "@/components/item/item-modal";
+import { MarketplaceItem } from "@/lib/api/marketplace";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+// import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useForm, useFormState } from "react-hook-form";
+import { toast } from "sonner";
 
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  description: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  category: z.string().min(1, {
-    message: "Category is required.",
-  }),
-  // images: z.array(z.)
-  // images: string[];
-  // price: number;
-  // postedAt: string;
-  // isSold: boolean;
-  // condition: number;
-  // isNegotiable: boolean;
-  // views: number;
-  // subcategory: string;
-  // seller: string;
-  
-});
-
+import { FormValues, defaultFormValues, formSchema } from "./(form)/schema";
+import Step1 from "./(form)/step-1";
+import Step2 from "./(form)/step-2";
+import Step3 from "./(form)/step-3";
 
 const MarketplaceNew = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  // const router = useRouter();
+  const [step, setStep] = useState(1);
+
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      ...defaultFormValues,
     },
+    mode: "onChange",
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  const validatedForm = formSchema.safeParse({ ...form.watch() });
+
+  const { isDirty } = useFormState({ control: form.control });
+
+  useEffect(() => {
+    // Handle browser refresh/close
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (isDirty) {
+        e.preventDefault();
+        return "";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+  }, [isDirty]);
+
+  function onSubmit(values: FormValues) {
+    try {
+      setStep((prev) => {
+        if (prev === 3) {
+          toast.success("Your item is successfully posted!", {
+            description: new Date().toLocaleString(),
+            action: {
+              label: "View Item",
+              onClick: () => console.log("Viewing Item"), // TODO: Implement navigation to item
+            },
+          });
+
+          form.reset();
+          // router.push("/marketplace");
+          return 1;
+        }
+
+        return prev + 1;
+      });
+
+      console.log("Form submitted:", values);
+    } catch (error) {
+      console.error("Form submission error", error);
+      toast.error("Failed to submit the form. Please try again.");
+    }
   }
 
+  function onBack() {
+    if (step > 1) {
+      setStep((prev) => prev - 1);
+    } else {
+      toast.error("You are already on the first step.");
+    }
+  }
+
+  const steps = [
+    {
+      title: "Basic Information",
+      form: <Step1 form={form} onSubmit={onSubmit} />,
+    },
+    {
+      title: "Condition & Price",
+      form: <Step2 form={form} onSubmit={onSubmit} onBack={onBack} />,
+    },
+    {
+      title: "Confirm",
+      form: <Step3 form={form} onSubmit={onSubmit} onBack={onBack} />,
+    },
+  ];
+
   return (
-    <main>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="shadcn" {...field} />
-                </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Category</FormLabel>
-                <FormControl>
-                  <Select {...field}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Category</SelectLabel>
-                        <SelectItem value="apple">Apple</SelectItem>
-                        <SelectItem value="banana">Banana</SelectItem>
-                        <SelectItem value="blueberry">Blueberry</SelectItem>
-                        <SelectItem value="grapes">Grapes</SelectItem>
-                        <SelectItem value="pineapple">Pineapple</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
+    <main className="flex gap-6 w-full h-full">
+      {/* FORM */}
+      <div className="flex-2/3 flex flex-col gap-6">
+        <StepVisualizer
+          steps={steps.map((step) => step.title)}
+          currentStep={step}
+        />
+        <h2>{steps[step - 1].title}</h2>
+        {steps[step - 1].form}
+      </div>
+
+      {/* PREVIEW */}
+      <div className="flex-1/3 hidden lg:block min-w-sm max-w-2xl p-6 border rounded-xl">
+        <ItemModal
+          item={
+            {
+              ...form.watch(),
+              ...validatedForm.data, // override with validated data
+              id: -1,
+              postedAt: new Date().toLocaleDateString(),
+              isSold: false,
+              isNegotiable: validatedForm.data?.negotiable || false,
+              views: 112,
+              seller: "John Doe",
+              images: form
+                .watch("images")
+                .map((img) => URL.createObjectURL(img)),
+            } satisfies MarketplaceItem
+          }
+          isPreview
+        />
+      </div>
     </main>
   );
 };

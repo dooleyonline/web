@@ -145,7 +145,7 @@ const SearchBar = memo((props: SiteSearchBarProps) => {
             className="overflow-hidden"
           >
             <Button asChild onClick={handleBack} variant="ghost" size="icon">
-              <ChevronLeftIcon className="text-muted-foreground !size-8 sm:!size-9" />
+              <ChevronLeftIcon className="text-muted-foreground !size-8 sm:!size-9 cursor-pointer" />
             </Button>
           </motion.div>
         )}

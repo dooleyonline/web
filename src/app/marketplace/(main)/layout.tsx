@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 const MarketplaceLayout = ({
   gallery,
-  itemModal,
+  itemDialog,
   children,
 }: Readonly<{
   gallery: React.ReactNode;
-  itemModal: React.ReactNode;
+  itemDialog: React.ReactNode;
   children: React.ReactNode;
 }>) => {
   return (
@@ -24,7 +24,7 @@ const MarketplaceLayout = ({
       </Suspense>
       <main>
         <Suspense>{gallery}</Suspense>
-        {itemModal}
+        {itemDialog}
         <Suspense>{children}</Suspense>
       </main>
     </>

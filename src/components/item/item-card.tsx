@@ -127,7 +127,7 @@ const ItemCard = memo(({ item, index }: ItemCardProps) => {
 
   return (
     <HoverCard>
-      <HoverCardTrigger asChild className="touch-pan-y">
+      <HoverCardTrigger asChild className="touch-pan-y !block">
         <Card className="overflow-hidden border-none rounded-md shadow-none p-1 hover:bg-accent relative cursor-pointer">
           <CardContent className="relative overflow-hidden p-0 rounded-md mb-2">
             <Link href={link} onNavigate={handleNavigate}>
@@ -154,8 +154,8 @@ export default ItemCard;
 
 export const ItemCardSkeleton = () => {
   return (
-    <Card className="overflow-hidden border-none rounded-none shadow-none m-1">
-      <CardHeader className="relative overflow-hidden p-0 rounded-md mb-2">
+    <Card className="overflow-hidden border-none rounded-none shadow-none !m-1 !p-0 !block">
+      <CardHeader className="relative overflow-hidden !p-0 rounded-md !m-0 !mb-2">
         <AspectRatio ratio={1 / 1} className="w-full">
           <Skeleton className="h-full w-full animate-pulse" />
         </AspectRatio>

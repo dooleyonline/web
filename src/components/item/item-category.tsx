@@ -8,7 +8,7 @@ const CategoryCard = (category: MarketplaceItemCategory) => {
   return (
     <Link
       href={`/marketplace?category=${category.name}`}
-      className="flex h-[72px] flex-col justify-between rounded-md bg-accent p-3 hover:opacity-75 sm:h-24"
+      className="flex h-[72px] flex-col justify-between rounded-md bg-muted p-3 hover:opacity-75 sm:h-24"
     >
       <DynamicIcon
         name={category.icon}
