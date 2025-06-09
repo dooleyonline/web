@@ -10,13 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useForm } from "react-hook-form";
 
-import { FormValues } from "./schema";
+import { FormReturnType } from "./schema";
 
 type Step3Props = {
-  form: ReturnType<typeof useForm<FormValues>>;
-  onSubmit: (values: FormValues) => void;
+  form: FormReturnType;
+  onSubmit: (values: unknown) => void;
   onBack: () => void;
 };
 
@@ -44,9 +43,11 @@ export default function Step3(props: Step3Props) {
                   {key.slice(0, 1).toUpperCase() + key.slice(1)}
                 </TableCell>
                 <TableCell className="text-right whitespace-pre">
-                  {typeof value === "object"
-                    ? value.map((f: File) => f.name).join("\n")
-                    : value.toString()}
+                  {Array.isArray(value) &&
+                  value.length > 0 &&
+                  value[0] instanceof File
+                    ? (value as File[]).map((f: File) => f.name).join("\n")
+                    : String(value)}
                 </TableCell>
               </TableRow>
             ))}

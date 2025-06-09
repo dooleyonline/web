@@ -14,13 +14,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { useForm } from "react-hook-form";
 
-import { FormValues } from "./schema";
+import { FormReturnType } from "./schema";
 
 type Step2Props = {
-  form: ReturnType<typeof useForm<FormValues>>;
-  onSubmit: (values: FormValues) => void;
+  form: FormReturnType;
+  onSubmit: (values: unknown) => void;
   onBack: () => void;
 };
 
@@ -42,7 +41,7 @@ export default function Step2(props: Step2Props) {
               <FormControl>
                 <Slider
                   id="condition"
-                  defaultValue={[field.value]}
+                  // defaultValue={[field.value]}
                   min={0}
                   max={5}
                   step={1}
@@ -73,7 +72,13 @@ export default function Step2(props: Step2Props) {
             <FormItem>
               <FormLabel>Price ($)</FormLabel>
               <FormControl>
-                <Input id="price" placeholder="0.00" type="number" {...field} />
+                <Input 
+                  id="price" 
+                  placeholder="0.00" 
+                  type="number" 
+                  {...field} 
+                  value={typeof field.value === 'number' ? field.value : ''} 
+                />
               </FormControl>
               <FormDescription>
                 Enter the price without the dollar sign (e.g., for $10, enter

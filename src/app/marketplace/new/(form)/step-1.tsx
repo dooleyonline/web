@@ -48,13 +48,12 @@ import {
 import { ImageIcon, Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 
-import { FormValues } from "./schema";
+import { FormReturnType } from "./schema";
 
 type Step1Props = {
-  form: ReturnType<typeof useForm<FormValues>>;
-  onSubmit: (values: FormValues) => void;
+  form: FormReturnType;
+  onSubmit: (values: unknown) => void;
 };
 
 export default function Step1(props: Step1Props) {
@@ -93,13 +92,8 @@ export default function Step1(props: Step1Props) {
       const oldIndex = Number(active.id.toString().replace("file-", ""));
       const newIndex = Number(over.id.toString().replace("file-", ""));
 
-      // Get current images
       const images = form.getValues("images");
-
-      // Reorder the images array
       const reorderedImages = arrayMove(images, oldIndex, newIndex);
-
-      // Update the form value
       form.setValue("images", reorderedImages, { shouldValidate: true });
     }
   };
@@ -278,12 +272,11 @@ export default function Step1(props: Step1Props) {
                   >
                     <div className="flex items-center justify-center flex-col p-8 w-full ">
                       <ImageIcon className="text-muted-foreground w-10 h-10" />
-                      <p className="mb-1 text-sm text-muted-foreground">
-                        <span className="font-semibold">Click to upload</span>
-                        &nbsp; or drag and drop
+                      <p className="mb-1 text-sm text-muted-foreground font-semibold">
+                        Click to upload or drag and drop
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        SVG, PNG, JPG or GIF
+                        SVG, PNG, JPG, GIF, WEBP, SVG, HEIC, or HEIF
                       </p>
                     </div>
                   </FileInput>
@@ -332,8 +325,9 @@ export default function Step1(props: Step1Props) {
                 </FileUploader>
               </FormControl>
               <FormDescription>
-                Upload images of your item. Drag and drop to reorder.
+                Upload up to 5 images of your item. Drag and drop to reorder.
               </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
