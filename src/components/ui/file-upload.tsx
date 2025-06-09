@@ -1,9 +1,7 @@
 "use client";
 
-import { buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Trash2 as RemoveIcon } from "lucide-react";
 import {
   Dispatch,
   SetStateAction,
@@ -263,7 +261,7 @@ export const FileUploaderContent = forwardRef<
 
   return (
     <div
-      className={cn("w-full px-1")}
+      className={cn("w-full")}
       ref={containerRef}
       aria-description="content file holder"
     >
@@ -288,13 +286,14 @@ export const FileUploaderItem = forwardRef<
   HTMLDivElement,
   { index: number } & React.HTMLAttributes<HTMLDivElement>
 >(({ className, index, children, ...props }, ref) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { removeFileFromSet, activeIndex, direction } = useFileUpload();
   const isSelected = index === activeIndex;
   return (
     <div
       ref={ref}
       className={cn(
-        buttonVariants({ variant: "ghost" }),
+        // buttonVariants({ variant: "ghost" }),
         "h-6 p-1 justify-between cursor-pointer relative",
         className,
         isSelected ? "bg-muted" : ""
@@ -304,17 +303,14 @@ export const FileUploaderItem = forwardRef<
       <div className="font-medium leading-none tracking-tight flex items-center gap-1.5 h-full w-full">
         {children}
       </div>
-      <button
+      {/* <button
         type="button"
-        className={cn(
-          "absolute",
-          direction === "rtl" ? "top-1 left-1" : "top-1 right-1"
-        )}
+        className={cn(direction === "rtl" ? "top-1 left-1" : "top-1 right-1")}
         onClick={() => removeFileFromSet(index)}
       >
         <span className="sr-only">remove item {index}</span>
         <RemoveIcon className="w-4 h-4 hover:stroke-destructive duration-200 ease-in-out" />
-      </button>
+      </button> */}
     </div>
   );
 });

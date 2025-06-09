@@ -4,12 +4,12 @@ import StepVisualizer from "@/components/form/step-visualizer";
 import ItemModal from "@/components/item/item-modal";
 import { MarketplaceItem } from "@/lib/api/marketplace";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm, useFormState } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod/v4";
 
-import { FormValues, defaultFormValues, formSchema } from "./(form)/schema";
+import { defaultFormValues, formSchema } from "./(form)/schema";
 import Step1 from "./(form)/step-1";
 import Step2 from "./(form)/step-2";
 import Step3 from "./(form)/step-3";
@@ -18,15 +18,17 @@ const MarketplaceNew = () => {
   // const router = useRouter();
   const [step, setStep] = useState(1);
 
-  const form = useForm<FormValues>({
+  const form = useForm<
+    z.input<typeof formSchema>,
+    unknown,
+    z.output<typeof formSchema>
+  >({
     resolver: zodResolver(formSchema),
     defaultValues: {
       ...defaultFormValues,
     },
     mode: "onChange",
   });
-
-  const validatedForm = formSchema.safeParse({ ...form.watch() });
 
   const { isDirty } = useFormState({ control: form.control });
 
@@ -42,7 +44,7 @@ const MarketplaceNew = () => {
     window.addEventListener("beforeunload", handleBeforeUnload);
   }, [isDirty]);
 
-  function onSubmit(values: FormValues) {
+  function onSubmit(values: unknown) {
     try {
       setStep((prev) => {
         if (prev === 3) {
@@ -50,19 +52,17 @@ const MarketplaceNew = () => {
             description: new Date().toLocaleString(),
             action: {
               label: "View Item",
-              onClick: () => console.log("Viewing Item"), // TODO: Implement navigation to item
+              onClick: () => console.log("Viewing Item"),
             },
           });
+          console.log("Submitting form values:", values);
 
           form.reset();
-          // router.push("/marketplace");
           return 1;
         }
 
         return prev + 1;
       });
-
-      console.log("Form submitted:", values);
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.");
@@ -110,16 +110,17 @@ const MarketplaceNew = () => {
           item={
             {
               ...form.watch(),
-              ...validatedForm.data, // override with validated data
+              price: Number(form.watch("price")) || 0,
+              condition: Number(form.watch("condition")) || 0,
               id: -1,
               postedAt: new Date().toLocaleDateString(),
               isSold: false,
-              isNegotiable: validatedForm.data?.negotiable || false,
+              isNegotiable: form.watch("negotiable") || false,
               views: 112,
               seller: "John Doe",
               images: form
                 .watch("images")
-                .map((img) => URL.createObjectURL(img)),
+                .map((img) => URL.createObjectURL(img as File)),
             } satisfies MarketplaceItem
           }
           isPreview
