@@ -50,8 +50,6 @@ export function SiteNavbar() {
     ],
   };
 
-  const profileLink = `/${currentPage}/usr/${user.id}`;
-
   return (
     <nav className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear px-2 justify-between w-full">
       <div className="w-fit p-2">
@@ -85,7 +83,7 @@ export function SiteNavbar() {
           {isLinkVisible && (
             <NavigationMenuItem>
               <NavigationMenuTrigger>
-                <Link href={`/${currentPage}/`}>
+                <Link href={navData.profile}>
                   <UserIcon size={24} />
                 </Link>
               </NavigationMenuTrigger>
@@ -95,7 +93,7 @@ export function SiteNavbar() {
                     <NavigationMenuLink asChild>
                       <Link
                         className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
-                        href={profileLink}
+                        href={navData.profile}
                       >
                         {/* <Icons.logo className="h-6 w-6" /> */}
                         <Avatar>
