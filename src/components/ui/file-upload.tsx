@@ -53,7 +53,7 @@ type FileUploaderProps = {
 };
 
 /**
- * File upload Docs: {@link: https://localhost:3000/docs/file-upload}
+ * File upload Docs: {@link: https://localhost:8000/docs/file-upload}
  */
 
 export const FileUploader = forwardRef<

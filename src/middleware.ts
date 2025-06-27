@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const allowedOrigins = [
   "https://dooleyonline.up.railway.app",
-  "http://localhost:3000",
+  "http://localhost:8000",
 ];
 
 const corsOptions = {

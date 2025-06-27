@@ -1,5 +1,10 @@
 "use client";
 
+import React, { Fragment } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { useIsMobile, useNav } from "@/hooks/ui";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,53 +15,35 @@ import {
 } from "@/components/ui/breadcrumb";
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuItem,
   NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useIsMobile } from "@/hooks/ui";
-import { useNav } from "@/hooks/ui";
-import cn from "@/lib/utils/cn";
-import slugToTitle from "@/lib/utils/slug-to-title";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { PlusIcon, UserIcon } from "lucide-react";
-import Link from "next/link";
-import { Fragment, forwardRef } from "react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
+import slugToTitle from "@/lib/utils/slug-to-title";
+import cn from "@/lib/utils/cn";
 
 export function SiteNavbar() {
   const isMobile = useIsMobile();
   const { paths, currentPage, navData } = useNav();
+  const { user, accessToken, logout } = useAuth();
+  const router = useRouter();
 
-  const isLinkVisible = navData?.links.length > 0 || false;
-  const isButtonVisible = navData?.button.href !== "" || false;
+  if (!navData) return null;
 
-  if (!navData) {
-    return null;
-  }
-
-  const user = {
-    fName: "John",
-    lName: "Doe",
-    id: "shadcn",
-    avatar: "https://github.com/shadcn.png",
-    summary: [
-      { key: "Saved", val: 32 },
-      { key: "Listed", val: 17 },
-    ],
-  };
-
-  const profileLink = `/${currentPage}/usr/${user.id}`;
+  const profileLink = `/${currentPage}/usr/${user?.id}`;
+  const hasLinks = (navData.links?.length ?? 0) > 0;
+  const hasButton = !!navData.button?.href;
 
   return (
-    <nav className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear px-2 justify-between w-full">
-      <div className="w-fit p-2">
-        {isMobile && <SidebarTrigger className="-ml-1 text-foreground" />}
-
+    <nav className="flex h-12 items-center border-b px-2 justify-between">
+      <div className="flex items-center">
+        {isMobile && <SidebarTrigger className="mr-2 text-foreground" />}
         {paths.length > 1 && (
           <Breadcrumb className="hidden md:block">
             <BreadcrumbList>
@@ -67,12 +54,12 @@ export function SiteNavbar() {
                       {slugToTitle(p)}
                     </BreadcrumbLink>
                   </BreadcrumbItem>
-                  {i < paths.length - 1 && <BreadcrumbSeparator />}
+                  <BreadcrumbSeparator />
                 </Fragment>
               ))}
               <BreadcrumbItem>
                 <BreadcrumbPage>
-                  {slugToTitle(paths.slice(-1)[0])}
+                  {slugToTitle(paths[paths.length - 1])}
                 </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -80,65 +67,95 @@ export function SiteNavbar() {
         )}
       </div>
 
-      <NavigationMenu className="max-w-[500px] flex-1 justify-end w-full">
+      <NavigationMenu className="flex-1 justify-end">
         <NavigationMenuList>
-          {isLinkVisible && (
+          {user && hasLinks && (
             <NavigationMenuItem>
               <NavigationMenuTrigger>
-                <Link href={`/${currentPage}/`}>
-                  <UserIcon size={24} />
-                </Link>
+                <UserIcon size={24} />
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <Link
-                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
                         href={profileLink}
+                        className="flex h-full w-full flex-col justify-end rounded-md bg-muted p-6 no-underline focus:shadow-md"
                       >
-                        {/* <Icons.logo className="h-6 w-6" /> */}
                         <Avatar>
-                          <AvatarImage src={user.avatar} alt="User avatar" />
+                          <AvatarImage src={user.avatar} alt="avatar" />
                           <AvatarFallback>
-                            {(user.fName + user.lName).toUpperCase()}
+                            {(user.name || user.id)?.charAt(0).toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
-                        <div className="mb-1 mt-4 text-lg font-medium">
+                        <div className="mt-4 text-lg font-medium">
                           {user.id}
                         </div>
-                        <ul>
-                          {user.summary.map((e, i) => (
-                            <li
-                              key={i}
-                              className="text-sm leading-tight flex justify-between"
-                            >
-                              <span className="text-muted-foreground">
-                                {e.key}
-                              </span>
-                              <span>{e.val}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        {user.summary && (
+                          <ul>
+                            {user.summary.map((e, i) => (
+                              <li
+                                key={i}
+                                className="flex justify-between text-sm"
+                              >
+                                <span className="text-muted-foreground">
+                                  {e.key}
+                                </span>
+                                <span>{e.val}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </Link>
                     </NavigationMenuLink>
                   </li>
                   {navData.links.map((link, i) => (
-                    <ListItem key={i} href={link.href} title={link.title}>
-                      {link.description}
-                    </ListItem>
+                    <NavigationMenuItem key={i}>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={link.href}
+                          className="block rounded-md p-3 hover:bg-accent"
+                        >
+                          <div className="font-medium">{link.title}</div>
+                          <p className="text-sm text-muted-foreground">
+                            {link.description}
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
                   ))}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
           )}
-          {isButtonVisible && (
+          {hasButton && (
             <NavigationMenuItem>
-              <Button asChild variant={"default"}>
-                <Link href={navData.button.href} passHref>
-                  <PlusIcon size={16} />
+              <Button asChild>
+                <Link href={navData.button.href}>
+                  <PlusIcon size={16} className="mr-1" />
                   {navData.button.text}
                 </Link>
+              </Button>
+            </NavigationMenuItem>
+          )}
+
+          {/* Sign Out / Sign In depending on sign in status */}
+          {accessToken ? (
+            <NavigationMenuItem>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  logout();
+                  router.push("/sign-in");
+                }}
+              >
+                Sign Out
+              </Button>
+            </NavigationMenuItem>
+          ) : (
+            <NavigationMenuItem>
+              <Button asChild variant="default">
+                <Link href="/sign-in">Sign In</Link>
               </Button>
             </NavigationMenuItem>
           )}
@@ -147,29 +164,3 @@ export function SiteNavbar() {
     </nav>
   );
 }
-
-const ListItem = forwardRef<
-  React.ComponentRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";

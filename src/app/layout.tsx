@@ -3,6 +3,7 @@ import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/context/AuthContext";
 import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
@@ -30,14 +31,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fontVariables} font-sans antialiased h-svh`}>
-        <SidebarProvider>
-          <AppSidebar variant="inset" />
-          <SidebarInset className="@container">
-            <SiteNavbar />
-            <Toaster />
-            {children}
-          </SidebarInset>
-        </SidebarProvider>
+       <AuthProvider>
+         <SidebarProvider>
+           <AppSidebar variant="inset" />
+           <SidebarInset className="@container">
+             <SiteNavbar />
+             <Toaster />
+             {children}
+           </SidebarInset>
+         </SidebarProvider>
+       </AuthProvider>
       </body>
     </html>
   );
