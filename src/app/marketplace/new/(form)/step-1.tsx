@@ -187,7 +187,7 @@ export default function Step1(props: Step1Props) {
                           Loading categories...
                         </SelectItem>
                       )}
-                      {categoriesData?.data.map((category) => (
+                      {categoriesData?.map((category) => (
                         <SelectItem key={category.name} value={category.name}>
                           {category.name}
                         </SelectItem>
@@ -226,8 +226,8 @@ export default function Step1(props: Step1Props) {
                           Please select a category first
                         </SelectItem>
                       ) : (
-                        categoriesData?.data
-                          .find(
+                        categoriesData
+                          ?.find(
                             (category) =>
                               category.name === form.watch("category")
                           )
