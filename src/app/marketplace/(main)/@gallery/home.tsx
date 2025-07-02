@@ -1,5 +1,6 @@
 "use client";
 
+import { Error } from "@/components/communication";
 import CategoryCard, {
   CategoryCardSkeleton,
 } from "@/components/item/item-category";
@@ -26,24 +27,27 @@ const Home = () => {
     error: trendingError,
   } = useItems({ q: "trending" });
 
-  if (categoriesError) {
-    return <p>Error: {categoriesError}</p>;
-  }
-
   return (
     <>
       <Section id="categories">
-        <div className="grid grid-cols-2 gap-2 md:gap-4 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10">
-          {isCategoriesLoading
-            ? Array.from({ length: 10 }).map((_, i) => (
-                <CategoryCardSkeleton key={i} />
-              ))
-            : categoriesData?.map(
-                (item: MarketplaceItemCategory, i: number) => (
-                  <CategoryCard key={i} {...item} />
-                )
-              )}
-        </div>
+        {categoriesError ? (
+          <Error
+            title={categoriesError.message}
+            description="An error occurred while fetching categories."
+          />
+        ) : (
+          <div className="grid grid-cols-2 gap-2 md:gap-4 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10">
+            {isCategoriesLoading
+              ? Array.from({ length: 10 }).map((_, i) => (
+                  <CategoryCardSkeleton key={i} />
+                ))
+              : categoriesData?.map(
+                  (item: MarketplaceItemCategory, i: number) => (
+                    <CategoryCard key={i} {...item} />
+                  )
+                )}
+          </div>
+        )}
       </Section>
 
       <Section id="for-you">

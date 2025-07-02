@@ -5,12 +5,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { MarketplaceItem } from "@/lib/api/marketplace/types";
 import { Suspense, useEffect, useState } from "react";
 
+import { Error } from "../communication";
 import ItemCard, { ItemCardSkeleton } from "./item-card";
 
 type ItemGalleryProps = {
   data: MarketplaceItem[] | null | undefined;
   isLoading: boolean;
-  error: string | null;
+  error: Error | null;
 };
 
 const ItemGallery = ({ data, isLoading, error }: ItemGalleryProps) => {
@@ -42,7 +43,12 @@ const ItemGallery = ({ data, isLoading, error }: ItemGalleryProps) => {
   }, [data, selected]);
 
   if (error) {
-    return <p className="text-destructive-foreground">Error: {error}</p>;
+    return (
+      <Error
+        title={error.message}
+        description="An error occurred while fetching data."
+      />
+    );
   }
   if (!isLoading && (!data || data.length === 0)) {
     return <p className="text-muted-foreground">No items found.</p>;
