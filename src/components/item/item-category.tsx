@@ -5,9 +5,11 @@ import Link from "next/link";
 import DynamicIcon from "../dynamic-icon";
 
 const CategoryCard = (category: MarketplaceItemCategory) => {
+  const encoded = encodeURIComponent(category.name);
+
   return (
     <Link
-      href={`/marketplace?category=${category.name}`}
+      href={`/marketplace?category=${encoded}`}
       className="flex h-[72px] flex-col justify-between rounded-md bg-muted p-3 hover:opacity-75 sm:h-24"
     >
       <DynamicIcon

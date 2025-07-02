@@ -16,7 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { MarketplaceItem } from "@/lib/api/marketplace";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import getRelativeTime from "@/lib/utils/get-relative-time";
 import { HeartIcon } from "lucide-react";
 import { memo } from "react";
@@ -80,7 +80,7 @@ export const ItemModal = memo((props: ItemModalProps) => {
               {isLoading ? (
                 <Skeleton className="h-6 w-20" />
               ) : (
-                "$" + (item?.price?.toFixed(2) || (0).toFixed(2))
+                formatPrice(item?.price)
               )}
             </span>
 

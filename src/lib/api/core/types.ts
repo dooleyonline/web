@@ -1,4 +1,4 @@
 export type ApiResponse<T> = {
-  data: T[];
-  count: number;
+  data: T | null;
+  error: Error | null;
 };

@@ -17,8 +17,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useIsMobile } from "@/hooks/ui";
-import { useNav } from "@/hooks/ui";
+import { useIsMobile, useNav } from "@/hooks/ui";
 import cn from "@/lib/utils/cn";
 import slugToTitle from "@/lib/utils/slug-to-title";
 import { PlusIcon, UserIcon } from "lucide-react";
@@ -30,7 +29,7 @@ import { Button } from "./ui/button";
 
 export function SiteNavbar() {
   const isMobile = useIsMobile();
-  const { paths, currentPage, navData } = useNav();
+  const { paths, navData } = useNav();
 
   const isLinkVisible = navData?.links.length > 0 || false;
   const isButtonVisible = navData?.button.href !== "" || false;
@@ -49,8 +48,6 @@ export function SiteNavbar() {
       { key: "Listed", val: 17 },
     ],
   };
-
-  const profileLink = `/${currentPage}/usr/${user.id}`;
 
   return (
     <nav className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear px-2 justify-between w-full">
@@ -80,24 +77,26 @@ export function SiteNavbar() {
         )}
       </div>
 
-      <NavigationMenu className="max-w-[500px] flex-1 justify-end w-full">
+      <NavigationMenu
+        viewport
+        className="max-w-[320px] md:max-w-[420px] lg:max-w-[520px] flex-1 justify-end"
+      >
         <NavigationMenuList>
           {isLinkVisible && (
             <NavigationMenuItem>
               <NavigationMenuTrigger>
-                <Link href={`/${currentPage}/`}>
+                <Link href={navData.profile}>
                   <UserIcon size={24} />
                 </Link>
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <ul className="grid gap-1 w-[300px] md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
                     <NavigationMenuLink asChild>
                       <Link
-                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
-                        href={profileLink}
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-muted p-6 hover:bg-muted/70"
+                        href={navData.profile}
                       >
-                        {/* <Icons.logo className="h-6 w-6" /> */}
                         <Avatar>
                           <AvatarImage src={user.avatar} alt="User avatar" />
                           <AvatarFallback>

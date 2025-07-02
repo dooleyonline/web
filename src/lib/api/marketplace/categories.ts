@@ -2,25 +2,25 @@ import createQueryString from "@/lib/utils/create-query-string";
 
 import { apiFetch } from "../core/client";
 import type {
-  MarketplaceItemCategoriesResponse,
   MarketplaceItemCategory,
   MarketplaceItemCategoryQueryParams,
 } from "./types";
 
 export const categoriesApi = {
-  get: (
-    params: Partial<MarketplaceItemCategoryQueryParams>
-  ): Promise<MarketplaceItemCategoriesResponse> => {
+  get: (params: Partial<MarketplaceItemCategoryQueryParams>) => {
     const queryString = createQueryString(params);
 
-    return apiFetch(`/marketplace/categories/${queryString}`);
+    return apiFetch<MarketplaceItemCategory[]>(
+      `/marketplace/categories/${queryString}`
+    );
   },
 
-  create: (item: MarketplaceItemCategory): Promise<MarketplaceItemCategory> =>
-    apiFetch("/marketplace/categories/", {
+  create: (item: MarketplaceItemCategory) => {
+    return apiFetch<MarketplaceItemCategory>("/marketplace/categories/", {
       method: "POST",
       body: JSON.stringify(item),
-    }),
+    });
+  },
 
   // Other methods like update, delete, etc.
 };

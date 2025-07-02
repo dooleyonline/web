@@ -11,7 +11,7 @@ const MarketplaceItem = ({
 }) => {
   const { itemId } = use(params);
   const { data, isLoading, error } = useItems({ id: itemId });
-  const item = data?.data[0];
+  const item = data?.[0];
 
   return (
     <main className="size-full">

@@ -8,7 +8,7 @@ import { Suspense, useEffect, useState } from "react";
 import ItemCard, { ItemCardSkeleton } from "./item-card";
 
 type ItemGalleryProps = {
-  data: MarketplaceItem[] | undefined;
+  data: MarketplaceItem[] | null | undefined;
   isLoading: boolean;
   error: string | null;
 };

@@ -8,26 +8,24 @@ import type {
 } from "./types";
 
 export const itemsApi = {
-  get: (
-    params: Partial<MarketplaceItemQueryParams>
-  ): Promise<MarketplaceItemsResponse> => {
+  get: (params: Partial<MarketplaceItemQueryParams>) => {
     const queryString = createQueryString(params);
     if (queryString.length === 0) {
       return Promise.resolve({
         data: [],
-        count: 0,
+        error: null,
       } satisfies MarketplaceItemsResponse);
     }
 
-    return apiFetch(`/marketplace/items?${queryString}`);
+    return apiFetch<MarketplaceItem[]>(`/marketplace/items?${queryString}`);
   },
 
   // getAllIds: (): Promise<{ ids: number[] }> => {
   //   return apiFetch("/marketplace/items/ids");
   // },
 
-  create: (item: Omit<MarketplaceItem, "id">): Promise<MarketplaceItem> =>
-    apiFetch("/marketplace/items/", {
+  create: (item: Omit<MarketplaceItem, "id">) =>
+    apiFetch<MarketplaceItem>("/marketplace/items/", {
       method: "POST",
       body: JSON.stringify(item),
     }),
