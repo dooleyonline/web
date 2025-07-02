@@ -38,7 +38,7 @@ const Home = () => {
             ? Array.from({ length: 10 }).map((_, i) => (
                 <CategoryCardSkeleton key={i} />
               ))
-            : categoriesData?.data.map(
+            : categoriesData?.map(
                 (item: MarketplaceItemCategory, i: number) => (
                   <CategoryCard key={i} {...item} />
                 )
@@ -53,7 +53,7 @@ const Home = () => {
         />
 
         <ItemGallery
-          data={forYouData?.data.slice(0, 10)}
+          data={forYouData?.slice(0, 10)}
           isLoading={isForYouLoading}
           error={forYouError}
         />
@@ -62,7 +62,7 @@ const Home = () => {
       <Section id="trending">
         <SectionHeader title="Trending" subtitle="Discover hot new items" />
         <ItemGallery
-          data={trendingData?.data}
+          data={trendingData}
           isLoading={isTrendingLoading}
           error={trendingError}
         />

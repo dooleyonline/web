@@ -9,8 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { useItems } from "@/hooks/api/marketplace";
 import { useRouter } from "next/navigation";
-import { use } from "react";
-import { memo } from "react";
+import { memo, use } from "react";
 
 const ItemDialog = memo(
   ({ params }: { params: Promise<{ itemId: string }> }) => {
@@ -20,7 +19,7 @@ const ItemDialog = memo(
     const { data, isLoading, error } = useItems({
       id: itemId,
     });
-    const item = data?.data[0];
+    const item = data?.[0];
 
     return (
       <Dialog defaultOpen onOpenChange={router.back}>

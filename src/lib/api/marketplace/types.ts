@@ -6,7 +6,7 @@ export type MarketplaceItem = {
   description: string;
   category: string;
   images: string[];
-  price: number;
+  price: number | string;
   postedAt: string;
   isSold: boolean;
   condition: number;
@@ -19,7 +19,7 @@ export type MarketplaceItem = {
 export type MarketplaceItemCategory = {
   name: string;
   icon: string;
-  subcategories: MarketplaceItem["subcategory"][];
+  subcategories: MarketplaceItemSubcategory["name"][];
 };
 
 export type MarketplaceItemSubcategory = {
@@ -38,7 +38,8 @@ export type MarketplaceItemCategoryQueryParams = {
   name: MarketplaceItemCategory["name"];
 };
 
-export type MarketplaceItemsResponse = ApiResponse<MarketplaceItem> & {};
+export type MarketplaceItemsResponse = ApiResponse<MarketplaceItem[]>;
 
-export type MarketplaceItemCategoriesResponse =
-  ApiResponse<MarketplaceItemCategory> & {};
+export type MarketplaceItemCategoriesResponse = ApiResponse<
+  MarketplaceItemCategory[]
+>;

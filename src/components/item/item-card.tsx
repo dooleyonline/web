@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useIsMobile } from "@/hooks/ui";
 import type { MarketplaceItem } from "@/lib/api/marketplace/types";
-import formatPrice from "@/lib/utils/format-price";
+import { formatPrice } from "@/lib/utils";
 import getImageURL from "@/lib/utils/get-image-url";
 import getRelativeTime from "@/lib/utils/get-relative-time";
 import { HeartIcon } from "lucide-react";
@@ -58,7 +58,7 @@ const ItemCard = memo(({ item, index }: ItemCardProps) => {
 
   const thumbnail = (
     <Image
-      src={getImageURL(item.images[0])}
+      src={getImageURL(item.images?.[0])}
       alt={item.name}
       quality={40}
       fill
