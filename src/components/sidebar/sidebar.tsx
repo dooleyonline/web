@@ -1,10 +1,7 @@
 "use client";
 
-import { NavMain } from "@/components/sidebar/nav-main";
-import { NavSecondary } from "@/components/sidebar/nav-secondary";
-import { NavUser } from "@/components/sidebar/nav-user";
 import {
-  Sidebar,
+  Sidebar as SidebarComponent,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
@@ -21,14 +18,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import * as React from "react";
+import { ComponentProps } from "react";
+
+import { NavMain } from "./nav-main";
+import { NavSecondary } from "./nav-secondary";
+import NavUser from "./nav-user";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "https://github.com/shadcn.png",
-  },
   navMain: [
     {
       title: "Marketplace",
@@ -60,9 +56,9 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function Sidebar({ ...props }: ComponentProps<typeof SidebarComponent>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <SidebarComponent collapsible="offcanvas" {...props}>
       <SidebarHeader className="mb-4">
         <SidebarMenu>
           <SidebarMenuItem>
@@ -85,8 +81,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
-    </Sidebar>
+    </SidebarComponent>
   );
 }

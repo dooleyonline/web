@@ -1,6 +1,6 @@
+import { API_BASE_URL } from "@/lib/env";
 import axios, { AxiosRequestConfig } from "axios";
 
-import { API_BASE_URL } from "./config";
 import { ApiResponse } from "./types";
 
 export const apiClient = axios.create({

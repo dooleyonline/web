@@ -2,7 +2,11 @@ export const CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME =
   process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME;
 
 if (!CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME) {
-  throw new Error(
-    "Missing NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME in environment variables"
-  );
+  throw new Error("CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME is not defined");
+}
+
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+if (!API_BASE_URL) {
+  throw new Error("API_BASE_URL is not defined");
 }

@@ -1,7 +1,6 @@
 "use client";
 
-import { ENDPOINTS, apiFetch } from "@/lib/api/core";
-import { User } from "@/lib/api/shared/users";
+import { User, userApi } from "@/lib/api/shared";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
 type HandleSignInProps = {
@@ -25,7 +24,11 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+type AuthProviderProps = {
+  children: ReactNode;
+};
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
@@ -34,19 +37,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchUser = async () => {
       setIsLoading(true);
-      try {
-        const response = await apiFetch<User>(ENDPOINTS.AUTH.ME);
-        if (response.error) {
-          throw new Error("Failed to fetch user: " + response.error?.message);
-        }
-        const userData = response.data;
-        setUser(userData);
-      } catch (error) {
-        setUser(null);
+
+      const { data, error } = await userApi.me();
+
+      if (error || !data) {
         console.error(error);
-      } finally {
-        setIsLoading(false);
+        setUser(null);
+        return;
       }
+
+      setUser(data);
+      setIsLoading(false);
     };
 
     const localAccessToken = localStorage.getItem("accessToken");

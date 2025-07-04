@@ -1,3 +1,4 @@
+import { ENDPOINTS } from "@/lib/api/core";
 import { itemsApi } from "@/lib/api/marketplace";
 import type { MarketplaceItemQueryParams } from "@/lib/api/marketplace/types";
 import createQueryString from "@/lib/utils/create-query-string";
@@ -17,12 +18,12 @@ export default function useItems(params: Partial<MarketplaceItemQueryParams>) {
 
   const queryKey = useMemo(() => {
     const queryString = createQueryString(params);
-    return `${user?.username ?? ""}-/marketplace/items?${queryString}`;
+    return user?.username + ENDPOINTS.MARKETPLACE.ITEMS + queryString;
   }, [params, user]);
 
   return useSWR(queryKey, async () => {
-    const result = await itemsApi.get(params);
-    if (result.error) throw result.error;
-    return result.data;
+    const { data, error } = await itemsApi.get(params);
+    if (error) throw error;
+    return data;
   });
 }
