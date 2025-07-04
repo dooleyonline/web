@@ -2,23 +2,23 @@ import createQueryString from "@/lib/utils/create-query-string";
 
 import { apiFetch } from "../core/client";
 import type {
-  MarketplaceItemCategory,
-  MarketplaceItemCategoryQueryParams,
+  MarketplaceCategory,
+  MarketplaceCategoryQueryParams,
 } from "./types";
 
 export const categoriesApi = {
-  get: (params: Partial<MarketplaceItemCategoryQueryParams>) => {
+  get: (params: Partial<MarketplaceCategoryQueryParams>) => {
     const queryString = createQueryString(params);
 
-    return apiFetch<MarketplaceItemCategory[]>(
+    return apiFetch<MarketplaceCategory[]>(
       `/marketplace/categories/${queryString}`
     );
   },
 
-  create: (item: MarketplaceItemCategory) => {
-    return apiFetch<MarketplaceItemCategory>("/marketplace/categories/", {
+  create: (data: MarketplaceCategory) => {
+    return apiFetch<MarketplaceCategory>("/marketplace/categories/", {
       method: "POST",
-      body: JSON.stringify(item),
+      data,
     });
   },
 

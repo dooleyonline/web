@@ -1,46 +1,47 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 import { API_BASE_URL } from "./config";
 import { ApiResponse } from "./types";
 
-const apiClient = axios.create({
+export const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Auth token interceptor
-// apiClient.interceptors.request.use((config) => {
-//   if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
-//     const token = localStorage.getItem("auth_token");
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//   }
-//   return config;
-// });
-
 export async function apiFetch<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: AxiosRequestConfig = {}
 ): Promise<ApiResponse<T>> {
   try {
-    const { method = "GET", body, headers } = options;
+    const { method, data, headers } = options;
 
-    const response = await apiClient({
-      url: endpoint,
-      method,
-      data: body,
-      headers: headers ? Object.fromEntries(new Headers(headers)) : undefined,
-    });
+    const response = await apiClient
+      .request({
+        url: endpoint,
+        method,
+        data,
+        headers,
+      })
+      .catch((error) => {
+        throw error;
+      });
 
-    return { data: response.data as T, error: null };
+    const ok = response.status >= 200 && response.status < 300;
+
+    return {
+      data: response.data as T,
+      status: response.status,
+      ok,
+      error: null,
+    };
   } catch (error) {
     return {
       data: null,
-      error:
-        error instanceof Error ? error : new Error("An unknown error occurred"),
+      status: 500,
+      ok: false,
+      error: error instanceof Error ? error : new Error("Unknown error"),
     };
   }
 }

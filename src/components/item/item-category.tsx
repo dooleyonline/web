@@ -1,10 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { MarketplaceItemCategory } from "@/lib/api/marketplace";
+import { MarketplaceCategory } from "@/lib/api/marketplace";
 import Link from "next/link";
 
 import DynamicIcon from "../dynamic-icon";
 
-const CategoryCard = (category: MarketplaceItemCategory) => {
+const CategoryCard = (category: MarketplaceCategory) => {
   const encoded = encodeURIComponent(category.name);
 
   return (

@@ -8,7 +8,7 @@ import ItemGallery from "@/components/item/item-gallery";
 import Section, { SectionHeader } from "@/components/site-section";
 import { useItems } from "@/hooks/api/marketplace";
 import useCategories from "@/hooks/api/marketplace/use-categories";
-import { MarketplaceItemCategory } from "@/lib/api/marketplace";
+import { MarketplaceCategory } from "@/lib/api/marketplace";
 
 const Home = () => {
   const {
@@ -42,7 +42,7 @@ const Home = () => {
                   <CategoryCardSkeleton key={i} />
                 ))
               : categoriesData?.map(
-                  (item: MarketplaceItemCategory, i: number) => (
+                  (item: MarketplaceCategory, i: number) => (
                     <CategoryCard key={i} {...item} />
                   )
                 )}

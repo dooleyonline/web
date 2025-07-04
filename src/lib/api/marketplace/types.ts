@@ -16,15 +16,15 @@ export type MarketplaceItem = {
   seller: string;
 };
 
-export type MarketplaceItemCategory = {
+export type MarketplaceCategory = {
   name: string;
   icon: string;
-  subcategories: MarketplaceItemSubcategory["name"][];
+  subcategories: MarketplaceSubcategory["name"][];
 };
 
-export type MarketplaceItemSubcategory = {
+export type MarketplaceSubcategory = {
   name: string;
-  parent: MarketplaceItemCategory["name"];
+  parent: MarketplaceCategory["name"];
 };
 
 export type MarketplaceItemQueryParams = {
@@ -34,12 +34,10 @@ export type MarketplaceItemQueryParams = {
   subcategory: string;
 };
 
-export type MarketplaceItemCategoryQueryParams = {
-  name: MarketplaceItemCategory["name"];
+export type MarketplaceCategoryQueryParams = {
+  name: MarketplaceCategory["name"];
 };
 
 export type MarketplaceItemsResponse = ApiResponse<MarketplaceItem[]>;
 
-export type MarketplaceItemCategoriesResponse = ApiResponse<
-  MarketplaceItemCategory[]
->;
+export type MarketplaceCategoriesResponse = ApiResponse<MarketplaceCategory[]>;

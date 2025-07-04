@@ -15,10 +15,7 @@ type PageToParamsMap = {
 
 type PageType = keyof PageToParamsMap;
 
-export default function useValidSearchParams<T extends PageType>(props: {
-  page: T;
-}) {
-  const { page } = props;
+export const useValidSearchParams = <T extends PageType>(page: T) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -31,6 +28,8 @@ export default function useValidSearchParams<T extends PageType>(props: {
       setIsValid(true);
       return;
     }
+
+    if (typeof page !== "string") return;
 
     let params: PageToParamsMap[T];
 
@@ -58,7 +57,6 @@ export default function useValidSearchParams<T extends PageType>(props: {
         break;
 
       default:
-        // Most likely never reached since the hook is typed with PageType
         throw new Error(`Invalid page type: ${page}`);
     }
 
@@ -78,4 +76,4 @@ export default function useValidSearchParams<T extends PageType>(props: {
     isValid,
     queryParams: queryParams!,
   };
-}
+};

@@ -6,9 +6,7 @@ import Home from "./home";
 import Search from "./search";
 
 const Gallery = () => {
-  const { queryParams, isSearch } = useValidSearchParams({
-    page: "marketplace",
-  });
+  const { queryParams, isSearch } = useValidSearchParams("marketplace");
 
   return isSearch ? <Search queryParams={queryParams} /> : <Home />;
 };

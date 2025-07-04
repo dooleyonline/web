@@ -1,3 +1,2 @@
-import useValidSearchParams from "./use-valid-search-params";
-
-export { useValidSearchParams };
+export * from "./use-auth";
+export * from "./use-valid-search-params";

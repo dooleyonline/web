@@ -1,7 +1,7 @@
 import { categoriesApi } from "@/lib/api/marketplace";
 import type {
-  MarketplaceItemCategory,
-  MarketplaceItemCategoryQueryParams,
+  MarketplaceCategory,
+  MarketplaceCategoryQueryParams,
 } from "@/lib/api/marketplace/types";
 import createQueryString from "@/lib/utils/create-query-string";
 import { useMemo } from "react";
@@ -14,7 +14,7 @@ import useSWR from "swr";
  * @returns An object containing the data, loading state, and error state for the categories.
  */
 export default function useCategories(
-  params: Partial<MarketplaceItemCategoryQueryParams>
+  params: Partial<MarketplaceCategoryQueryParams>
 ) {
   // Create a stable cache key
   const queryKey = useMemo(() => {
@@ -41,7 +41,7 @@ export default function useCategories(
         // Retry after 5 seconds
         setTimeout(() => revalidate({ retryCount }), 5000);
       },
-      fallbackData: [] as MarketplaceItemCategory[],
+      fallbackData: [] as MarketplaceCategory[],
     }
   );
 }
