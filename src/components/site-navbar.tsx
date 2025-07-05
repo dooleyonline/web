@@ -17,7 +17,9 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useAuth } from "@/hooks/api/shared";
 import { useIsMobile, useNav } from "@/hooks/ui";
+import { getInitial } from "@/lib/utils";
 import cn from "@/lib/utils/cn";
 import slugToTitle from "@/lib/utils/slug-to-title";
 import { PlusIcon, UserIcon } from "lucide-react";
@@ -32,7 +34,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 
-export function SiteNavbar() {
+const SiteNavbar = () => {
+  const { user } = useAuth();
   const isMobile = useIsMobile();
   const { paths, navData } = useNav();
 
@@ -42,17 +45,6 @@ export function SiteNavbar() {
   if (!navData) {
     return null;
   }
-
-  const user = {
-    fName: "John",
-    lName: "Doe",
-    id: "shadcn",
-    avatar: "https://github.com/shadcn.png",
-    summary: [
-      { key: "Saved", val: 32 },
-      { key: "Listed", val: 17 },
-    ],
-  };
 
   return (
     <nav className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear px-2 justify-between w-full">
@@ -87,7 +79,7 @@ export function SiteNavbar() {
         className="max-w-[320px] md:max-w-[420px] lg:max-w-[520px] flex-1 justify-end"
       >
         <NavigationMenuList>
-          {isLinkVisible && (
+          {isLinkVisible && user && (
             <NavigationMenuItem>
               <NavigationMenuTrigger>
                 <Link href={navData.profile}>
@@ -103,26 +95,24 @@ export function SiteNavbar() {
                         href={navData.profile}
                       >
                         <Avatar>
-                          <AvatarImage src={user.avatar} alt="User avatar" />
-                          <AvatarFallback>
-                            {(user.fName + user.lName).toUpperCase()}
-                          </AvatarFallback>
+                          <AvatarImage src={user?.avatar} alt="User avatar" />
+                          <AvatarFallback>{getInitial(user)}</AvatarFallback>
                         </Avatar>
                         <div className="mb-1 mt-4 text-lg font-medium">
-                          {user.id}
+                          {user.username}
                         </div>
                         <ul>
-                          {user.summary.map((e, i) => (
-                            <li
-                              key={i}
-                              className="text-sm leading-tight flex justify-between"
-                            >
-                              <span className="text-muted-foreground">
-                                {e.key}
-                              </span>
-                              <span>{e.val}</span>
-                            </li>
-                          ))}
+                          {/* {user.summary.map((e, i) => (
+                              <li
+                                key={i}
+                                className="text-sm leading-tight flex justify-between"
+                              >
+                                <span className="text-muted-foreground">
+                                  {e.key}
+                                </span>
+                                <span>{e.val}</span>
+                              </li>
+                            ))} */}
                         </ul>
                       </Link>
                     </NavigationMenuLink>
@@ -150,7 +140,9 @@ export function SiteNavbar() {
       </NavigationMenu>
     </nav>
   );
-}
+};
+
+export default SiteNavbar;
 
 const ListItem = forwardRef<ComponentRef<"a">, ComponentPropsWithoutRef<"a">>(
   ({ className, title, children, ...props }, ref) => {

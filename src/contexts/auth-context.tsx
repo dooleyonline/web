@@ -1,6 +1,6 @@
 "use client";
 
-import { User, userApi } from "@/lib/api/shared";
+import { User, authApi } from "@/lib/api/shared";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
 type HandleSignInProps = {
@@ -38,10 +38,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const fetchUser = async () => {
       setIsLoading(true);
 
-      const { data, error } = await userApi.me();
+      const { data, error } = await authApi.me();
 
       if (error || !data) {
-        console.error(error);
+        console.error("Error fetching user:", error);
         setUser(null);
         return;
       }
@@ -59,6 +59,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       fetchUser();
     }
   }, []);
+
+  useEffect(() => {
+    const refreshAuth = async () => {
+      if (isLoading) return;
+
+      if (!accessToken && refreshToken) {
+        const { data, error } = await authApi.refresh({ refreshToken });
+
+        if (error || !data) {
+          console.error("Error refreshing auth:", error);
+          handleSignOut();
+          return;
+        }
+
+        handleSignIn({
+          newAccessToken: data.access,
+          newRefreshToken: refreshToken,
+        });
+      }
+    };
+
+    refreshAuth();
+  }, [accessToken, isLoading, refreshToken]);
 
   const handleSignIn = async ({
     newAccessToken,

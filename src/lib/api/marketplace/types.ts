@@ -1,4 +1,5 @@
 import { ApiResponse } from "../core";
+import { User } from "../shared";
 
 export type MarketplaceItem = {
   id: string | number;
@@ -30,8 +31,9 @@ export type MarketplaceSubcategory = {
 export type MarketplaceItemQueryParams = {
   id: MarketplaceItem["id"];
   q: string;
-  category: string;
-  subcategory: string;
+  category: MarketplaceCategory["name"];
+  subcategory: MarketplaceSubcategory["name"];
+  username: User["username"];
 };
 
 export type MarketplaceCategoryQueryParams = {

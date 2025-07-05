@@ -47,7 +47,7 @@ export default function SignInPage() {
     });
 
     if (error || !resData) {
-      console.error(error?.message);
+      console.error("Error signing in:", error);
       toast.error("Something went wrong. Please try again.", {
         position: "top-center",
       });

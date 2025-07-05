@@ -1,7 +1,7 @@
 import { fonts } from "@/components/fonts";
 import Providers from "@/components/providers";
 import { Sidebar } from "@/components/sidebar";
-import { SiteNavbar } from "@/components/site-navbar";
+import SiteNavbar from "@/components/site-navbar";
 import { SidebarInset } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata, Viewport } from "next";

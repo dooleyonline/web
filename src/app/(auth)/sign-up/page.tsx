@@ -51,7 +51,7 @@ const SignUpPage = () => {
     });
 
     if (error) {
-      console.error(error.message);
+      console.error("Error signing up:", error);
       toast.error("Something went wrong. Please try again.", {
         position: "top-center",
       });
