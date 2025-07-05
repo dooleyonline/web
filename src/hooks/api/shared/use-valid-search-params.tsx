@@ -40,6 +40,7 @@ export const useValidSearchParams = <T extends PageType>(page: T) => {
           q: searchParams.get("q") || "",
           category: searchParams.get("category") || "",
           subcategory: searchParams.get("subcategory") || "",
+          username: searchParams.get("username") || "",
         } satisfies MarketplaceItemQueryParams as PageToParamsMap[T];
         break;
       case "living":
