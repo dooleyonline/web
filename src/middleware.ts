@@ -1,42 +1,42 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-const allowedOrigins = [
-  "https://dooleyonline.up.railway.app",
-  "http://localhost:3000",
-];
+import { env } from "./lib/env";
 
-const corsOptions = {
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-};
+const REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
+
+const protectedRoutes = ["/marketplace/new", "/marketplace/profile"];
+const publicOnlyRoutes = ["/sign-in", "/sign-up"];
 
 export function middleware(request: NextRequest) {
-  const origin = request.headers.get("origin") ?? "";
-  const isAllowedOrigin = allowedOrigins.includes(origin);
-  const isPreflight = request.method === "OPTIONS";
+  const { pathname } = request.nextUrl;
 
-  if (isPreflight) {
-    const preflightHeaders = {
-      ...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin }),
-      ...corsOptions,
-    };
-    return NextResponse.json({}, { headers: preflightHeaders });
+  const isAuthenticated = request.cookies.has(REFRESH_TOKEN_COOKIE_NAME);
+  console.log(request.cookies.getAll());
+
+  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
+    if (!isAuthenticated) {
+      const loginUrl = new URL("/sign-in", env.BASE_URL);
+      loginUrl.searchParams.set("next", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
   }
 
-  // Handle simple requests
-  const response = NextResponse.next();
-
-  if (isAllowedOrigin) {
-    response.headers.set("Access-Control-Allow-Origin", origin);
+  if (publicOnlyRoutes.some((route) => pathname.startsWith(route))) {
+    if (isAuthenticated) {
+      return NextResponse.redirect(new URL("/", env.BASE_URL));
+    }
   }
 
-  Object.entries(corsOptions).forEach(([key, value]) => {
-    response.headers.set(key, value);
-  });
-
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: "/api/:path*",
+  /*
+   * Match all request paths except for the ones starting with:
+   * - _next/static (static files)
+   * - _next/image (image optimization files)
+   * - favicon.ico (favicon file)
+   */
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

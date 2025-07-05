@@ -52,6 +52,7 @@
     "embla-carousel-react": "^8.6.0",
     "heic2any": "^0.0.4",
     "input-otp": "^1.4.2",
+    "js-cookie": "^3.0.5",
     "json-server": "^1.0.0-beta.3",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.511.0",
@@ -71,12 +72,13 @@
     "swr": "^2.3.3",
     "tailwind-merge": "^3.3.0",
     "vaul": "^1.1.2",
-    "zod": "^3.25.56"
+    "zod": "^3.25.74"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.7",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

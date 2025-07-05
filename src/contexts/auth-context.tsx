@@ -1,41 +1,58 @@
 "use client";
 
+import { setAuthHooks } from "@/lib/api/core/client";
 import { User, authApi } from "@/lib/api/shared";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
-type HandleSignInProps = {
-  newAccessToken: string;
-  newRefreshToken: string;
-};
-
-type AuthContextType = {
+interface AuthContextType {
   user: User | null;
   isLoading: boolean;
-  accessToken: string | null;
-  refreshToken: string | null;
-  handleSignIn: ({
-    newAccessToken,
-    newRefreshToken,
-  }: HandleSignInProps) => void;
-  handleSignOut: () => void;
-};
+  signIn: (accessToken: string) => void;
+  signOut: () => void;
+}
 
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 
-type AuthProviderProps = {
-  children: ReactNode;
-};
-
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [refreshToken, setRefreshToken] = useState<string | null>(null);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [accessToken, setAccessTokenState] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const setAccessToken = useCallback((token: string | null) => {
+    setAccessTokenState(token);
+    if (token) {
+      const decodedUser: User = jwtDecode(token);
+      setUser(decodedUser);
+    } else {
+      setUser(null);
+    }
+  }, []);
+
+  const signIn = useCallback(
+    (token: string) => setAccessToken(token),
+    [setAccessToken]
+  );
+
+  const signOut = useCallback(async () => {
+    setAccessToken(null);
+    await authApi.signOut();
+  }, [setAccessToken]);
+
   useEffect(() => {
-    const fetchUser = async () => {
+    setAuthHooks(() => accessToken, setAccessToken, signOut);
+  }, [accessToken, setAccessToken, signOut]);
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
       setIsLoading(true);
 
       const { data, error } = await authApi.me();
@@ -47,75 +64,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
 
       setUser(data);
-      setIsLoading(false);
     };
 
-    const localAccessToken = localStorage.getItem("accessToken");
-    const localRefreshToken = localStorage.getItem("refreshToken");
-
-    if (localAccessToken && localRefreshToken) {
-      setAccessToken(localAccessToken);
-      setRefreshToken(localRefreshToken);
-      fetchUser();
-    }
+    checkAuthStatus().finally(() => setIsLoading(false));
   }, []);
 
-  useEffect(() => {
-    const refreshAuth = async () => {
-      if (isLoading) return;
-
-      if (!accessToken && refreshToken) {
-        const { data, error } = await authApi.refresh({ refreshToken });
-
-        if (error || !data) {
-          console.error("Error refreshing auth:", error);
-          handleSignOut();
-          return;
-        }
-
-        handleSignIn({
-          newAccessToken: data.access,
-          newRefreshToken: refreshToken,
-        });
-      }
-    };
-
-    refreshAuth();
-  }, [accessToken, isLoading, refreshToken]);
-
-  const handleSignIn = async ({
-    newAccessToken,
-    newRefreshToken,
-  }: HandleSignInProps) => {
-    setIsLoading(true);
-
-    localStorage.setItem("accessToken", newAccessToken);
-    localStorage.setItem("refreshToken", newRefreshToken);
-
-    setIsLoading(false);
-  };
-
-  const handleSignOut = async () => {
-    setIsLoading(true);
-
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-
-    setUser(null);
-    setIsLoading(false);
-  };
-
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        accessToken,
-        refreshToken,
-        handleSignIn,
-        handleSignOut,
-      }}
-    >
+    <AuthContext.Provider value={{ user, isLoading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

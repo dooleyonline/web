@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/api/shared";
-import { ENDPOINTS, apiFetch } from "@/lib/api/core";
+import { authApi } from "@/lib/api/shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ import { SignUpData, signUpForm } from "./schema";
 const REDIRECT_PATH = "/";
 
 const SignUpPage = () => {
-  const { accessToken } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(signUpForm),
@@ -39,16 +39,13 @@ const SignUpPage = () => {
   });
 
   useEffect(() => {
-    if (accessToken) {
+    if (!isLoading && user) {
       router.push(REDIRECT_PATH);
     }
-  }, [accessToken, router]);
+  }, [user, isLoading, router]);
 
   const handleSubmit = async (data: SignUpData) => {
-    const { error } = await apiFetch<SignUpData>(ENDPOINTS.AUTH.SIGN_UP, {
-      method: "POST",
-      data,
-    });
+    const { error } = await authApi.signUp(data);
 
     if (error) {
       console.error("Error signing up:", error);

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/api/shared";
-import { ENDPOINTS, apiFetch } from "@/lib/api/core";
+import { authApi } from "@/lib/api/shared";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ import { SignInData, signInForm } from "./schema";
 const REDIRECT_PATH = "/";
 
 export default function SignInPage() {
-  const { accessToken, handleSignIn } = useAuth();
+  const { user, isLoading, signIn } = useAuth();
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(signInForm),
@@ -32,21 +32,15 @@ export default function SignInPage() {
   });
 
   useEffect(() => {
-    if (accessToken) {
+    if (!isLoading && user) {
       router.push(REDIRECT_PATH);
     }
-  }, [accessToken, router]);
+  }, [user, isLoading, router]);
 
   const handleSubmit = async (data: SignInData) => {
-    const { data: resData, error } = await apiFetch<{
-      access: string;
-      refresh: string;
-    }>(ENDPOINTS.AUTH.SIGN_IN, {
-      method: "POST",
-      data,
-    });
+    const { data: signInData, error } = await authApi.signIn(data);
 
-    if (error || !resData) {
+    if (error || !signInData) {
       console.error("Error signing in:", error);
       toast.error("Something went wrong. Please try again.", {
         position: "top-center",
@@ -54,10 +48,7 @@ export default function SignInPage() {
       return;
     }
 
-    handleSignIn({
-      newAccessToken: resData.access,
-      newRefreshToken: resData.refresh,
-    });
+    signIn(signInData.access);
 
     toast.success("Welcome!", { position: "top-center" });
     router.push(REDIRECT_PATH);

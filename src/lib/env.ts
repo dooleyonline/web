@@ -1,12 +1,24 @@
-export const CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME =
-  process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME;
+import { z } from "zod";
 
-if (!CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME) {
-  throw new Error("CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME is not defined");
+const envSchema = z.object({
+  BASE_URL: z.string().url(),
+  API_BASE_URL: z.string().url(),
+  CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME: z.string().min(1),
+});
+
+const parsedEnv = envSchema.safeParse({
+  BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME:
+    process.env.NEXT_PUBLIC_CLOUDFRONT_DISTRIBUTION_DOMAIN_NAME,
+});
+
+if (!parsedEnv.success) {
+  console.error(
+    "Invalid environment variables:",
+    parsedEnv.error.flatten().fieldErrors
+  );
+  throw new Error("Invalid environment variables.");
 }
 
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-if (!API_BASE_URL) {
-  throw new Error("API_BASE_URL is not defined");
-}
+export const env = parsedEnv.data;
